@@ -1,4 +1,4 @@
-package com.eduinteractive.web.servlet;
+package com.eduinteractive.web.controller;
 
 import java.io.IOException;
 import java.io.Writer;
