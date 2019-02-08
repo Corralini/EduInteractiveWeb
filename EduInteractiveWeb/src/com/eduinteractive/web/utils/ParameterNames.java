@@ -1,6 +1,6 @@
 package com.eduinteractive.web.utils;
 
-public class ParameterNames {
+public interface ParameterNames {
 
 	public static final String NOMBRE = "nombre";
 	public static final String APELLIDO1 = "apellido1";

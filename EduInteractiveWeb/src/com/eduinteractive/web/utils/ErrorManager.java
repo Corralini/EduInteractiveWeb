@@ -36,17 +36,20 @@ public class ErrorManager {
 		errors.put(ParameterNames.PRECIO_HASTA, errorCodes);
 		errors.put(ParameterNames.PSSWD, errorCodes);
 		errors.put(ParameterNames.URL_DOCUMENT, errorCodes);
+		errors.put(ParameterNames.ACERTADAS, errorCodes);
 	} 
 
 	public void addError (String parameter, String errorCode) {
 
 		List<String> errores = errors.get(parameter);
-		if (errores==null) {
+		
+		if (errores.isEmpty()) {
 			errores = new ArrayList<String> ();
 			errores.add(errorCode);
-		}
-		errors.put(parameter, errores);	
-		
+			errors.put(parameter, errores);
+		}else {
+			errores.add(errorCode);
+		}		
 		
 	}
 
@@ -60,7 +63,6 @@ public class ErrorManager {
 					count ++;
 				}
 			}
-			
 		}
 
 		if(count == 0) {
