@@ -1,7 +1,6 @@
 package com.eduinteractive.web.controller;
 
 import java.io.IOException;
-import java.io.Writer;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -17,128 +18,214 @@ import com.educorp.eduinteractive.ecommerce.exceptions.DuplicateInstanceExceptio
 import com.educorp.eduinteractive.ecommerce.exceptions.MailException;
 import com.educorp.eduinteractive.ecommerce.model.Estudiante;
 import com.educorp.eduinteractive.ecommerce.service.impl.EstudianteServiceImpl;
+import com.educorp.eduinteractive.ecommerce.service.impl.PaisServicesImpl;
 import com.educorp.eduinteractive.ecommerce.service.spi.EstudianteService;
-import com.eduinteractive.web.utils.ParameterNames;
+import com.educorp.eduinteractive.ecommerce.service.spi.PaisServices;
+import com.eduinteractive.web.model.ErrorCodes;
+import com.eduinteractive.web.model.ErrorManager;
 import com.eduinteractive.web.utils.ParameterUtils;
-import com.mysql.cj.util.StringUtils;
+import com.eduinteractive.web.utils.SessionManager;
+import com.eduinteractive.web.utils.ValidationUtils;
 
-
+/**
+ * Servlet implementation class EstudianteServlet
+ */
 @WebServlet("/estudiante")
 public class EstudianteServlet extends HttpServlet {
 
-	private Logger logger = LogManager.getLogger();
+	private static Logger logger = LogManager.getLogger(EstudianteServlet.class);
 	private EstudianteService estudianteService = null;
-	private Estudiante e = null;
-
+	private PaisServices paisServices = null;
 
 	public EstudianteServlet() {
 		super();
 		estudianteService = new EstudianteServiceImpl();
-		e = new Estudiante();
+		paisServices = new PaisServicesImpl();
 	}
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Writer out = response.getWriter();
+		String action = request.getParameter(ParameterNames.ACTION);
 
-		if(logger.isDebugEnabled()) {
-			logger.debug(ParameterUtils.print(request.getParameterMap()));
+		if (logger.isDebugEnabled()) {
+			logger.debug("Action {}: {}", action, ToStringBuilder.reflectionToString(request.getParameterMap()));
 		}
-		
-		String action = ParameterNames.ACTION;
+		boolean redirect = false;
+		ErrorManager errors = new ErrorManager(); 
+		String target = null;
+		if (Actions.LOGIN.equalsIgnoreCase(action)) {
 
-		if (action == ParameterNames.SIGNUP) {
-
+			// Recuperacion
 			String email = request.getParameter(ParameterNames.EMAIL);
-			String psswd = request.getParameter(ParameterNames.PSSWD);
+			String password = request.getParameter(ParameterNames.PASSWORD);
+
+			email = ParameterUtils.trimmer(email);
+			password = ParameterUtils.trimmer(password);
+
+			if (StringUtils.isEmpty(email)) {
+				errors.add(ParameterNames.EMAIL,ErrorCodes.MANDATORY_PARAMETER);
+			}
+
+			if (StringUtils.isEmpty(password)) {
+				errors.add(ParameterNames.PASSWORD,ErrorCodes.MANDATORY_PARAMETER);
+			}
+
+			Estudiante estudiante = null;
+			if (!errors.hasErrors()) {
+				try {
+					estudiante = estudianteService.login(email, password);
+				}catch(DataException e) {
+					errors.add(ParameterNames.ACTION,ErrorCodes.AUTHENTICATION_ERROR);
+				}
+			}
+
+			if (errors.hasErrors()) {	
+				if (logger.isDebugEnabled()) {
+					logger.debug("Autenticacion fallida: {}", errors);
+				}
+
+				request.setAttribute(AttributeNames.ERRORS, errors);				
+				target = ViewPaths.INICIO;				
+			} else {
+				if(logger.isDebugEnabled()) {
+					logger.info("Estudiante " + estudiante.getEmail() + " autenticado");
+				}
+				SessionManager.set(request, SessionAttributeNames.ESTUDIANTE, estudiante);		
+				// target = ViewPaths.HOME;				
+			}
+		
+		}else if(Actions.PRESIGNIN.equalsIgnoreCase(action)){
+			// Recuperacion de parametros
+			String email = request.getParameter(ParameterNames.EMAIL);
 			String nombre = request.getParameter(ParameterNames.NOMBRE);
 			String apellido1 = request.getParameter(ParameterNames.APELLIDO1);
 			String apellido2 = request.getParameter(ParameterNames.APELLIDO2);
-			String anoNac = request.getParameter(ParameterNames.ANO_NACIMIENTO);
-			String genero = request.getParameter(ParameterNames.ID_GENERO);
-			String pais = request.getParameter(ParameterNames.ID_PAIS);
-			String acertadas = request.getParameter(ParameterNames.ACERTADAS);
-
-			try {
-				if(!StringUtils.isEmptyOrWhitespaceOnly(email)) {
-					email = email.trim();
-				}else{
-					out.append("El campo email es obligatorio");
-				}
-				if(!StringUtils.isEmptyOrWhitespaceOnly(psswd)) {
-					psswd = psswd.trim();
-				}else{
-					out.append("El campo psswd es obligatorio");
-				}
-				if(!StringUtils.isEmptyOrWhitespaceOnly(nombre)) {
-					nombre = nombre.trim();
-				}else{
-					out.append("El campo nombre es obligatorio");
-				}
-				if(!StringUtils.isEmptyOrWhitespaceOnly(apellido1)) {
-					apellido1 = apellido1.trim();
-				}else{
-					out.append("El campo apellido1 es obligatorio");
-				}
-				if(!StringUtils.isEmptyOrWhitespaceOnly(apellido2)) {
-					apellido2 = apellido2.trim();
-				}
-				if(!StringUtils.isEmptyOrWhitespaceOnly(anoNac)) {
-					anoNac = anoNac.trim();
-				}else{
-					out.append("El campo anoNac es obligatorio");
-				}
-				if(!StringUtils.isEmptyOrWhitespaceOnly(genero)) {
-					genero = genero.trim();
-				}else{
-					out.append("El campo genero es obligatorio");
-				}
-				if(!StringUtils.isEmptyOrWhitespaceOnly(pais)) {
-					pais = pais.trim();
-				}else{
-					out.append("El campo pais es obligatorio");
-				}
-				if(!StringUtils.isEmptyOrWhitespaceOnly(acertadas)) {
-					acertadas = acertadas.trim();
-				}else{
-					out.append("El campo acertadas es obligatorio");
-				}
-
-
-				Integer anoNacimiento = Integer.parseInt(anoNac);
-				int acertadasTest = Integer.parseInt(acertadas);
-
-
-				e.setEmail(email);
-				e.setNombre(nombre);
-				e.setApellido1(apellido1);
-				if(apellido2 != null || apellido2 != "") {
-					e.setApellido2(apellido2);
-				}
-				e.setEmail(email);
-				e.setIdGenero(genero);
-				e.setAnoNacimiento(anoNacimiento);
-				e.setIdPais(pais);
-				e.setPsswd(psswd);
-
-				estudianteService.signUp(e, acertadasTest);
-
-			} catch (NumberFormatException e) {
-				out.append("Hemos teneido un problema");
-				e.printStackTrace();
-			} catch (MailException e1) {
-				out.append("Hemos tenido algún problema enviando el correo");
-				e1.printStackTrace();
-			} catch (DuplicateInstanceException e1) {
-				out.append("El estudiante ya existe");
-				e1.printStackTrace();
-			} catch (DataException e1) {
-				out.append("Ups! Hemos tenido algun problema con el servidor");
-				e1.printStackTrace();
-			}
-		}else if (action == ParameterNames.LOGIN) {
+			String psswd = request.getParameter(ParameterNames.PASSWORD);
+			String psswdRepetida = request.getParameter(ParameterNames.PSSWD_REPEAT);
+			String genero = request.getParameter(ParameterNames.GENERO);
+			String pais = request.getParameter(ParameterNames.PAIS);
+			String anoNac = request.getParameter(ParameterNames.YEAR);
 			
+			//Validacion, la limpieza tiene lugar en los ValidationUtils
+			
+			email = ValidationUtils.emailValidator(email);
+			if(email == null) {
+				errors.add(ParameterNames.EMAIL, ErrorCodes.MANDATORY_PARAMETER);
+			}
+			
+			nombre = ValidationUtils.stringOnlyLettersValidator(nombre, true);
+			if(nombre == null) {
+				errors.add(ParameterNames.NOMBRE, ErrorCodes.MANDATORY_PARAMETER);
+			}
+			
+			apellido1 = ValidationUtils.stringOnlyLettersValidator(apellido1, false);
+			if(apellido1 == null) {
+				errors.add(ParameterNames.APELLIDO1, ErrorCodes.MANDATORY_PARAMETER);
+			}
+			
+			apellido2 = ValidationUtils.stringOnlyLettersValidator(apellido2, false);
+			
+			psswd = ValidationUtils.passwordValidator(psswd, psswdRepetida);
+			if(psswd == null) {
+				errors.add(ParameterNames.PASSWORD, ErrorCodes.MANDATORY_PARAMETER);
+			}
+			
+			genero = ValidationUtils.stringOnlyLettersValidator(genero, false);
+			if(genero == null) {
+				errors.add(ParameterNames.GENERO, ErrorCodes.MANDATORY_PARAMETER);
+			}
+			
+			pais = ValidationUtils.stringOnlyLettersValidator(pais, false);
+			if(pais == null) {
+				errors.add(ParameterNames.PAIS, ErrorCodes.MANDATORY_PARAMETER);
+			}
+			
+			Integer anoNacimiento = ValidationUtils.intValidator(anoNac);
+			
+			if(anoNacimiento == null) {
+				errors.add(ParameterNames.YEAR, ErrorCodes.MANDATORY_PARAMETER);
+			}
+			
+			Estudiante estudiante = new Estudiante();
+			
+			if (!errors.hasErrors()) {
+				estudiante.setEmail(email);
+				estudiante.setNombre(nombre);
+				estudiante.setApellido1(apellido1);
+				estudiante.setApellido2(apellido2);
+				estudiante.setPsswd(psswd);
+				estudiante.setIdGenero(genero);
+				estudiante.setIdPais(pais);
+				estudiante.setAnoNacimiento(anoNacimiento);
+			}
+			
+			if (errors.hasErrors()) {	
+				if (logger.isDebugEnabled()) {
+					logger.debug("Registro fallido: {}", errors);
+				}				
+				request.setAttribute(AttributeNames.ERRORS, errors);				
+				target = ViewPaths.PRE_INICIO;				
+			} else {			
+				if (logger.isDebugEnabled()) {
+					logger.info("Estudiante "+estudiante.getEmail()+" pre-registrado.");
+				}				
+				request.setAttribute(AttributeNames.ESTUDIANTE, estudiante);						
+				target = ViewPaths.TEST;					
+			}
+		}else if (Actions.LOGOUT.equalsIgnoreCase(action)) {
+			SessionManager.set(request, SessionAttributeNames.ESTUDIANTE, null);
+			target = ViewPaths.INICIO;
+		}else if(Actions.SIGNIN.equalsIgnoreCase(action)) {
+			Estudiante estudiante = (Estudiante) request.getAttribute(AttributeNames.ESTUDIANTE);
+			if(logger.isInfoEnabled()) {
+				logger.info("Estudiante: " + estudiante);
+			}
+			String acertadas = request.getParameter(ParameterNames.ACERTADAS);
+			
+			Integer preguntasAcertadas = ValidationUtils.intValidator(acertadas);
+			if(preguntasAcertadas == null) {
+				errors.add(ParameterNames.ACERTADAS, ErrorCodes.MANDATORY_PARAMETER);
+			}
+			if (!errors.hasErrors()) {
+				try {
+					estudiante = estudianteService.signUp(estudiante, preguntasAcertadas);
+				} catch (MailException e) {
+					errors.add(Actions.SIGNIN, ErrorCodes.MAIL_ERROR);
+				} catch (DuplicateInstanceException e) {
+					errors.add(Actions.SIGNIN, ErrorCodes.USER_REPEAT);
+				} catch (DataException e) {
+					errors.add(Actions.SIGNIN, ErrorCodes.SIGNIN_ERROR);
+				}
+			}
+			
+			if (estudiante == null) {
+				errors.add(ParameterNames.ACTION,ErrorCodes.SIGNIN_ERROR);
+			}
+			
+			if (errors.hasErrors()) {	
+				if (logger.isDebugEnabled()) {
+					logger.debug("Autenticacion fallida: {}", errors);
+				}				
+				request.setAttribute(AttributeNames.ERRORS, errors);				
+				target = ViewPaths.TEST;				
+			} else {			
+				if (logger.isDebugEnabled()) {
+					logger.info("Usuario "+estudiante.getEmail()+" registrado.");
+				}				
+				SessionManager.set(request, SessionAttributeNames.ESTUDIANTE, estudiante);						
+				target = "www.google.com";					
+				redirect = true;
+				if (logger.isDebugEnabled()) {
+					logger.debug("Redirect status: ", redirect);
+				}
+			}
+			
+		}else {
+			logger.error("Action desconocida");
+			target = ViewPaths.PRE_INICIO;
 		}
+
+		RedirectOrForwardUtils.redirectOrForward(request, response, redirect, target);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
