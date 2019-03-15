@@ -2,6 +2,7 @@ package com.eduinteractive.web.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -9,6 +10,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.educorp.eduinteractive.ecommerce.exceptions.DataException;
 import com.educorp.eduinteractive.ecommerce.model.Idioma;
@@ -25,12 +29,12 @@ import com.educorp.eduinteractive.ecommerce.service.spi.PaisServices;
  * Servlet implementation class PreRegistro
  */
 @WebServlet("/inicio")
-public class PreRegistro extends HttpServlet {
-    
+public class PreRegistroServlet extends HttpServlet {
+    private Logger logger = LogManager.getLogger(PreRegistroServlet.class);
 	private PaisServices paisService = null;
 	private IdiomaServices idiomaServices = null;
 	private NivelInglesServices nivelServices = null;
-    public PreRegistro() {
+    public PreRegistroServlet() {
         super();
         paisService = new PaisServicesImpl();
         idiomaServices = new IdiomaServicesImpl();
@@ -42,6 +46,15 @@ public class PreRegistro extends HttpServlet {
 		List<Pais> paises = new ArrayList<Pais>();
 		List<Idioma> idioma = new ArrayList<Idioma>();
 		List<NivelIngles> niveles = new ArrayList<NivelIngles>();
+		
+		Enumeration<String> headerNames = request.getHeaderNames();
+		while (headerNames.hasMoreElements()) {
+		    String paramName=headerNames.nextElement().toString();
+		    if(logger.isDebugEnabled()) {
+		    	logger.debug("Nombre header: {} --> Values: {}", paramName, request.getHeader(paramName));
+		    }
+		  }
+		
 		try {
 			paises = paisService.findByIdioma("es");
 			idioma = idiomaServices.findAll();

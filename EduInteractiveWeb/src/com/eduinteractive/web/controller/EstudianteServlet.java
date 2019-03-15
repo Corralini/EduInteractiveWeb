@@ -1,6 +1,9 @@
 package com.eduinteractive.web.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -169,26 +172,39 @@ public class EstudianteServlet extends HttpServlet {
 				if (logger.isDebugEnabled()) {
 					logger.info("Estudiante "+estudiante.getEmail()+" pre-registrado.");
 				}				
-				request.setAttribute(AttributeNames.ESTUDIANTE, estudiante);						
+				SessionManager.set(request, SessionAttributeNames.ESTUDIANTE, estudiante);						
 				target = ViewPaths.TEST;					
 			}
 		}else if (Actions.LOGOUT.equalsIgnoreCase(action)) {
 			SessionManager.set(request, SessionAttributeNames.ESTUDIANTE, null);
 			target = ViewPaths.INICIO;
 		}else if(Actions.SIGNIN.equalsIgnoreCase(action)) {
-			Estudiante estudiante = (Estudiante) request.getAttribute(AttributeNames.ESTUDIANTE);
-			if(logger.isInfoEnabled()) {
-				logger.info("Estudiante: " + estudiante);
-			}
-			String acertadas = request.getParameter(ParameterNames.ACERTADAS);
+			Estudiante estudiante = (Estudiante) SessionManager.get(request, AttributeNames.ESTUDIANTE);
+			//resultados test
 			
-			Integer preguntasAcertadas = ValidationUtils.intValidator(acertadas);
-			if(preguntasAcertadas == null) {
-				errors.add(ParameterNames.ACERTADAS, ErrorCodes.MANDATORY_PARAMETER);
+			List <String> respuestas = new ArrayList<String>();
+			respuestas.add(request.getParameter(ParameterNames.PREGUNTA_1));
+			respuestas.add(request.getParameter(ParameterNames.PREGUNTA_2));
+			respuestas.add(request.getParameter(ParameterNames.PREGUNTA_3));
+			respuestas.add(request.getParameter(ParameterNames.PREGUNTA_4));
+			respuestas.add(request.getParameter(ParameterNames.PREGUNTA_5));
+			respuestas.add(request.getParameter(ParameterNames.PREGUNTA_6));
+			respuestas.add(request.getParameter(ParameterNames.PREGUNTA_7));
+			respuestas.add(request.getParameter(ParameterNames.PREGUNTA_8));
+			respuestas.add(request.getParameter(ParameterNames.PREGUNTA_9));
+			respuestas.add(request.getParameter(ParameterNames.PREGUNTA_10));
+		
+			
+			if(logger.isInfoEnabled()) {
+				logger.info("Estudiante: {}", estudiante);
 			}
+			
+			int acertadas = ParameterUtils.getAcertadas(respuestas);
+			
+			if(logger.isInfoEnabled()) logger.info("Acertadas: {}", acertadas);
 			if (!errors.hasErrors()) {
 				try {
-					estudiante = estudianteService.signUp(estudiante, preguntasAcertadas);
+					estudiante = estudianteService.signUp(estudiante, acertadas);
 				} catch (MailException e) {
 					errors.add(Actions.SIGNIN, ErrorCodes.MAIL_ERROR);
 				} catch (DuplicateInstanceException e) {

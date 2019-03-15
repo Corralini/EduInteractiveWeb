@@ -19,4 +19,18 @@ public interface ParameterNames {
 	public static final String DESCRIPCION = "descripcion";
 	public static final String IDIOMA = "idioma";
 	public static final String NIVEL_INGLES = "nivelIngles";
+	public static final String OPCION_A = "a";
+	public static final String OPCION_B = "b";
+	public static final String OPCION_C = "c";
+	public static final String OPCION_D = "b";
+	public static final String PREGUNTA_1 = "pregunta1";
+	public static final String PREGUNTA_2 = "pregunta2";
+	public static final String PREGUNTA_3 = "pregunta3";
+	public static final String PREGUNTA_4 = "pregunta4";
+	public static final String PREGUNTA_5 = "pregunta5";
+	public static final String PREGUNTA_6 = "pregunta6";
+	public static final String PREGUNTA_7 = "pregunta7";
+	public static final String PREGUNTA_8 = "pregunta8";
+	public static final String PREGUNTA_9 = "pregunta9";
+	public static final String PREGUNTA_10 = "pregunta10";
 }
