@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>EduInteractive</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="<%=request.getContextPath()%>/css/main.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="<%=request.getContextPath()%>/css/index.css">
     <link rel="icon" href="<%=request.getContextPath()%>/img/logo.ico">
     <script src="<%=request.getContextPath()%>/js/main.js"></script>
 </head>
@@ -220,7 +220,7 @@
                         <input type="text" placeholder="alguien@ejemplo.com" name="<%=ParameterNames.EMAIL%>" required>
 
                         <label for="<%=ParameterNames.PASSWORD%>"><b>Contraseña</b></label>
-                        <input type="<%=ParameterNames.PASSWORD%>" placeholder="Contraseña" name="pswd" required>
+                        <input type="password" placeholder="Contraseña" name="<%=ParameterNames.PASSWORD%>" required>
 
                         <div class="clearfix">
                             <button type="button" onclick="document.getElementById('login').style.display='none'"

@@ -2,7 +2,6 @@ package com.eduinteractive.web.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -63,7 +62,8 @@ public class EstudianteServlet extends HttpServlet {
 			String password = request.getParameter(ParameterNames.PASSWORD);
 
 			email = ParameterUtils.trimmer(email);
-			password = ParameterUtils.trimmer(password);
+			logger.debug(email); 	// borrar esta traza
+			logger.debug(password); // borrar esta traza
 
 			if (StringUtils.isEmpty(email)) {
 				errors.add(ParameterNames.EMAIL,ErrorCodes.MANDATORY_PARAMETER);
@@ -88,13 +88,14 @@ public class EstudianteServlet extends HttpServlet {
 				}
 
 				request.setAttribute(AttributeNames.ERRORS, errors);				
-				target = ViewPaths.INICIO;				
+				target = ViewPaths.PRE_INICIO;				
 			} else {
 				if(logger.isDebugEnabled()) {
 					logger.info("Estudiante " + estudiante.getEmail() + " autenticado");
 				}
 				SessionManager.set(request, SessionAttributeNames.ESTUDIANTE, estudiante);		
-				// target = ViewPaths.HOME;				
+				target = request.getContextPath() + ViewPaths.HOME_ESTUDIANTE;	
+				redirect = true;
 			}
 		
 		}else if(Actions.PRESIGNIN.equalsIgnoreCase(action)){
@@ -177,7 +178,8 @@ public class EstudianteServlet extends HttpServlet {
 			}
 		}else if (Actions.LOGOUT.equalsIgnoreCase(action)) {
 			SessionManager.set(request, SessionAttributeNames.ESTUDIANTE, null);
-			target = ViewPaths.INICIO;
+			target = request.getContextPath() + ViewPaths.PRE_INICIO;
+			redirect = true;
 		}else if(Actions.SIGNIN.equalsIgnoreCase(action)) {
 			Estudiante estudiante = (Estudiante) SessionManager.get(request, AttributeNames.ESTUDIANTE);
 			//resultados test
@@ -229,7 +231,7 @@ public class EstudianteServlet extends HttpServlet {
 					logger.info("Usuario "+estudiante.getEmail()+" registrado.");
 				}				
 				SessionManager.set(request, SessionAttributeNames.ESTUDIANTE, estudiante);						
-				target = "www.google.com";					
+				target = request.getContextPath() + ViewPaths.HOME_ESTUDIANTE;					
 				redirect = true;
 				if (logger.isDebugEnabled()) {
 					logger.debug("Redirect status: ", redirect);

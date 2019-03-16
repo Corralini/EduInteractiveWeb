@@ -47,14 +47,6 @@ public class PreRegistroServlet extends HttpServlet {
 		List<Idioma> idioma = new ArrayList<Idioma>();
 		List<NivelIngles> niveles = new ArrayList<NivelIngles>();
 		
-		Enumeration<String> headerNames = request.getHeaderNames();
-		while (headerNames.hasMoreElements()) {
-		    String paramName=headerNames.nextElement().toString();
-		    if(logger.isDebugEnabled()) {
-		    	logger.debug("Nombre header: {} --> Values: {}", paramName, request.getHeader(paramName));
-		    }
-		  }
-		
 		try {
 			paises = paisService.findByIdioma("es");
 			idioma = idiomaServices.findAll();
