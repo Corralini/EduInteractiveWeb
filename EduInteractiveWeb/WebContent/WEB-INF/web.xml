@@ -4,12 +4,9 @@
   <welcome-file-list>
     <welcome-file>inicio</welcome-file>
   </welcome-file-list>
- <!--  <error-page>
-    <error-code>404</error-code>
-    <location>/html/errors/404.jsp</location>
-  </error-page>
-  <error-page>
-    <error-code>500</error-code>
-    <location>/html/errors/500.jsp</location>
-  </error-page> -->
+  <!-- ========================== Filters ============================ -->
+	<filter>
+	   <filter-name>InitSessionFilter</filter-name>
+	   <filter-class>com.eduinteractive.web.filter.InitSessionFilter</filter-class>
+	</filter>
 </web-app>

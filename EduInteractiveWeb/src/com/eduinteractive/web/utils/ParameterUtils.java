@@ -3,6 +3,7 @@ package com.eduinteractive.web.utils;
 import java.util.List;
 import java.util.Map;
 
+import com.eduinteractive.web.controller.ConstantsValues;
 import com.eduinteractive.web.controller.ParameterNames;
 
 public class ParameterUtils {
@@ -40,4 +41,15 @@ public class ParameterUtils {
 		return acertadas;
 	}
 	
+	public static String makeName (String nombre, String apellido1, String apellido2) {
+		StringBuilder nombreCompleto = new StringBuilder();
+		nombreCompleto.append(nombre);
+		nombreCompleto.append(ConstantsValues.WHITE_SPACE);
+		nombreCompleto.append(apellido1);
+		if(apellido2 != null) {
+			nombreCompleto.append(ConstantsValues.WHITE_SPACE);
+			nombreCompleto.append(apellido2);
+		}
+		return nombreCompleto.toString();
+	}
 }

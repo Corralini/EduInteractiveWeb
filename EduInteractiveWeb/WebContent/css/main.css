@@ -110,3 +110,67 @@
     left: 88%;
     top: -19.5px;
   }
+  /* button styles */
+  .cancelbtn {
+    padding: 14px 20px;
+    background-color: #cf2a27;
+    float: right;
+    width: 10%;
+  }
+  .aceptbtn {
+    padding: 14px 20px;
+    background-color: #38761d;
+    float: right;
+    width: 10%;
+  }
+  .button, submit {
+    position: relative;
+    background-color: #e48871;
+    border: none;
+    font-size: 28px;
+    color: #FFFFFF;
+    padding: 20px;
+    width: 100px;
+    text-align: center;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    text-decoration: none;
+    overflow: hidden;
+    cursor: pointer;
+}
+/* Criteria */
+#separadorCriteria{
+  width: 100%;
+}
+
+#criteria{
+  position: relative;
+  top: 10px;
+}
+
+#submitCriteria{
+  position: relative;
+  top: -25px;
+}
+
+/* resultados */
+#resultados{
+  display: inline;
+}
+
+.resultado{
+  border-style: solid;
+  border-color: black;
+  width: 175px;
+  text-align: center;
+}
+
+#dispo{
+  position: relative;
+  top: -50px;
+  width: 120px;
+}
+
+.precio{
+  text-align: left;
+}

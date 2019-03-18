@@ -12,11 +12,12 @@
                 <a href="<%=request.getContextPath() %>/estudiante?action=logout" class="dropOption">Cerrar sesion</a>
             </div>
         </div>
-        <a href="#" id="profesores" onclick="getFocus('profesores')"><img src="<%=request.getContextPath()%>/img/images.png" alt="profesores"></img><br> Profesores</a>
+        <a href="<%=ControllerPaths.SEARCH_PROFESOR_NAVBAR %>" id="profesores" onclick="getFocus('profesores')"><img src="<%=request.getContextPath()%>/img/images.png" alt="profesores"></img><br> Profesores</a>
         <a class="active" href="#" id="home" onclick="getFocus('home')"><img src="<%=request.getContextPath()%>/img/home.png" alt="home"></img><br>inicio</a>
-        <a href="#" class="izquierda" id="logo"><img src="<%=request.getContextPath()%>/img/logo.png" alt="logo"></img></a>
-        <form class="example" action="#" style="margin:auto;max-width:300px">
-            <input type="text" placeholder="buscar.." name="search2">
+        <a href="<%=request.getContextPath() + ViewPaths.PRE_INICIO %>" class="izquierda" id="logo"><img src="<%=request.getContextPath()%>/img/logo.png" alt="logo"></img></a>
+        <form class="example" action="<%=ControllerPaths.ESTUDIANTE %>" style="margin:auto;max-width:300px">
+        	<input type="hidden" name="<%=ParameterNames.ACTION%>" value="<%=Actions.SEARCH%>">
+            <input type="text" placeholder="buscar.." name="<%=ParameterNames.SEARCH_BOX%>">
             <button id="searchButton" type="submit"><img src="<%=request.getContextPath()%>/img/searchIcon.png" alt="buscar"></img></button>
         </form>
     </div>

@@ -8,4 +8,5 @@ public interface AttributeNames {
 	public static final String IDIOMA = "idioma";
 	public static final String NIVELES = "niveles";
 	public static final String ESTUDIANTE = "estudiante";
+	public static final String DIAS = "dias";
 }

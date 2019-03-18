@@ -7,6 +7,7 @@ public interface Actions {
 	public static final String SIGNIN = "signin";
 	public static final String PRESIGNIN = "presignin";
 	public static final String SEARCH = "search";
-	public static final String DETALLE = "detalle";
+	public static final String DETALLE_ESTUDIANTE = "detalle_estudiante";
+	public static final String DETALLE_PROFESOR = "detalle_profesor";
 	
 }

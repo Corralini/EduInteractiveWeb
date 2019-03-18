@@ -84,14 +84,14 @@ public class ValidationUtils {
 		}
 	}
 
-	public static String stringOnlyLettersValidator (String parameter, boolean isName){
+	public static String stringOnlyLettersValidator (String parameter, boolean middleWhiteSpaces){
 
 		parameter = ParameterUtils.trimmer(parameter);
 
 		if(StringUtils.isEmptyOrWhitespaceOnly(parameter)) {
 			parameter =  null;
 		}
-		if(!isName) {
+		if(!middleWhiteSpaces) {
 			if(!stringOnlyLetters(parameter)) {
 				parameter = null;
 			}
