@@ -1,15 +1,16 @@
 <%@ page import="com.eduinteractive.web.utils.*, com.educorp.eduinteractive.ecommerce.model.*, com.eduinteractive.web.controller.*" %>
+<%@ page import="java.util.HashMap, java.util.Map" %>
     <%
     Estudiante e = (Estudiante) request.getSession().getAttribute(SessionAttributeNames.ESTUDIANTE);
+    Map<String, String> valores = new HashMap<String, String>();
+    valores.put(ParameterNames.ACTION, Actions.DETALLE_ESTUDIANTE);
     %>
 <div class="navbar">
         <div class="dropdown">
-            <button class="dropbtn"><%=e.getNombre()%>
-                <i class="fa fa-caret-down"></i>
-            </button>
+            <button class="dropbtn"><a  href="<%=ParameterUtils.URLBuilder(ControllerPaths.ESTUDIANTE, valores)%>"><%=e.getNombre()%></a></button>
             <div class="dropdown-content">
                 <a href="#" class="dropOption">Ajustes</a>
-                <a href="<%=request.getContextPath() %>/estudiante?action=logout" class="dropOption">Cerrar sesion</a>
+                <a href="<%=request.getContextPath()%>/estudiante?action=logout" class="dropOption">Cerrar sesion</a>
             </div>
         </div>
         <a href="<%=ControllerPaths.SEARCH_PROFESOR_NAVBAR %>" id="profesores" onclick="getFocus('profesores')"><img src="<%=request.getContextPath()%>/img/images.png" alt="profesores"></img><br> Profesores</a>

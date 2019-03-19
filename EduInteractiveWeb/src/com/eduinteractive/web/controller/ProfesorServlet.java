@@ -20,13 +20,9 @@ import com.educorp.eduinteractive.ecommerce.model.Profesor;
 import com.educorp.eduinteractive.ecommerce.service.criteria.ProfesorCriteria;
 import com.educorp.eduinteractive.ecommerce.service.impl.ProfesorServicesImpl;
 import com.educorp.eduinteractive.ecommerce.service.spi.ProfesorService;
-import com.eduinteractive.web.util.Actions;
-import com.eduinteractive.web.util.AttributeNames;
-import com.eduinteractive.web.util.ErrorCodes;
-import com.eduinteractive.web.util.ErrorManager;
-import com.eduinteractive.web.util.ParameterNames;
-import com.eduinteractive.web.util.ParameterUtils;
-import com.eduinteractive.web.util.ViewPaths;
+import com.eduinteractive.web.model.ErrorCodes;
+import com.eduinteractive.web.model.ErrorManager;
+import com.eduinteractive.web.utils.ParameterUtils;
 
 /**
  * Servlet implementation class ProfesorServlet

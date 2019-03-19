@@ -19,17 +19,20 @@ import com.educorp.eduinteractive.ecommerce.exceptions.DuplicateInstanceExceptio
 import com.educorp.eduinteractive.ecommerce.exceptions.MailException;
 import com.educorp.eduinteractive.ecommerce.model.Dia;
 import com.educorp.eduinteractive.ecommerce.model.Estudiante;
+import com.educorp.eduinteractive.ecommerce.model.Genero;
 import com.educorp.eduinteractive.ecommerce.model.NivelIngles;
 import com.educorp.eduinteractive.ecommerce.model.Pais;
 import com.educorp.eduinteractive.ecommerce.model.Profesor;
 import com.educorp.eduinteractive.ecommerce.service.criteria.ProfesorCriteria;
 import com.educorp.eduinteractive.ecommerce.service.impl.DiaServicesImpl;
 import com.educorp.eduinteractive.ecommerce.service.impl.EstudianteServiceImpl;
+import com.educorp.eduinteractive.ecommerce.service.impl.GeneroServiceImpl;
 import com.educorp.eduinteractive.ecommerce.service.impl.NivelInglesServicesImpl;
 import com.educorp.eduinteractive.ecommerce.service.impl.PaisServicesImpl;
 import com.educorp.eduinteractive.ecommerce.service.impl.ProfesorServicesImpl;
 import com.educorp.eduinteractive.ecommerce.service.spi.DiaServices;
 import com.educorp.eduinteractive.ecommerce.service.spi.EstudianteService;
+import com.educorp.eduinteractive.ecommerce.service.spi.GeneroService;
 import com.educorp.eduinteractive.ecommerce.service.spi.NivelInglesServices;
 import com.educorp.eduinteractive.ecommerce.service.spi.PaisServices;
 import com.educorp.eduinteractive.ecommerce.service.spi.ProfesorService;
@@ -52,6 +55,7 @@ public class EstudianteServlet extends HttpServlet {
 	private ProfesorService profesorService = null;
 	private DiaServices diaServices = null;
 	private PaisServices paisServices = null;
+	private GeneroService generoServices = null;
 
 	public EstudianteServlet() {
 		super();
@@ -60,11 +64,12 @@ public class EstudianteServlet extends HttpServlet {
 		profesorService = new ProfesorServicesImpl();
 		diaServices = new DiaServicesImpl();
 		paisServices = new PaisServicesImpl();
+		generoServices = new GeneroServiceImpl();
 	}
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String action = request.getParameter(ParameterNames.ACTION);
+		String action = ParameterUtils.trimmer(request.getParameter(ParameterNames.ACTION));
 
 		if (logger.isDebugEnabled()) {
 			logger.debug("Action {}: {}", action, ToStringBuilder.reflectionToString(request.getParameterMap()));
@@ -274,17 +279,17 @@ public class EstudianteServlet extends HttpServlet {
 						apellido2 = nombreCompleto[i];
 					}
 				}
-				
+
 				if(nombre != null && !StringUtils.isEmptyOrWhitespaceOnly(nombre)) {
 					nombre = ValidationUtils.stringOnlyLettersValidator(nombre, false);
 					profesorSearch.setNombre(nombre);
 				}
-				
+
 				if(apellido1 != null && !StringUtils.isEmptyOrWhitespaceOnly(apellido1)) {
 					apellido1 = ValidationUtils.stringOnlyLettersValidator(apellido1, false);
 					profesorSearch.setApellido1(apellido1);
 				}
-				
+
 				if(apellido2 != null && !StringUtils.isEmptyOrWhitespaceOnly(apellido2)) {
 					apellido2 = ValidationUtils.stringOnlyLettersValidator(apellido1, false);
 					profesorSearch.setApellido2(apellido2);
@@ -332,7 +337,7 @@ public class EstudianteServlet extends HttpServlet {
 					profesorSearch.setDiaSesion(diaSesion);
 				}
 			}
-			
+
 
 			List<Profesor> resultados = new ArrayList<Profesor>();
 			List<NivelIngles> niveles = new ArrayList<NivelIngles>();
@@ -352,15 +357,36 @@ public class EstudianteServlet extends HttpServlet {
 
 		}else if (Actions.DETALLE_ESTUDIANTE.equalsIgnoreCase(action)){
 			Estudiante estudiante = (Estudiante) SessionManager.get(request, SessionAttributeNames.ESTUDIANTE);
-			
-			target = request.getContextPath() + ViewPaths.DETAILS_ESTUDIANTE;
+			Pais paisEstudiante = new Pais();
+			Genero generoEstudiante = new Genero();
+			NivelIngles nivelEstudiante = new NivelIngles();
+			try {
+				paisEstudiante = paisServices.findById("es", estudiante.getIdPais());
+				generoEstudiante = generoServices.findById(estudiante.getIdGenero());
+				nivelEstudiante = nivelServices.findById(estudiante.getIdNivel());
+			} catch (DataException e) {
+				e.printStackTrace();
+			}
+			if(logger.isDebugEnabled()) {
+				logger.debug("Pais estudiante --> {}", paisEstudiante);
+				logger.debug("Genero estudiante --> {}", generoEstudiante);
+				logger.debug("Nivel estudiante --> {}", nivelEstudiante);
+			}
+
+			request.setAttribute(AttributeNames.PAISES, paisEstudiante);
+			request.setAttribute(AttributeNames.GENERO, generoEstudiante);
+			request.setAttribute(AttributeNames.NIVELES, nivelEstudiante);
+			target = ViewPaths.DETAILS_ESTUDIANTE;
+			redirect = false;
+		}else if(Actions.DETALLE_PROFESOR.equalsIgnoreCase(action)) {
+
 		}else {
 			logger.error("Action desconocida");
 			target = request.getContextPath() +  ViewPaths.PRE_INICIO;
 			redirect = true;
 		}
 		if (logger.isDebugEnabled()) {
-			logger.debug("Redirect status: ", redirect);
+			logger.debug("Redirect status: {}", redirect);
 		}
 		RedirectOrForwardUtils.redirectOrForward(request, response, redirect, target);
 	}

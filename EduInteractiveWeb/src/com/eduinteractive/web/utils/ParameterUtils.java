@@ -1,5 +1,6 @@
 package com.eduinteractive.web.utils;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -51,5 +52,20 @@ public class ParameterUtils {
 			nombreCompleto.append(apellido2);
 		}
 		return nombreCompleto.toString();
+	}
+	
+	public static String URLBuilder (String url, Map<String, String> valores) {
+		int cont = 1;
+		StringBuilder urlBuilder = new StringBuilder();
+		urlBuilder.append(url);
+		for(String mapKey: valores.keySet()) {
+			if(cont == 1) urlBuilder.append(ConstantsValues.QUESTION_MARK);
+			urlBuilder.append(mapKey).append(ConstantsValues.EQUAL).append(valores.get(mapKey));
+			if(cont != valores.size()) {
+				urlBuilder.append(ConstantsValues.AMPERSAND_URL);
+			}
+			cont++;
+		}
+		return urlBuilder.toString();
 	}
 }
