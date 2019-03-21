@@ -2,6 +2,7 @@ package com.eduinteractive.web.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -14,12 +15,14 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.educorp.eduinteractive.ecommerce.dao.service.Results;
 import com.educorp.eduinteractive.ecommerce.exceptions.DataException;
 import com.educorp.eduinteractive.ecommerce.exceptions.DuplicateInstanceException;
 import com.educorp.eduinteractive.ecommerce.exceptions.MailException;
 import com.educorp.eduinteractive.ecommerce.model.Dia;
 import com.educorp.eduinteractive.ecommerce.model.Estudiante;
 import com.educorp.eduinteractive.ecommerce.model.Genero;
+import com.educorp.eduinteractive.ecommerce.model.Horario;
 import com.educorp.eduinteractive.ecommerce.model.NivelIngles;
 import com.educorp.eduinteractive.ecommerce.model.Pais;
 import com.educorp.eduinteractive.ecommerce.model.Profesor;
@@ -27,15 +30,19 @@ import com.educorp.eduinteractive.ecommerce.service.criteria.ProfesorCriteria;
 import com.educorp.eduinteractive.ecommerce.service.impl.DiaServicesImpl;
 import com.educorp.eduinteractive.ecommerce.service.impl.EstudianteServiceImpl;
 import com.educorp.eduinteractive.ecommerce.service.impl.GeneroServiceImpl;
+import com.educorp.eduinteractive.ecommerce.service.impl.HorarioServicesImpl;
 import com.educorp.eduinteractive.ecommerce.service.impl.NivelInglesServicesImpl;
 import com.educorp.eduinteractive.ecommerce.service.impl.PaisServicesImpl;
 import com.educorp.eduinteractive.ecommerce.service.impl.ProfesorServicesImpl;
+import com.educorp.eduinteractive.ecommerce.service.impl.SesionServicesImpl;
 import com.educorp.eduinteractive.ecommerce.service.spi.DiaServices;
 import com.educorp.eduinteractive.ecommerce.service.spi.EstudianteService;
 import com.educorp.eduinteractive.ecommerce.service.spi.GeneroService;
+import com.educorp.eduinteractive.ecommerce.service.spi.HorarioService;
 import com.educorp.eduinteractive.ecommerce.service.spi.NivelInglesServices;
 import com.educorp.eduinteractive.ecommerce.service.spi.PaisServices;
 import com.educorp.eduinteractive.ecommerce.service.spi.ProfesorService;
+import com.educorp.eduinteractive.ecommerce.service.spi.SesionServices;
 import com.eduinteractive.web.model.ErrorCodes;
 import com.eduinteractive.web.model.ErrorManager;
 import com.eduinteractive.web.utils.ParameterUtils;
@@ -56,6 +63,8 @@ public class EstudianteServlet extends HttpServlet {
 	private DiaServices diaServices = null;
 	private PaisServices paisServices = null;
 	private GeneroService generoServices = null;
+	private SesionServices sesionServices = null;
+	private HorarioService horarioServices = null;
 
 	public EstudianteServlet() {
 		super();
@@ -65,6 +74,8 @@ public class EstudianteServlet extends HttpServlet {
 		diaServices = new DiaServicesImpl();
 		paisServices = new PaisServicesImpl();
 		generoServices = new GeneroServiceImpl();
+		sesionServices = new SesionServicesImpl();
+		horarioServices = new HorarioServicesImpl();
 	}
 
 
@@ -116,7 +127,7 @@ public class EstudianteServlet extends HttpServlet {
 					logger.info("Estudiante " + estudiante.getEmail() + " autenticado");
 				}
 				SessionManager.set(request, SessionAttributeNames.ESTUDIANTE, estudiante);		
-				target = request.getContextPath() + ViewPaths.HOME_ESTUDIANTE;	
+				target = ViewPaths.HOME_ESTUDIANTE;	
 				redirect = true;
 			}
 
@@ -200,7 +211,7 @@ public class EstudianteServlet extends HttpServlet {
 			}
 		}else if (Actions.LOGOUT.equalsIgnoreCase(action)) {
 			SessionManager.set(request, SessionAttributeNames.ESTUDIANTE, null);
-			target = request.getContextPath() + ViewPaths.PRE_INICIO;
+			target = ViewPaths.PRE_INICIO;
 			redirect = true;
 		}else if(Actions.SIGNIN.equalsIgnoreCase(action)) {
 			Estudiante estudiante = (Estudiante) SessionManager.get(request, AttributeNames.ESTUDIANTE);
@@ -253,7 +264,7 @@ public class EstudianteServlet extends HttpServlet {
 					logger.info("Usuario "+estudiante.getEmail()+" registrado.");
 				}				
 				SessionManager.set(request, SessionAttributeNames.ESTUDIANTE, estudiante);						
-				target = request.getContextPath() + ViewPaths.HOME_ESTUDIANTE;					
+				target = ViewPaths.HOME_ESTUDIANTE;					
 				redirect = true;
 			}
 
@@ -312,6 +323,7 @@ public class EstudianteServlet extends HttpServlet {
 			if(request.getParameter(ParameterNames.PUNTUACION) != null) {
 				String puntuacion = request.getParameter(ParameterNames.PUNTUACION);
 				Double rate = ValidationUtils.doubleValidator(puntuacion);
+				if(logger.isDebugEnabled()) logger.debug(rate);
 				if (rate != null) {
 					profesorSearch.setPuntuacion(rate);
 				}
@@ -365,7 +377,7 @@ public class EstudianteServlet extends HttpServlet {
 				generoEstudiante = generoServices.findById(estudiante.getIdGenero());
 				nivelEstudiante = nivelServices.findById(estudiante.getIdNivel());
 			} catch (DataException e) {
-				e.printStackTrace();
+				logger.warn(e.getMessage(), e);
 			}
 			if(logger.isDebugEnabled()) {
 				logger.debug("Pais estudiante --> {}", paisEstudiante);
@@ -379,10 +391,51 @@ public class EstudianteServlet extends HttpServlet {
 			target = ViewPaths.DETAILS_ESTUDIANTE;
 			redirect = false;
 		}else if(Actions.DETALLE_PROFESOR.equalsIgnoreCase(action)) {
+			String profesorId = request.getParameter(ParameterNames.ID_PROFESOR);
+			Pais paisProfesor = new Pais();
+			Genero generoProfesor = new Genero();
+			Profesor profesor = new Profesor();
+			Integer idProfesor = ValidationUtils.intValidator(profesorId);
+			if(idProfesor != null) {
+				try {
+					profesor = profesorService.findById(idProfesor);
+					paisProfesor = paisServices.findById(profesor.getIdPais(), "es");
+					generoProfesor = generoServices.findById(profesor.getIdGenero());
+				} catch (DataException e) {
+					logger.warn(e.getMessage(), e);
+				}
+			}
 
+			request.setAttribute(AttributeNames.PROFESOR, profesor);
+			request.setAttribute(AttributeNames.PAISES, paisProfesor);
+			request.setAttribute(AttributeNames.GENERO, generoProfesor);
+			target = ViewPaths.DETAILS_PROFESOR;
+			redirect=false;
+
+		}else if(Actions.BUSCAR_HORARIOS.equalsIgnoreCase(action)){
+			String id = request.getParameter(ParameterNames.ID_PROFESOR);
+			String fecha = request.getParameter(ParameterNames.FECHA);
+			Integer idProfesor = null;
+			Results<Horario> horarios = null;
+			Date date = new Date();
+			if(!StringUtils.isEmptyOrWhitespaceOnly(id)) idProfesor = ValidationUtils.intValidator(id);
+			logger.info(idProfesor);
+			if(!StringUtils.isEmptyOrWhitespaceOnly(fecha)) date = ValidationUtils.dateValidator(fecha);
+			if(date.before(new Date())) errors.add(ParameterNames.FECHA, ErrorCodes.FECHA_INVALID);
+			if(!errors.hasErrors()) {
+				try {
+					horarios = horarioServices.findByFecha(idProfesor, date, 1, 10);
+				} catch (DataException e) {
+					errors.add(ParameterNames.RESULTADOS, ErrorCodes.SEARCH_ERROR);
+				}
+			}
+			request.setAttribute(AttributeNames.ERRORS, errors);
+			request.setAttribute(AttributeNames.HORARIOS, horarios);
+			target = ViewPaths.BUSQUEDA_HORARIOS;
+			redirect = false;
 		}else {
 			logger.error("Action desconocida");
-			target = request.getContextPath() +  ViewPaths.PRE_INICIO;
+			target =ViewPaths.PRE_INICIO;
 			redirect = true;
 		}
 		if (logger.isDebugEnabled()) {

@@ -16,9 +16,14 @@ public class RedirectOrForwardUtils {
 	public static void redirectOrForward (HttpServletRequest request,
 										HttpServletResponse response,
 										boolean redirect, String target) throws IOException, ServletException {
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append(request.getContextPath()).append(target);
+		
 		if (redirect) {
 			logger.info("Redirecting to "+target);
-			response.sendRedirect(target);
+		
+			response.sendRedirect(sb.toString());
 		} else {
 			logger.info("Forwarding to "+ request.getContextPath() +  target);
 			request.getRequestDispatcher(target).forward(request, response);

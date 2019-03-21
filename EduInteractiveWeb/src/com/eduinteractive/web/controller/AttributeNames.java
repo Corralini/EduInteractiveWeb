@@ -10,4 +10,6 @@ public interface AttributeNames {
 	public static final String ESTUDIANTE = "estudiante";
 	public static final String DIAS = "dias";
 	public static final String GENERO = "genero";
+	public static final String PROFESOR = "profesor";
+	public static final String HORARIOS = "horarios";
 }

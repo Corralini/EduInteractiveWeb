@@ -38,4 +38,6 @@ public interface ParameterNames {
 	public static final String PREGUNTA_9 = "pregunta9";
 	public static final String PREGUNTA_10 = "pregunta10";
 	public static final String PUNTUACION = "puntuacion";
+	public static final String FECHA = "fecha";
+	public static final String RESULTADOS = "resultados";
 }

@@ -9,5 +9,7 @@ public interface Actions {
 	public static final String SEARCH = "search";
 	public static final String DETALLE_ESTUDIANTE = "detalle_estudiante";
 	public static final String DETALLE_PROFESOR = "detalle_profesor";
+	public static final String BUSCAR_HORARIOS = "buscar_horarios";
+	public static final String CONTRATAR_SESION = "contratar";
 	
 }

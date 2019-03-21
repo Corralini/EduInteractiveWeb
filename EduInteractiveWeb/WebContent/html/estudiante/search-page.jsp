@@ -28,7 +28,7 @@
             	<option value="O">Otro</option>
             </select>
             <label for="<%=ParameterNames.PUNTUACION%>"><b>Puntuación</b></label>
-            <input type="text" min="0" max="10" name="rate">
+            <input type="text" min="0" max="10" name="<%=ParameterNames.PUNTUACION%>">
             <label for="<%=ParameterNames.PRECIO%>"><b>Precio Mínimo</b></label>
             <input type="number" name="<%=ParameterNames.PRECIO%>"><br>
             <label for="<%=ParameterNames.PRECIO_MAX%>"><b>Precio Máximo</b></label>
@@ -50,9 +50,14 @@
     </div>
     <!--Mostrar resultado-->
     <div id="resultados">
-    	<%for(Profesor p: profesores) { %>
+    	<%	
+    		valores.clear();
+    		valores.put(ParameterNames.ACTION, Actions.DETALLE_PROFESOR);
+    		for(Profesor p: profesores) { 
+    	    	valores.put(ParameterNames.ID_PROFESOR, p.getIdProfesor().toString());
+    	%>
         <div class="resultado">
-            <a href="#"><%=ParameterUtils.makeName(p.getNombre(), p.getApellido1(), p.getApellido2()) %></a>
+            <a href="<%=ParameterUtils.URLBuilder(ControllerPaths.ESTUDIANTE, valores)%>"><%=ParameterUtils.makeName(p.getNombre(), p.getApellido1(), p.getApellido2()) %></a>
             <p class="puntuacion"><%=p.getPuntuacion() %>/10</p>
             <p class="precio"><%=p.getPrecioSesion()%></p>
             <button id="dispo" class="aceptbtn">Disponibilidad</button>

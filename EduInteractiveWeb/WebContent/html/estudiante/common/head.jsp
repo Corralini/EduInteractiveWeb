@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    
+<%@ page import="com.eduinteractive.web.utils.*, com.educorp.eduinteractive.ecommerce.model.*, com.eduinteractive.web.controller.*" %>
+<%@ page import="java.util.HashMap, java.util.Map, java.util.Date" %>
 <!DOCTYPE html>
 <html>
 <head>
