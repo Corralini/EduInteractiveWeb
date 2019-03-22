@@ -3,7 +3,9 @@ package com.eduinteractive.web.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,6 +24,7 @@ import com.educorp.eduinteractive.ecommerce.exceptions.MailException;
 import com.educorp.eduinteractive.ecommerce.model.Dia;
 import com.educorp.eduinteractive.ecommerce.model.Estudiante;
 import com.educorp.eduinteractive.ecommerce.model.Genero;
+import com.educorp.eduinteractive.ecommerce.model.Hora;
 import com.educorp.eduinteractive.ecommerce.model.Horario;
 import com.educorp.eduinteractive.ecommerce.model.NivelIngles;
 import com.educorp.eduinteractive.ecommerce.model.Pais;
@@ -30,6 +33,7 @@ import com.educorp.eduinteractive.ecommerce.service.criteria.ProfesorCriteria;
 import com.educorp.eduinteractive.ecommerce.service.impl.DiaServicesImpl;
 import com.educorp.eduinteractive.ecommerce.service.impl.EstudianteServiceImpl;
 import com.educorp.eduinteractive.ecommerce.service.impl.GeneroServiceImpl;
+import com.educorp.eduinteractive.ecommerce.service.impl.HoraServicesImpl;
 import com.educorp.eduinteractive.ecommerce.service.impl.HorarioServicesImpl;
 import com.educorp.eduinteractive.ecommerce.service.impl.NivelInglesServicesImpl;
 import com.educorp.eduinteractive.ecommerce.service.impl.PaisServicesImpl;
@@ -38,6 +42,7 @@ import com.educorp.eduinteractive.ecommerce.service.impl.SesionServicesImpl;
 import com.educorp.eduinteractive.ecommerce.service.spi.DiaServices;
 import com.educorp.eduinteractive.ecommerce.service.spi.EstudianteService;
 import com.educorp.eduinteractive.ecommerce.service.spi.GeneroService;
+import com.educorp.eduinteractive.ecommerce.service.spi.HoraServices;
 import com.educorp.eduinteractive.ecommerce.service.spi.HorarioService;
 import com.educorp.eduinteractive.ecommerce.service.spi.NivelInglesServices;
 import com.educorp.eduinteractive.ecommerce.service.spi.PaisServices;
@@ -65,6 +70,7 @@ public class EstudianteServlet extends HttpServlet {
 	private GeneroService generoServices = null;
 	private SesionServices sesionServices = null;
 	private HorarioService horarioServices = null;
+	private HoraServices horaServices = null;
 
 	public EstudianteServlet() {
 		super();
@@ -76,6 +82,8 @@ public class EstudianteServlet extends HttpServlet {
 		generoServices = new GeneroServiceImpl();
 		sesionServices = new SesionServicesImpl();
 		horarioServices = new HorarioServicesImpl();
+		horaServices = new HoraServicesImpl();
+
 	}
 
 
@@ -416,23 +424,53 @@ public class EstudianteServlet extends HttpServlet {
 			String id = request.getParameter(ParameterNames.ID_PROFESOR);
 			String fecha = request.getParameter(ParameterNames.FECHA);
 			Integer idProfesor = null;
-			Results<Horario> horarios = null;
+			Results<Horario> horariosResults = new Results<Horario>();
+			Map<Horario, Hora> resultados = new HashMap<Horario, Hora>();
 			Date date = new Date();
 			if(!StringUtils.isEmptyOrWhitespaceOnly(id)) idProfesor = ValidationUtils.intValidator(id);
-			logger.info(idProfesor);
-			if(!StringUtils.isEmptyOrWhitespaceOnly(fecha)) date = ValidationUtils.dateValidator(fecha);
-			if(date.before(new Date())) errors.add(ParameterNames.FECHA, ErrorCodes.FECHA_INVALID);
-			if(!errors.hasErrors()) {
-				try {
-					horarios = horarioServices.findByFecha(idProfesor, date, 1, 10);
-				} catch (DataException e) {
-					errors.add(ParameterNames.RESULTADOS, ErrorCodes.SEARCH_ERROR);
+			if(date!=null) {
+				if(!StringUtils.isEmptyOrWhitespaceOnly(fecha)) date = ValidationUtils.dateValidator(fecha);
+				if(date.before(new Date())) errors.add(ParameterNames.FECHA, ErrorCodes.FECHA_INVALID);
+				if(!errors.hasErrors()) {
+					try {
+						horariosResults = horarioServices.findByFecha(idProfesor, date, 1, 10);
+						for(Horario h: horariosResults.getResultados()) {
+							resultados.put(h, horaServices.findById(h.getIdHora()));
+						}
+					} catch (DataException e) {
+						errors.add(ParameterNames.RESULTADOS, ErrorCodes.SEARCH_ERROR);
+					}
 				}
 			}
+			request.setAttribute(AttributeNames.DATE_CONTRATACION, date);
+			request.setAttribute(AttributeNames.PROFESOR, idProfesor);
+			request.setAttribute(AttributeNames.RESULTADOS, resultados);
 			request.setAttribute(AttributeNames.ERRORS, errors);
-			request.setAttribute(AttributeNames.HORARIOS, horarios);
+			
 			target = ViewPaths.BUSQUEDA_HORARIOS;
 			redirect = false;
+		}else if(Actions.CONTRATAR_SESION.equalsIgnoreCase(action)){
+			Estudiante estudiante = (Estudiante) SessionManager.get(request, SessionAttributeNames.ESTUDIANTE);
+			String horarioId = ParameterUtils.trimmer(request.getParameter(ParameterNames.ID_HORARIO));
+			String fechaContratacion = ParameterUtils.trimmer(request.getParameter(ParameterNames.FECHA_SESION));
+			Horario h = new Horario();
+			Integer idHorario = null;
+			Date fechaSesion = new Date();
+			if(horarioId != null) {
+				idHorario = ValidationUtils.intValidator(horarioId);
+			}
+			if(fechaContratacion !=null) {
+				fechaSesion = ValidationUtils.dateValidator(fechaContratacion);
+			}
+
+			try {
+				h = horarioServices.findById(idHorario);
+				sesionServices.create(h, fechaSesion, estudiante.getIdEstudiante());
+			}catch(DataException | MailException e) {
+				errors.add(Actions.CONTRATAR_SESION, ErrorCodes.SEARCH_ERROR);
+			}
+			target = ViewPaths.HOME_ESTUDIANTE;
+			redirect = true;
 		}else {
 			logger.error("Action desconocida");
 			target =ViewPaths.PRE_INICIO;

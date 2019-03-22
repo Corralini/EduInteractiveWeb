@@ -5,6 +5,7 @@
 	List<Profesor> profesores = (List<Profesor>) request.getAttribute(AttributeNames.RESULTADOS);
 	List<NivelIngles> niveles = (List<NivelIngles>) request.getAttribute(AttributeNames.NIVELES);
 	List<Dia> dias = (List<Dia>) request.getAttribute(AttributeNames.DIAS);
+	
 %>
 <div id="criteria">
         <form class="Criterios" action="<%=ControllerPaths.ESTUDIANTE%>">

@@ -9,4 +9,5 @@ public interface ErrorCodes {
 	public static final String MAIL_ERROR = "error en el envio del email";
 	public static final String SIGNIN_ERROR  = "SIGNIN_ERROR";
 	public static final String FECHA_INVALID= "Fecha_invalida";
+	public static final String CONTRATACION_ERROR = "contratacion_error";
 }

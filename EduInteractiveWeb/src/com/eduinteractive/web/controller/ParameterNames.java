@@ -40,4 +40,6 @@ public interface ParameterNames {
 	public static final String PUNTUACION = "puntuacion";
 	public static final String FECHA = "fecha";
 	public static final String RESULTADOS = "resultados";
+	public static final String ID_HORARIO = "id_horario";
+	public static final String FECHA_SESION = "fecha_sesion";
 }
