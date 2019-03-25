@@ -125,16 +125,41 @@ public class ParameterUtils {
 		return c.getTime();
 	}
 	
-	public static void main(String[] args) {
-		Map<String, String> valores = new HashMap <String, String>();
-		valores.put("Key1", "Valor1");
-		valores.put("Key2", "Valor2");
-		valores.put("KeyRara 25       ", "ValorRaro % =");
-		try {
-			String s = URLBuilder("Educorp/estudiante/", valores);
-			System.out.println(s);
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
+	/**
+	 * 
+	 * metodo para comparar una fecha por dia, mes y año
+	 * si un objeto Date o ambos == null returns false
+	 * 
+	 * @param date1
+	 * @param date2
+	 * @return
+	 */
+	public static boolean dateComparator(Date date1, Date date2) {
+		
+		if(date1 == null || date2 == null) {
+			return false;
 		}
+		
+		Calendar calendar1 = Calendar.getInstance();
+		Calendar calendar2 = Calendar.getInstance();
+		
+		calendar1.setTime(date1);
+		calendar2.setTime(date2);
+		
+		Integer dia1 = calendar1.get(Calendar.DAY_OF_MONTH);
+		Integer dia2 = calendar2.get(Calendar.DAY_OF_MONTH);
+		
+		if(dia1.equals(dia2)) {
+			Integer mes1 = calendar1.get(Calendar.MONTH);
+			Integer mes2 = calendar2.get(Calendar.MONTH);
+			if(mes1.equals(mes2)) {
+				Integer ano1 = calendar1.get(Calendar.YEAR);
+				Integer ano2 = calendar2.get(Calendar.YEAR);
+				if(ano1.equals(ano2)) {
+					return true;
+				}
+			}
+		}
+		return false;	
 	}
 }

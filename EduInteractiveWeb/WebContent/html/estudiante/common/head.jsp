@@ -11,6 +11,7 @@
     <title>EduInteractive</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="<%=request.getContextPath()%>/css/main.css">
+    <link rel="icon" href="<%=request.getContextPath()%>/img/logo.ico">
     <script src="<%=request.getContextPath()%>/js/main.js"></script>
 </head>
 <body>
