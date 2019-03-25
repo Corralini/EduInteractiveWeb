@@ -3,7 +3,7 @@
 <%
 	List<String> parameterErrors = errors.getErrors(ParameterNames.ACTION);
 	for (String error: parameterErrors) {
-			%><li><%=error%></li>
+			%><p><%=error%></p>
 	<%
 	}
 %>

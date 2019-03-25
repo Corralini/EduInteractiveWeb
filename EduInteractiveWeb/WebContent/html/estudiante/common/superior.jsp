@@ -1,5 +1,6 @@
 <%@ page import="com.eduinteractive.web.utils.*, com.educorp.eduinteractive.ecommerce.model.*, com.eduinteractive.web.controller.*" %>
 <%@ page import="java.util.HashMap, java.util.Map" %>
+<%@ page import="java.util.List" %>
     <%
     Estudiante e = (Estudiante) request.getSession().getAttribute(SessionAttributeNames.ESTUDIANTE);
     Map<String, String> valores = new HashMap<String, String>();

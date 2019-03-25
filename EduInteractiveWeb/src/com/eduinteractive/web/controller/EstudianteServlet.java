@@ -133,7 +133,7 @@ public class EstudianteServlet extends HttpServlet {
 					logger.info("Estudiante " + estudiante.getEmail() + " autenticado");
 				}
 				SessionManager.set(request, SessionAttributeNames.ESTUDIANTE, estudiante);		
-				target = ViewPaths.HOME_ESTUDIANTE;	
+				target = ViewPaths.PRE_HOME_ESTUDIANTE;	
 				redirect = true;
 			}
 
@@ -271,7 +271,7 @@ public class EstudianteServlet extends HttpServlet {
 					logger.info("Usuario "+estudiante.getEmail()+" registrado.");
 				}				
 				SessionManager.set(request, SessionAttributeNames.ESTUDIANTE, estudiante);						
-				target = ViewPaths.HOME_ESTUDIANTE;					
+				target = ViewPaths.PRE_HOME_ESTUDIANTE;					
 				redirect = true;
 			}
 
@@ -468,7 +468,7 @@ public class EstudianteServlet extends HttpServlet {
 			}catch(DataException | MailException e) {
 				errors.add(Actions.CONTRATAR_SESION, ErrorCodes.SEARCH_ERROR);
 			}
-			target = ViewPaths.HOME_ESTUDIANTE;
+			target = ViewPaths.PRE_HOME_ESTUDIANTE;
 			redirect = true;
 		}else {
 			logger.error("Action desconocida");

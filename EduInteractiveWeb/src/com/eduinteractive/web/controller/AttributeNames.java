@@ -14,4 +14,5 @@ public interface AttributeNames {
 	public static final String HORARIOS = "horarios";
 	public static final String HORAS = "horas";
 	public static final String DATE_CONTRATACION = "date_contratacion";
+	public static final String SESIONES = "sesiones";
 }
