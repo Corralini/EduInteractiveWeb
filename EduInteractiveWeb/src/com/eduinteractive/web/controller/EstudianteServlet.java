@@ -103,8 +103,6 @@ public class EstudianteServlet extends HttpServlet {
 			String password = request.getParameter(ParameterNames.PASSWORD);
 
 			email = ParameterUtils.trimmer(email);
-			logger.debug(email); 	// borrar esta traza
-			logger.debug(password); // borrar esta traza
 
 			if (StringUtils.isEmptyOrWhitespaceOnly(email)) {
 				errors.add(ParameterNames.EMAIL,ErrorCodes.MANDATORY_PARAMETER);
@@ -123,7 +121,7 @@ public class EstudianteServlet extends HttpServlet {
 				}
 			}
 
-			if (errors.hasErrors()) {	
+			if (errors.hasErrors() || estudiante == null) {	
 				if (logger.isDebugEnabled()) {
 					logger.debug("Autenticacion fallida: {}", errors);
 				}
@@ -167,8 +165,9 @@ public class EstudianteServlet extends HttpServlet {
 			if(apellido1 == null) {
 				errors.add(ParameterNames.APELLIDO1, ErrorCodes.MANDATORY_PARAMETER);
 			}
-
-			apellido2 = ValidationUtils.stringOnlyLettersValidator(apellido2, false);
+			if(!StringUtils.isEmptyOrWhitespaceOnly(apellido2) && apellido2 != null) {
+				apellido2 = ValidationUtils.stringOnlyLettersValidator(apellido2, false);
+			}
 
 			psswd = ValidationUtils.passwordValidator(psswd, psswdRepetida);
 			if(psswd == null) {
@@ -381,7 +380,7 @@ public class EstudianteServlet extends HttpServlet {
 			Genero generoEstudiante = new Genero();
 			NivelIngles nivelEstudiante = new NivelIngles();
 			try {
-				paisEstudiante = paisServices.findById("es", estudiante.getIdPais());
+				paisEstudiante = paisServices.findById(estudiante.getIdPais(), "es");
 				generoEstudiante = generoServices.findById(estudiante.getIdGenero());
 				nivelEstudiante = nivelServices.findById(estudiante.getIdNivel());
 			} catch (DataException e) {
@@ -446,7 +445,7 @@ public class EstudianteServlet extends HttpServlet {
 			request.setAttribute(AttributeNames.PROFESOR, idProfesor);
 			request.setAttribute(AttributeNames.RESULTADOS, resultados);
 			request.setAttribute(AttributeNames.ERRORS, errors);
-			
+
 			target = ViewPaths.BUSQUEDA_HORARIOS;
 			redirect = false;
 		}else if(Actions.CONTRATAR_SESION.equalsIgnoreCase(action)){

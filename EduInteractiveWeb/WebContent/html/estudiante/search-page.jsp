@@ -52,16 +52,20 @@
     <!--Mostrar resultado-->
     <div id="resultados">
     	<%	
-    		valores.clear();
-    		valores.put(ParameterNames.ACTION, Actions.DETALLE_PROFESOR);
+    	valores.clear();
     		for(Profesor p: profesores) { 
+    			
+        		valores.put(ParameterNames.ACTION, Actions.DETALLE_PROFESOR);
     	    	valores.put(ParameterNames.ID_PROFESOR, p.getIdProfesor().toString());
     	%>
         <div class="resultado">
             <a href="<%=ParameterUtils.URLBuilder(ControllerPaths.ESTUDIANTE, valores)%>"><%=ParameterUtils.makeName(p.getNombre(), p.getApellido1(), p.getApellido2()) %></a>
             <p class="puntuacion"><%=p.getPuntuacion() %>/10</p>
             <p class="precio"><%=p.getPrecioSesion()%></p>
-            <button id="dispo" class="aceptbtn">Disponibilidad</button>
+            <%
+            	valores.put(ParameterNames.ACTION, Actions.BUSCAR_HORARIOS);
+            %>
+            <a href="<%=ParameterUtils.URLBuilder(ControllerPaths.ESTUDIANTE, valores)%>"><button id="dispo" class="aceptbtn">Disponibilidad</button></a>
         </div>
         <%
         } 

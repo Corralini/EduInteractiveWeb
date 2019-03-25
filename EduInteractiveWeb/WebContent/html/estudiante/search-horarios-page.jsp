@@ -35,12 +35,12 @@ if(resultados != null && !resultados.isEmpty()){ %>
 <div id="resultadoHorarios">
 	<p>Hemos encontrado <%=resultados.size()%> resultados</p>
 	<%
-		for(Map.Entry<Horario, Hora> entry: resultados.entrySet()){ 
-			valores.put(ParameterNames.ID_HORARIO, entry.getKey().getIdHorario().toString());
-		%>
+		for (Horario horario: resultados.keySet()){ 
+			valores.put(ParameterNames.ID_HORARIO, horario.getIdHorario().toString());
+	    	   %>
 		
-			<a href="<%=ParameterUtils.URLBuilder(ControllerPaths.ESTUDIANTE, valores)%>"><%=entry.getValue().getHora()%></a>
-		<%
+			<a href="<%=ParameterUtils.URLBuilder(ControllerPaths.ESTUDIANTE, valores)%>"><%=resultados.get(horario).getHora()%></a>
+     		<%
 		}
 	 %>
 </div>
