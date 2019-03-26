@@ -5,8 +5,57 @@
 <%
 	List<Profesor> profesores = (List<Profesor>) request.getAttribute(AttributeNames.PROFESOR);
 	List<Sesion> sesiones = (List<Sesion>) request.getAttribute(AttributeNames.SESIONES);
+	Sesion sesion = (Sesion) request.getAttribute(AttributeNames.SESION);
+	Profesor profesor = (Profesor) request.getAttribute(AttributeNames.TEACHER);
 %>
 
+<%
+	if(sesion != null && profesor!=null){%>
+		<div id="sesionDetails">
+        <p>Sesion con: <%=ParameterUtils.makeName(profesor.getNombre(), profesor.getApellido1(), profesor.getApellido2()) %></p>
+        <p>el día: <%=ParameterUtils.dateBuilder(sesion.getFechaSesion()) %></p>
+        <button class="cancelbtn" id="cancelarSesion">Cancelar</button>
+    </div>
+<%
+	}
+%>
+<%if (sesiones !=null && !sesiones.isEmpty()){ %>
+	<div id="sesiones">
+		<%
+			for(Sesion s: sesiones){ 
+				
+			valores.clear();
+			valores.put(ParameterNames.ACTION, Actions.START_SESION);
+			valores.put(ParameterNames.ID_SESION, s.getIdSesion().toString());
+		%>
+		
+        	<%if(ParameterUtils.dateComparator(new Date(), s.getFechaSesion())){ %>
+        		<a href="<%=ParameterUtils.URLBuilder(ControllerPaths.ESTUDIANTE, valores) %>" target="_blank">Sesion <%=s.getIdSesion() %></a>
+        		<%
+					valores.clear();
+        			valores.put(ParameterNames.ID_SESION, s.getIdSesion().toString());
+				 %>
+        		<a href="<%=ParameterUtils.URLBuilder(ControllerPaths.HOME_ESTUDIANTE, valores)%>" id="linkDetail">Más Detalles </a> <br><br>
+        	<%
+        		} else{
+        	%>
+        		<a class="isDisabled" href="#" target="_blank">Sesion <%=s.getIdSesion() %></a>
+        		<%
+					valores.clear();
+        			valores.put(ParameterNames.ID_SESION, s.getIdSesion().toString());
+				 %>
+        		<a href="<%=ParameterUtils.URLBuilder(ControllerPaths.HOME_ESTUDIANTE, valores)%>" id="linkDetail">Más Detalles </a> <br><br>
+        	
+        	<%
+        		}
+        	%>
+        <%
+        	} 
+        %>
+    </div>
+<%}else{ %>
+	<p>No tienes sesiones disponibles, por favor, contrate una</p>
+<%} %>
 <div id="profesoresRecomendados">
         <%	
     	valores.clear();
@@ -27,5 +76,5 @@
         <%
         } 
         %>
-    </div>
+</div>
 <%@ include file="/html/estudiante/common/footer.jsp"%>

@@ -201,3 +201,22 @@
   width: 175px;
   text-align: center;
 }
+#sesiones{
+
+  position: absolute;
+  text-align: left;
+  right: 50%;
+  top: 130px;
+
+}
+#cancelarSesion{
+  float: left;
+}
+#linkDetail{
+  margin-left: 15px;
+}
+.isDisabled {
+  color: currentColor;
+  cursor: not-allowed;
+  text-decoration: none;
+}

@@ -8,5 +8,9 @@ public interface ConstantsValues {
 	public static final String EQUAL = "=";
 	public static final String HYPHEN = "-";
 	public static final String ENCODING = "UTF-8";
-	
+	public static final String URL_VIDEOCALL = "https://appr.tc/r/eduinteractiveroom1";
+	public static final String SESION_ACEPTADA = "A";
+	public static final String SESION_TERMINADA = "T";
+	public static final String SESION_CANCELADA = "C";
+	public static final String SESION_SOLICITADA = "S";
 }

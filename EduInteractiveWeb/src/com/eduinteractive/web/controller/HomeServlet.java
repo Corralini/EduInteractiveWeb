@@ -23,6 +23,7 @@ import com.educorp.eduinteractive.ecommerce.service.impl.SesionServicesImpl;
 import com.educorp.eduinteractive.ecommerce.service.spi.ProfesorService;
 import com.educorp.eduinteractive.ecommerce.service.spi.SesionServices;
 import com.eduinteractive.web.utils.SessionManager;
+import com.eduinteractive.web.utils.ValidationUtils;
 
 
 @WebServlet("/home")
@@ -30,15 +31,31 @@ public class HomeServlet extends HttpServlet {
 	private Logger logger = LogManager.getLogger(HomeServlet.class);
 	private SesionServices sesionServices = null;
 	private ProfesorService profesorServices = null;
-    public HomeServlet() {
-        super();
-        sesionServices = new SesionServicesImpl();
-        profesorServices = new ProfesorServicesImpl();
-    }
+	public HomeServlet() {
+		super();
+		sesionServices = new SesionServicesImpl();
+		profesorServices = new ProfesorServicesImpl();
+	}
 
-	
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Estudiante estudiante = new Estudiante();
+		String idSesion = request.getParameter(ParameterNames.ID_SESION);
+		if(idSesion != null && !idSesion.isEmpty()) {
+			Integer sesionId = ValidationUtils.intValidator(idSesion);
+			if(sesionId!=null) {
+				try {
+					Sesion sesion = sesionServices.findById(sesionId);
+					Profesor profesor = profesorServices.findById(sesion.getIdProfesor());
+					if(sesion != null) {
+						request.setAttribute(AttributeNames.SESION, sesion);
+						request.setAttribute(AttributeNames.TEACHER, profesor);
+					}
+				} catch (DataException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 		estudiante = (Estudiante) SessionManager.get(request, SessionAttributeNames.ESTUDIANTE);
 		List<Sesion> sesiones = new ArrayList<Sesion>();
 		List<Profesor> profesores = new ArrayList<Profesor>();
@@ -57,10 +74,10 @@ public class HomeServlet extends HttpServlet {
 		target = ViewPaths.HOME_ESTUDIANTE;
 		redirect = false;
 		RedirectOrForwardUtils.redirectOrForward(request, response, redirect, target);
-		
+
 	}
 
-	
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
