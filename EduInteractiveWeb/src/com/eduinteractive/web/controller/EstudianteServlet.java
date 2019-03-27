@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -53,6 +54,8 @@ import com.educorp.eduinteractive.ecommerce.service.spi.SesionServices;
 import com.educorp.eduinteractive.exceptions.PasswordEncryptionUtil;
 import com.eduinteractive.web.model.ErrorCodes;
 import com.eduinteractive.web.model.ErrorManager;
+import com.eduinteractive.web.utils.CookieManager;
+import com.eduinteractive.web.utils.LocaleManager;
 import com.eduinteractive.web.utils.ParameterUtils;
 import com.eduinteractive.web.utils.SessionManager;
 import com.eduinteractive.web.utils.ValidationUtils;
@@ -92,7 +95,7 @@ public class EstudianteServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = ParameterUtils.trimmer(request.getParameter(ParameterNames.ACTION));
-
+		String idioma = SessionManager.get(request,ConstantsValues.USER_LOCALE).toString().substring(0,2).toUpperCase();
 		if (logger.isDebugEnabled()) {
 			logger.debug("Action {}: {}", action, ToStringBuilder.reflectionToString(request.getParameterMap()));
 		}
@@ -135,7 +138,7 @@ public class EstudianteServlet extends HttpServlet {
 				if(logger.isDebugEnabled()) {
 					logger.info("Estudiante " + estudiante.getEmail() + " autenticado");
 				}
-				SessionManager.set(request, SessionAttributeNames.ESTUDIANTE, estudiante);		
+				SessionManager.set(request, SessionAttributeNames.USUARIO, estudiante);		
 				target = ViewPaths.PRE_HOME_ESTUDIANTE;	
 				redirect = true;
 			}
@@ -216,15 +219,15 @@ public class EstudianteServlet extends HttpServlet {
 				if (logger.isDebugEnabled()) {
 					logger.info("Estudiante "+estudiante.getEmail()+" pre-registrado.");
 				}				
-				SessionManager.set(request, SessionAttributeNames.ESTUDIANTE, estudiante);						
+				SessionManager.set(request, SessionAttributeNames.USUARIO, estudiante);						
 				target = ViewPaths.TEST;					
 			}
 		}else if (Actions.LOGOUT.equalsIgnoreCase(action)) {
-			SessionManager.set(request, SessionAttributeNames.ESTUDIANTE, null);
+			SessionManager.set(request, SessionAttributeNames.USUARIO, null);
 			target = ViewPaths.PRE_INICIO;
 			redirect = true;
 		}else if(Actions.SIGNIN.equalsIgnoreCase(action)) {
-			Estudiante estudiante = (Estudiante) SessionManager.get(request, AttributeNames.ESTUDIANTE);
+			Estudiante estudiante = (Estudiante) SessionManager.get(request, SessionAttributeNames.USUARIO);
 			//resultados test
 
 			List <String> respuestas = new ArrayList<String>();
@@ -273,7 +276,7 @@ public class EstudianteServlet extends HttpServlet {
 				if (logger.isDebugEnabled()) {
 					logger.info("Usuario "+estudiante.getEmail()+" registrado.");
 				}				
-				SessionManager.set(request, SessionAttributeNames.ESTUDIANTE, estudiante);						
+				SessionManager.set(request, SessionAttributeNames.USUARIO, estudiante);						
 				target = ViewPaths.PRE_HOME_ESTUDIANTE;					
 				redirect = true;
 			}
@@ -378,12 +381,12 @@ public class EstudianteServlet extends HttpServlet {
 			target = ViewPaths.SEARCH_TEACHER;
 
 		}else if (Actions.DETALLE_ESTUDIANTE.equalsIgnoreCase(action)){
-			Estudiante estudiante = (Estudiante) SessionManager.get(request, SessionAttributeNames.ESTUDIANTE);
+			Estudiante estudiante = (Estudiante) SessionManager.get(request, SessionAttributeNames.USUARIO);
 			Pais paisEstudiante = new Pais();
 			Genero generoEstudiante = new Genero();
 			NivelIngles nivelEstudiante = new NivelIngles();
 			try {
-				paisEstudiante = paisServices.findById(estudiante.getIdPais(), "es");
+				paisEstudiante = paisServices.findById(estudiante.getIdPais(), idioma);
 				generoEstudiante = generoServices.findById(estudiante.getIdGenero());
 				nivelEstudiante = nivelServices.findById(estudiante.getIdNivel());
 			} catch (DataException e) {
@@ -409,7 +412,7 @@ public class EstudianteServlet extends HttpServlet {
 			if(idProfesor != null) {
 				try {
 					profesor = profesorService.findById(idProfesor);
-					paisProfesor = paisServices.findById(profesor.getIdPais(), "es");
+					paisProfesor = paisServices.findById(profesor.getIdPais(), idioma);
 					generoProfesor = generoServices.findById(profesor.getIdGenero());
 				} catch (DataException e) {
 					logger.warn(e.getMessage(), e);
@@ -453,7 +456,7 @@ public class EstudianteServlet extends HttpServlet {
 			target = ViewPaths.BUSQUEDA_HORARIOS;
 			redirect = false;
 		}else if(Actions.CONTRATAR_SESION.equalsIgnoreCase(action)){
-			Estudiante estudiante = (Estudiante) SessionManager.get(request, SessionAttributeNames.ESTUDIANTE);
+			Estudiante estudiante = (Estudiante) SessionManager.get(request, SessionAttributeNames.USUARIO);
 			String horarioId = ParameterUtils.trimmer(request.getParameter(ParameterNames.ID_HORARIO));
 			String fechaContratacion = ParameterUtils.trimmer(request.getParameter(ParameterNames.FECHA_SESION));
 			Horario h = new Horario();
@@ -514,7 +517,7 @@ public class EstudianteServlet extends HttpServlet {
 			target = ViewPaths.PRE_HOME_ESTUDIANTE;
 			redirect = true;
 		}else if(Actions.CHANGE_PSSWD.equalsIgnoreCase(action)){
-			Estudiante estudiante = (Estudiante) SessionManager.get(request, AttributeNames.ESTUDIANTE);
+			Estudiante estudiante = (Estudiante) SessionManager.get(request, SessionAttributeNames.USUARIO);
 			String currentPasswd = request.getParameter(ParameterNames.PASSWORD);
 			if(!StringUtils.isEmptyOrWhitespaceOnly(currentPasswd)) {
 				currentPasswd = ParameterUtils.trimmer(currentPasswd);
@@ -551,6 +554,26 @@ public class EstudianteServlet extends HttpServlet {
 					e.printStackTrace();
 				}
 			}
+			target = ViewPaths.PROPERTIES_ESTUDIANTE;
+			redirect = true;
+		}else if(Actions.CHANGE_LOCALE.equalsIgnoreCase(action)){
+			String localeName = request.getParameter(ParameterNames.LOCALE);
+			List<Locale> results = LocaleManager.getMatchedLocales(localeName);
+			Locale newLocale = null;
+			if (results.size()>0) {
+				newLocale = results.get(0);
+			} else {
+				logger.warn("Request locale not supported: "+localeName);
+				newLocale = LocaleManager.getDefault();
+			}
+
+			SessionManager.set(request, ConstantsValues.USER_LOCALE, newLocale);			
+			CookieManager.addCookie(response, ConstantsValues.USER_LOCALE, newLocale.toString(), "/", 365*24*60*60);
+
+			if (logger.isDebugEnabled()) {
+				logger.debug("Locale changed to "+newLocale);
+			}
+
 			target = ViewPaths.PROPERTIES_ESTUDIANTE;
 			redirect = true;
 		}else {

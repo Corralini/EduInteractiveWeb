@@ -13,6 +13,6 @@ public interface Actions {
 	public static final String CONTRATAR_SESION = "contratar";
 	public static final String START_SESION = "start_sesion";
 	public static final String CANCEL_SESION = "cancel_sesion";
-	public static final String CHANGE_LANGUAGE = "change_language";
+	public static final String CHANGE_LOCALE = "change_language";
 	public static final String CHANGE_PSSWD = "change_psswd";
 }

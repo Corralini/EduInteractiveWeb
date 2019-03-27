@@ -56,7 +56,7 @@ public class HomeServlet extends HttpServlet {
 				}
 			}
 		}
-		estudiante = (Estudiante) SessionManager.get(request, SessionAttributeNames.ESTUDIANTE);
+		estudiante = (Estudiante) SessionManager.get(request, SessionAttributeNames.USUARIO);
 		List<Sesion> sesiones = new ArrayList<Sesion>();
 		List<Profesor> profesores = new ArrayList<Profesor>();
 		boolean redirect = false;

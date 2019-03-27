@@ -2,7 +2,6 @@ package com.eduinteractive.web.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -24,6 +23,7 @@ import com.educorp.eduinteractive.ecommerce.service.impl.PaisServicesImpl;
 import com.educorp.eduinteractive.ecommerce.service.spi.IdiomaServices;
 import com.educorp.eduinteractive.ecommerce.service.spi.NivelInglesServices;
 import com.educorp.eduinteractive.ecommerce.service.spi.PaisServices;
+import com.eduinteractive.web.utils.SessionManager;
 
 /**
  * Servlet implementation class PreRegistro
@@ -43,12 +43,13 @@ public class PreRegistroServlet extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String locale = SessionManager.get(request,ConstantsValues.USER_LOCALE).toString().substring(0,2).toUpperCase();
 		List<Pais> paises = new ArrayList<Pais>();
 		List<Idioma> idioma = new ArrayList<Idioma>();
 		List<NivelIngles> niveles = new ArrayList<NivelIngles>();
 		
 		try {
-			paises = paisService.findByIdioma("es");
+			paises = paisService.findByIdioma(locale);
 			idioma = idiomaServices.findAll();
 			niveles = nivelServices.findAll();
 		} catch (DataException e) {

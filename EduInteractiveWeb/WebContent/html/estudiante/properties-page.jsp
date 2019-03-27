@@ -8,9 +8,10 @@
           <div id="Preferences" class="tabcontent">
             <h3>Preferences</h3>
             <p>Cambiar idioma de la página</p>
-            <form>  
-                <select name="idioma">
-                    <option value="en">inglés</option>
+            <form action="<%=ControllerPaths.ESTUDIANTE%>" method="post"> 
+            	<input type="hidden" name="<%=ParameterNames.ACTION%>" value="<%=Actions.CHANGE_LOCALE%>">
+                <select name="<%=ParameterNames.LOCALE%>">
+                    <option value="en">Inglés</option>
                     <option value="es">Español</option>
                 </select>
                 <button type="submit" class="aceptbtn">Confirmar</button>
@@ -20,7 +21,7 @@
           <div id="Privacy" class="tabcontent">
             <h3>Privacy</h3>
             <form action="<%=ControllerPaths.ESTUDIANTE%>" method="post">
-            <input type="hidden" name="<%=ParameterNames.ACTION%>" value="<%=Actions.CHANGE_PSSWD%>">
+            	<input type="hidden" name="<%=ParameterNames.ACTION%>" value="<%=Actions.CHANGE_PSSWD%>">
                 <label for="<%=ParameterNames.PASSWORD%>">Contraseña actual</label>
                 <input type="password" name="<%=ParameterNames.PASSWORD%>"><br><br>
                 <label for="<%=ParameterNames.NEW_PASSWD%>">Nueva contraseña</label>

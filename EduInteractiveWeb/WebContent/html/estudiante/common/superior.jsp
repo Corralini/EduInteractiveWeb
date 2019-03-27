@@ -2,9 +2,9 @@
 <%@ page import="java.util.HashMap, java.util.Map" %>
 <%@ page import="java.util.List" %>
     <%
-    Estudiante e = (Estudiante) request.getSession().getAttribute(SessionAttributeNames.ESTUDIANTE);
-    Map<String, String> valores = new HashMap<String, String>();
-    valores.put(ParameterNames.ACTION, Actions.DETALLE_ESTUDIANTE);
+    	Estudiante e = (Estudiante) request.getSession().getAttribute(SessionAttributeNames.USUARIO);
+        Map<String, String> valores = new HashMap<String, String>();
+        valores.put(ParameterNames.ACTION, Actions.DETALLE_ESTUDIANTE);
     %>
 <div class="navbar">
         <div class="dropdown">

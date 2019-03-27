@@ -1,8 +1,7 @@
-package com.eduinteractive.web.util;
+package com.eduinteractive.web.controller;
 
 public interface SessionAttributeNames {
 
-	public static final String ESTUDIANTE = "estudiante";
-	public static final String PROFESOR = "profesor";
+	public static final String USUARIO = "estudiante";
 	
 }
