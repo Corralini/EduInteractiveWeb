@@ -4,12 +4,12 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.eduinteractive.web.controller.ConstantsValues;
 import com.eduinteractive.web.controller.ParameterNames;
+import com.mysql.cj.util.StringUtils;
 
 public class ParameterUtils {
 
@@ -98,9 +98,9 @@ public class ParameterUtils {
 		c.setTime(date);
 		sb.append(c.get(Calendar.YEAR)).append(ConstantsValues.HYPHEN);
 		if(c.get(Calendar.MONTH) < 10 ) {
-			sb.append("0").append(c.get(Calendar.MONTH)).append(ConstantsValues.HYPHEN);
+			sb.append("0").append(c.get(Calendar.MONTH)+1).append(ConstantsValues.HYPHEN);
 		}else {
-			sb.append(c.get(Calendar.MONTH)).append(ConstantsValues.HYPHEN);
+			sb.append(c.get(Calendar.MONTH)+1).append(ConstantsValues.HYPHEN);
 		}
 		if(c.get(Calendar.DAY_OF_MONTH) < 10) {
 			sb.append("0").append(c.get(Calendar.DAY_OF_MONTH));
@@ -162,4 +162,21 @@ public class ParameterUtils {
 		}
 		return false;	
 	}
+	/**
+	 * 
+	 * Divide una cadena por un carácter o una cadena
+	 * Si falla retorna null
+	 * 
+	 * @param string
+	 * @param forSplit
+	 * @return
+	 */
+	public static String[] split(String string, String forSplit) {
+		String[] splitString = null;
+		if(string != null && !StringUtils.isEmptyOrWhitespaceOnly(string)) {
+			splitString = string.split(forSplit);
+		}
+		return splitString;
+	}
+	
 }

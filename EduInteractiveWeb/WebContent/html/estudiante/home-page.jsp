@@ -14,7 +14,12 @@
 		<div id="sesionDetails">
         <p>Sesion con: <%=ParameterUtils.makeName(profesor.getNombre(), profesor.getApellido1(), profesor.getApellido2()) %></p>
         <p>el día: <%=ParameterUtils.dateBuilder(sesion.getFechaSesion()) %></p>
-        <button class="cancelbtn" id="cancelarSesion">Cancelar</button>
+        <%
+        	valores.clear();
+        	valores.put(ParameterNames.ACTION, Actions.CANCEL_SESION);
+        	valores.put(ParameterNames.ID_SESION, sesion.getIdSesion().toString());
+        %>
+        <a href="<%=ParameterUtils.URLBuilder(ControllerPaths.ESTUDIANTE, valores)%>"><button class="cancelbtn" id="cancelarSesion">Cancelar</button></a>
     </div>
 <%
 	}

@@ -11,4 +11,6 @@ public interface ViewPaths {
 	public static final String DETAILS_ESTUDIANTE = "/html/estudiante/details-estudiante-page.jsp";
 	public static final String DETAILS_PROFESOR = "/html/estudiante/details-profesor-page.jsp";
 	public static final String BUSQUEDA_HORARIOS = "/html/estudiante/search-horarios-page.jsp";
+	public static final String VIDEO_CALL_ESTUDIANTE = "/html/estudiante/sesion-page.jsp";
+	public static final String PROPERTIES_ESTUDIANTE = "/html/estudiante/properties-page.jsp";
 }

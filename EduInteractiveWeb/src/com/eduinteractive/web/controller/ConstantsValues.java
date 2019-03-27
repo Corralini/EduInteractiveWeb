@@ -13,4 +13,5 @@ public interface ConstantsValues {
 	public static final String SESION_TERMINADA = "T";
 	public static final String SESION_CANCELADA = "C";
 	public static final String SESION_SOLICITADA = "S";
+	public static final String SPLIT_DATE = "T";
 }

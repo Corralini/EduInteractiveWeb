@@ -2,6 +2,7 @@ package com.eduinteractive.web.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -29,6 +30,7 @@ import com.educorp.eduinteractive.ecommerce.model.Horario;
 import com.educorp.eduinteractive.ecommerce.model.NivelIngles;
 import com.educorp.eduinteractive.ecommerce.model.Pais;
 import com.educorp.eduinteractive.ecommerce.model.Profesor;
+import com.educorp.eduinteractive.ecommerce.model.Sesion;
 import com.educorp.eduinteractive.ecommerce.service.criteria.ProfesorCriteria;
 import com.educorp.eduinteractive.ecommerce.service.impl.DiaServicesImpl;
 import com.educorp.eduinteractive.ecommerce.service.impl.EstudianteServiceImpl;
@@ -427,9 +429,10 @@ public class EstudianteServlet extends HttpServlet {
 			Map<Horario, Hora> resultados = new HashMap<Horario, Hora>();
 			Date date = new Date();
 			if(!StringUtils.isEmptyOrWhitespaceOnly(id)) idProfesor = ValidationUtils.intValidator(id);
-			if(date!=null) {
+			if(fecha!=null) {
+				
 				if(!StringUtils.isEmptyOrWhitespaceOnly(fecha)) date = ValidationUtils.dateValidator(fecha);
-				if(date.before(new Date())) errors.add(ParameterNames.FECHA, ErrorCodes.FECHA_INVALID);
+				if(new Date().after(date)) errors.add(ParameterNames.FECHA, ErrorCodes.FECHA_INVALID);
 				if(!errors.hasErrors()) {
 					try {
 						horariosResults = horarioServices.findByFecha(idProfesor, date, 1, 10);
@@ -461,13 +464,52 @@ public class EstudianteServlet extends HttpServlet {
 			if(fechaContratacion !=null) {
 				fechaSesion = ValidationUtils.dateValidator(fechaContratacion);
 			}
-
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(fechaSesion);
+			int mes = calendar.get(Calendar.MONTH)+1;
+			calendar.set(Calendar.MONTH, mes);
 			try {
 				h = horarioServices.findById(idHorario);
 				sesionServices.create(h, fechaSesion, estudiante.getIdEstudiante());
 			}catch(DataException | MailException e) {
 				errors.add(Actions.CONTRATAR_SESION, ErrorCodes.SEARCH_ERROR);
 			}
+			target = ViewPaths.PRE_HOME_ESTUDIANTE;
+			redirect = true;
+		}else if(Actions.START_SESION.equalsIgnoreCase(action)){
+			String idSesion = request.getParameter(ParameterNames.ID_SESION);
+			Integer sesionId = null;
+			if(idSesion != null) {
+				sesionId = ValidationUtils.intValidator(idSesion);
+			}
+			try {
+
+				Sesion sesion = sesionServices.findById(sesionId);
+				sesionServices.cambiarEstado(sesion, ConstantsValues.SESION_TERMINADA);
+
+			} catch (DataException e) {
+
+				e.printStackTrace();
+			}
+			
+			target = ViewPaths.VIDEO_CALL_ESTUDIANTE;
+			redirect = true;
+		}else if(Actions.CANCEL_SESION.equalsIgnoreCase(action)){
+			String idSesion = request.getParameter(ParameterNames.ID_SESION);
+			Integer sesionId = null;
+			if(idSesion != null) {
+				sesionId = ValidationUtils.intValidator(idSesion);
+			}
+			try {
+
+				Sesion sesion = sesionServices.findById(sesionId);
+				sesionServices.cambiarEstado(sesion, ConstantsValues.SESION_CANCELADA);
+
+			} catch (DataException e) {
+
+				e.printStackTrace();
+			}
+			
 			target = ViewPaths.PRE_HOME_ESTUDIANTE;
 			redirect = true;
 		}else {

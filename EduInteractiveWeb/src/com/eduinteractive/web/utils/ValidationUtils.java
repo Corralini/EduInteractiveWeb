@@ -30,7 +30,7 @@ public class ValidationUtils {
 	public static Date dateValidator (String parameter) {
 		try {
 			if(!StringUtils.isEmptyOrWhitespaceOnly(parameter)) {
-				return DateUtils.SHORT_FORMAT_DATE.parse(ParameterUtils.trimmer(parameter));
+				return DateUtils.SHORT_FORMAT_DATE.parse(parameter);
 			}else {
 				return null;
 			}
@@ -140,4 +140,5 @@ public class ValidationUtils {
 		Matcher m = p.matcher(arg);
 		return m.matches();
 	}
+
 }

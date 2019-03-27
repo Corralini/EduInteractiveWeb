@@ -12,5 +12,5 @@ public interface Actions {
 	public static final String BUSCAR_HORARIOS = "buscar_horarios";
 	public static final String CONTRATAR_SESION = "contratar";
 	public static final String START_SESION = "start_sesion";
-	public static final String END_SESION = "end_sesion";
+	public static final String CANCEL_SESION = "cancel_sesion";
 }
