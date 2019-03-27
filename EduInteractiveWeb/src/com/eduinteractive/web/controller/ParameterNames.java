@@ -43,4 +43,5 @@ public interface ParameterNames {
 	public static final String ID_HORARIO = "id_horario";
 	public static final String FECHA_SESION = "fecha_sesion";
 	public static final String ID_SESION = "id_sesion";
+	public static final String NEW_PASSWD = "new_passwd";
 }

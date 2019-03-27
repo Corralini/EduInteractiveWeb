@@ -19,13 +19,14 @@
           
           <div id="Privacy" class="tabcontent">
             <h3>Privacy</h3>
-            <form>
-                <label for="currentPsswd">Contraseña actual</label>
-                <input type="text" name="currentPsswd"><br><br>
-                <label for="newPsswd">Nueva contraseña</label>
-                <input type="text" name="newPsswd"><br><br>
-                <label for="newPasswdRepeat">Repite la nueva Contraseña</label>
-                <input type="text" name="newPasswdRepeat">
+            <form action="<%=ControllerPaths.ESTUDIANTE%>" method="post">
+            <input type="hidden" name="<%=ParameterNames.ACTION%>" value="<%=Actions.CHANGE_PSSWD%>">
+                <label for="<%=ParameterNames.PASSWORD%>">Contraseña actual</label>
+                <input type="password" name="<%=ParameterNames.PASSWORD%>"><br><br>
+                <label for="<%=ParameterNames.NEW_PASSWD%>">Nueva contraseña</label>
+                <input type="password" name="<%=ParameterNames.NEW_PASSWD%>"><br><br>
+                <label for="<%=ParameterNames.PSSWD_REPEAT%>">Repite la nueva Contraseña</label>
+                <input type="password" name="<%=ParameterNames.PSSWD_REPEAT%>">
                 <button type="submit" class="aceptbtn">Cambiar</button>
             </form>
             

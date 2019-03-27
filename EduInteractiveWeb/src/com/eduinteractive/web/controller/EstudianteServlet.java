@@ -50,6 +50,7 @@ import com.educorp.eduinteractive.ecommerce.service.spi.NivelInglesServices;
 import com.educorp.eduinteractive.ecommerce.service.spi.PaisServices;
 import com.educorp.eduinteractive.ecommerce.service.spi.ProfesorService;
 import com.educorp.eduinteractive.ecommerce.service.spi.SesionServices;
+import com.educorp.eduinteractive.exceptions.PasswordEncryptionUtil;
 import com.eduinteractive.web.model.ErrorCodes;
 import com.eduinteractive.web.model.ErrorManager;
 import com.eduinteractive.web.utils.ParameterUtils;
@@ -430,7 +431,7 @@ public class EstudianteServlet extends HttpServlet {
 			Date date = new Date();
 			if(!StringUtils.isEmptyOrWhitespaceOnly(id)) idProfesor = ValidationUtils.intValidator(id);
 			if(fecha!=null) {
-				
+
 				if(!StringUtils.isEmptyOrWhitespaceOnly(fecha)) date = ValidationUtils.dateValidator(fecha);
 				if(new Date().after(date)) errors.add(ParameterNames.FECHA, ErrorCodes.FECHA_INVALID);
 				if(!errors.hasErrors()) {
@@ -491,7 +492,7 @@ public class EstudianteServlet extends HttpServlet {
 
 				e.printStackTrace();
 			}
-			
+
 			target = ViewPaths.VIDEO_CALL_ESTUDIANTE;
 			redirect = true;
 		}else if(Actions.CANCEL_SESION.equalsIgnoreCase(action)){
@@ -509,8 +510,48 @@ public class EstudianteServlet extends HttpServlet {
 
 				e.printStackTrace();
 			}
-			
+
 			target = ViewPaths.PRE_HOME_ESTUDIANTE;
+			redirect = true;
+		}else if(Actions.CHANGE_PSSWD.equalsIgnoreCase(action)){
+			Estudiante estudiante = (Estudiante) SessionManager.get(request, AttributeNames.ESTUDIANTE);
+			String currentPasswd = request.getParameter(ParameterNames.PASSWORD);
+			if(!StringUtils.isEmptyOrWhitespaceOnly(currentPasswd)) {
+				currentPasswd = ParameterUtils.trimmer(currentPasswd);
+			}else {
+				errors.add(ParameterNames.PASSWORD, ErrorCodes.MANDATORY_PARAMETER);
+			}
+			String newPasswd = request.getParameter(ParameterNames.NEW_PASSWD);
+			if(!StringUtils.isEmptyOrWhitespaceOnly(newPasswd)) {
+				newPasswd = ParameterUtils.trimmer(newPasswd);
+			}else {
+				errors.add(ParameterNames.NEW_PASSWD, ErrorCodes.MANDATORY_PARAMETER);
+			}
+			String newPasswdRepeat = request.getParameter(ParameterNames.PSSWD_REPEAT);
+			if(!StringUtils.isEmptyOrWhitespaceOnly(newPasswdRepeat)) {
+				newPasswdRepeat = ParameterUtils.trimmer(newPasswdRepeat);
+			}else {
+				errors.add(ParameterNames.PSSWD_REPEAT, ErrorCodes.MANDATORY_PARAMETER);
+			}
+
+			if(!PasswordEncryptionUtil.checkPassword(currentPasswd, estudiante.getPsswd()))
+				errors.add(ParameterNames.PASSWORD, ErrorCodes.PSSWD_NOT_MATCH);
+			newPasswd = ValidationUtils.passwordValidator(newPasswd, newPasswdRepeat);
+			if(newPasswd == null)
+				errors.add(ParameterNames.NEW_PASSWD, ErrorCodes.MANDATORY_PARAMETER);
+
+			if(!errors.hasErrors()) {
+				Estudiante estudianteUpdate = new Estudiante();
+				estudianteUpdate.setIdEstudiante(estudiante.getIdEstudiante());
+				estudianteUpdate.setEmail(estudiante.getEmail());
+				estudianteUpdate.setPsswd(newPasswd);
+				try {
+					estudianteService.update(estudianteUpdate);
+				} catch (DataException e) {
+					e.printStackTrace();
+				}
+			}
+			target = ViewPaths.PROPERTIES_ESTUDIANTE;
 			redirect = true;
 		}else {
 			logger.error("Action desconocida");

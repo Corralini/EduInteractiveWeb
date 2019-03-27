@@ -10,4 +10,6 @@ public interface ErrorCodes {
 	public static final String SIGNIN_ERROR  = "SIGNIN_ERROR";
 	public static final String FECHA_INVALID= "Fecha_invalida";
 	public static final String CONTRATACION_ERROR = "contratacion_error";
+	public static final String PSSWD_NOT_EQUALS = "contraseñas no son iguales";
+	public static final String PSSWD_NOT_MATCH = "psswd not match";
 }
