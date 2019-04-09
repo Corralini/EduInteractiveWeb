@@ -45,4 +45,6 @@ public interface ParameterNames {
 	public static final String ID_SESION = "id_sesion";
 	public static final String NEW_PASSWD = "new_passwd";
 	public static final String LOCALE = "locale";
+	public static final String PAGE = "page"; 
+	public static final String TOTAL_PAGES = "total-pages";
 }

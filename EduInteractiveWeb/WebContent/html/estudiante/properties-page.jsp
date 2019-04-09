@@ -1,8 +1,8 @@
 <%@ include file="/html/estudiante/common/head.jsp"%>
 <%@ include file="/html/estudiante/common/superior.jsp"%>
 <div class="tab">
-            <button class="tablinks" onclick="openCity(event, 'Preferences')" id="defaultOpen">Preferences</button>
-            <button class="tablinks" onclick="openCity(event, 'Privacy')">Privacy</button>
+            <button class="tablinks" onclick="changePage(event, 'Preferences')" onload="changePage(event, 'Preferences')" id="defaultOpen">Preferences</button>
+            <button class="tablinks" onclick="changePage(event, 'Privacy')">Privacy</button>
           </div>
           
           <div id="Preferences" class="tabcontent">
@@ -14,7 +14,7 @@
                     <option value="en">Inglés</option>
                     <option value="es">Español</option>
                 </select>
-                <button type="submit" class="aceptbtn">Confirmar</button>
+                <button type="submit" class="aceptbtn" style="width: 100px">Confirmar</button>
             </form>
           </div>
           
@@ -28,7 +28,7 @@
                 <input type="password" name="<%=ParameterNames.NEW_PASSWD%>"><br><br>
                 <label for="<%=ParameterNames.PSSWD_REPEAT%>">Repite la nueva Contraseña</label>
                 <input type="password" name="<%=ParameterNames.PSSWD_REPEAT%>">
-                <button type="submit" class="aceptbtn">Cambiar</button>
+                <button type="submit" class="aceptbtn" style="width: 100px">Cambiar</button>
             </form>
             
     </div>

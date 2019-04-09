@@ -3,6 +3,9 @@
     
 <%@ page import="com.eduinteractive.web.utils.*, com.educorp.eduinteractive.ecommerce.model.*, com.eduinteractive.web.controller.*" %>
 <%@ page import="java.util.HashMap, java.util.Map, java.util.Date" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,3 +18,6 @@
     <script src="<%=request.getContextPath()%>/js/main.js"></script>
 </head>
 <body>
+	<fmt:setLocale value = "${sessionScope['user-locale']}" scope="session"/>
+	<fmt:setBundle basename = "resources.Messages" var="messages" scope="session"/>
+	

@@ -52,6 +52,8 @@ import com.educorp.eduinteractive.ecommerce.service.spi.PaisServices;
 import com.educorp.eduinteractive.ecommerce.service.spi.ProfesorService;
 import com.educorp.eduinteractive.ecommerce.service.spi.SesionServices;
 import com.educorp.eduinteractive.exceptions.PasswordEncryptionUtil;
+import com.eduinteractive.web.config.ConfigurationManager;
+import com.eduinteractive.web.config.ConfigurationParameterNames;
 import com.eduinteractive.web.model.ErrorCodes;
 import com.eduinteractive.web.model.ErrorManager;
 import com.eduinteractive.web.utils.CookieManager;
@@ -59,6 +61,7 @@ import com.eduinteractive.web.utils.LocaleManager;
 import com.eduinteractive.web.utils.ParameterUtils;
 import com.eduinteractive.web.utils.SessionManager;
 import com.eduinteractive.web.utils.ValidationUtils;
+import com.eduinteractive.web.utils.WebUtils;
 import com.mysql.cj.util.StringUtils;
 
 /**
@@ -68,6 +71,14 @@ import com.mysql.cj.util.StringUtils;
 public class EstudianteServlet extends HttpServlet {
 
 	private static Logger logger = LogManager.getLogger(EstudianteServlet.class);
+	private static int pageSize = Integer.valueOf(
+			ConfigurationManager.getInstance().getParameter(
+					ConfigurationParameterNames.RESULTS_PAGE_SIZE_DEFAULT)); 
+
+	private static int pagingPageCount = Integer.valueOf(
+			ConfigurationManager.getInstance().getParameter(
+					ConfigurationParameterNames.RESULTS_PAGING_PAGE_COUNT)); 
+	//Mis servicios
 	private EstudianteService estudianteService = null;
 	private NivelInglesServices nivelServices = null;
 	private ProfesorService profesorService = null;
@@ -364,20 +375,35 @@ public class EstudianteServlet extends HttpServlet {
 			}
 
 
+			Results<Profesor> results = new Results<Profesor>();
 			List<Profesor> resultados = new ArrayList<Profesor>();
 			List<NivelIngles> niveles = new ArrayList<NivelIngles>();
 			List<Dia> dias = new ArrayList<Dia>();
-
+			int page = WebUtils.
+					getPageNumber(request.getParameter(ParameterNames.PAGE), 1);
+			int totalPages = 0;
+			int firstPagedPage = 0;
+			int lastPagedPage = 0;
 			try {
-				resultados = profesorService.findByCriteria(profesorSearch, 1, 10).getResultados();
+				
+				results = profesorService.findByCriteria(profesorSearch, (page-1)*pageSize+1, pageSize);
 				niveles = nivelServices.findAll();
 				dias = diaServices.findAll();
+				totalPages = (int) Math.ceil((double)results.getResultadosTotales()/(double)pageSize);
+				firstPagedPage = Math.max(1, page-pagingPageCount);
+				lastPagedPage = Math.min(totalPages, page+pagingPageCount);
+				
 			} catch (DataException e) {
 				errors.add(ParameterNames.ACTION,ErrorCodes.SEARCH_ERROR);
 			}
+			resultados = results.getResultados();
 			request.setAttribute(AttributeNames.RESULTADOS, resultados);
 			request.setAttribute(AttributeNames.NIVELES, niveles);
 			request.setAttribute(AttributeNames.DIAS, dias);
+			request.setAttribute(ParameterNames.PAGE, page);
+			request.setAttribute(AttributeNames.TOTAL_PAGES, totalPages);
+			request.setAttribute(AttributeNames.FIRST_PAGED_PAGES, firstPagedPage);
+			request.setAttribute(AttributeNames.LAST_PAGED_PAGES, lastPagedPage);
 			target = ViewPaths.SEARCH_TEACHER;
 
 		}else if (Actions.DETALLE_ESTUDIANTE.equalsIgnoreCase(action)){
@@ -554,8 +580,20 @@ public class EstudianteServlet extends HttpServlet {
 					e.printStackTrace();
 				}
 			}
-			target = ViewPaths.PROPERTIES_ESTUDIANTE;
-			redirect = true;
+			if(errors.hasErrors() || estudiante == null) {
+				if (logger.isDebugEnabled()) {
+					logger.debug("Cambio de contraseña fallido: {}", errors);
+				}
+
+				request.setAttribute(AttributeNames.ERRORS, errors);				
+				target = ViewPaths.PROPERTIES_ESTUDIANTE;	
+			}else {
+				if(logger.isDebugEnabled()) {
+					logger.info("Estudiante {} cambio psswd: {}", estudiante.getEmail(), newPasswd==null);
+				}
+				target = ViewPaths.PROPERTIES_ESTUDIANTE;
+				redirect = true;
+			}
 		}else if(Actions.CHANGE_LOCALE.equalsIgnoreCase(action)){
 			String localeName = request.getParameter(ParameterNames.LOCALE);
 			List<Locale> results = LocaleManager.getMatchedLocales(localeName);
@@ -576,6 +614,14 @@ public class EstudianteServlet extends HttpServlet {
 
 			target = ViewPaths.PROPERTIES_ESTUDIANTE;
 			redirect = true;
+		}else if(Actions.PRE_PUNTUAR.equalsIgnoreCase(action)){
+			String idSesion = request.getParameter(ParameterNames.ID_SESION);
+			if(idSesion != null && !StringUtils.isEmptyOrWhitespaceOnly(idSesion)) {
+				Integer sesionId = ValidationUtils.intValidator(idSesion);
+			}else {
+				target =ViewPaths.PRE_INICIO;
+				redirect = true;
+			}
 		}else {
 			logger.error("Action desconocida");
 			target =ViewPaths.PRE_INICIO;

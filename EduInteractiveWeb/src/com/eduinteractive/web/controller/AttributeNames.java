@@ -17,4 +17,7 @@ public interface AttributeNames {
 	public static final String SESIONES = "sesiones";
 	public static final String SESION = "sesion";
 	public static final String TEACHER = "teacher";
+	public static final String TOTAL_PAGES = "totalPages";
+	public static final String FIRST_PAGED_PAGES = "firstPagedPage";
+	public static final String LAST_PAGED_PAGES = "lastPagedPage";
 }

@@ -20,10 +20,6 @@ import com.eduinteractive.web.controller.SessionAttributeNames;
 import com.eduinteractive.web.controller.ViewPaths;
 import com.eduinteractive.web.utils.SessionManager;
 
-/**
- * @author hector.ledo.doval
- *
- */
 public class UserFilter implements Filter {
 	private static Logger logger = LogManager.getLogger(UserFilter.class.getName());
 	  
@@ -53,5 +49,11 @@ public class UserFilter implements Filter {
         	
         }
     }
+
+	@Override
+	public void destroy() {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

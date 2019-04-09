@@ -10,7 +10,7 @@
         <div class="dropdown">
             <button class="dropbtn"><a  href="<%=ParameterUtils.URLBuilder(ControllerPaths.ESTUDIANTE, valores)%>"><%=e.getNombre()%></a></button>
             <div class="dropdown-content">
-                <a href="<%=request.getContextPath().concat(ViewPaths.PROPERTIES_ESTUDIANTE)%>" class="dropOption">Ajustes</a>
+                <a href="<%=request.getContextPath().concat(ViewPaths.PROPERTIES_ESTUDIANTE)%>" class="dropOption"><fmt:message key = "ajustes" bundle="${messages}"/></a>
                 <a href="<%=request.getContextPath()%>/estudiante?action=logout" class="dropOption">Cerrar sesion</a>
             </div>
         </div>
