@@ -20,4 +20,10 @@ public interface AttributeNames {
 	public static final String TOTAL_PAGES = "totalPages";
 	public static final String FIRST_PAGED_PAGES = "firstPagedPage";
 	public static final String LAST_PAGED_PAGES = "lastPagedPage";
+	public static final String NIVEL_INGLES_INPUT = "nivel_ingles_input";
+	public static final String DIA = "dia";
+	public static final String PRECIO = "precio";
+	public static final String PRECIO_MAX = "precio_max";
+	public static final String PUNTUACION = "puntuacion";
+	public static final String SEARCH_BOX = "search_box";
 }

@@ -6,4 +6,6 @@ public interface ControllerPaths {
 	public static final String PROFESOR = "/EduInteractiveWeb/profesor";
 	public static final String SEARCH_PROFESOR_NAVBAR = "/EduInteractiveWeb/estudiante?action="+Actions.SEARCH;
 	public static final String HOME_ESTUDIANTE = "/EduInteractiveWeb/home";
+	public static final String HOME_PROFESOR = "/EduInteractiveWeb/homeTeacher";
+	public static final String PROFESOR_REGISTRO = "/EduInteractiveWeb/registroTeacher";
 }

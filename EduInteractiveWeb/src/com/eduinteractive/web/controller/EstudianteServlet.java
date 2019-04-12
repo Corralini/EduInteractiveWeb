@@ -329,19 +329,23 @@ public class EstudianteServlet extends HttpServlet {
 					apellido2 = ValidationUtils.stringOnlyLettersValidator(apellido1, false);
 					profesorSearch.setApellido2(apellido2);
 				}
+				request.setAttribute(AttributeNames.SEARCH_BOX, nombreCompleto);
 			}
 			if(request.getParameter(ParameterNames.NIVEL_INGLES) != null) {
 				String nivel = request.getParameter(ParameterNames.NIVEL_INGLES);
 				Integer nivelIngles = ValidationUtils.intValidator(nivel);
 				if (nivelIngles != null) {
 					profesorSearch.setIdNivel(nivelIngles);
+					request.setAttribute(AttributeNames.NIVEL_INGLES_INPUT, nivelIngles);
 				}
+				
 			}
 			if(request.getParameter(ParameterNames.GENERO) != null) {
 				String genero = request.getParameter(ParameterNames.GENERO);
 				if (genero != null && !StringUtils.isEmptyOrWhitespaceOnly(genero)) {
 					genero = ValidationUtils.stringOnlyLettersValidator(genero, false);
 					profesorSearch.setIdGenero(genero);
+					request.setAttribute(AttributeNames.GENERO, genero);
 				}
 			}
 			if(request.getParameter(ParameterNames.PUNTUACION) != null) {
@@ -350,6 +354,7 @@ public class EstudianteServlet extends HttpServlet {
 				if(logger.isDebugEnabled()) logger.debug(rate);
 				if (rate != null) {
 					profesorSearch.setPuntuacion(rate);
+					request.setAttribute(AttributeNames.PUNTUACION, rate);
 				}
 			}
 			if(request.getParameter(ParameterNames.PRECIO) != null) {
@@ -357,6 +362,7 @@ public class EstudianteServlet extends HttpServlet {
 				Double precioMinimo = ValidationUtils.doubleValidator(precioMin);
 				if (precioMinimo != null) {
 					profesorSearch.setPrecioSesion(precioMinimo);
+					request.setAttribute(AttributeNames.PRECIO, precioMinimo);
 				}
 			}
 			if(request.getParameter(ParameterNames.PRECIO_MAX) != null) {
@@ -364,6 +370,7 @@ public class EstudianteServlet extends HttpServlet {
 				Double precioMaximo = ValidationUtils.doubleValidator(precioMax);
 				if(precioMaximo != null) {
 					profesorSearch.setPrecioSesionHasta(precioMaximo);
+					request.setAttribute(AttributeNames.PRECIO_MAX, precioMaximo);
 				}
 			}
 			if(request.getParameter(ParameterNames.DIA) != null) {
@@ -371,6 +378,7 @@ public class EstudianteServlet extends HttpServlet {
 				Integer diaSesion = ValidationUtils.intValidator(dia);
 				if (diaSesion != null) {
 					profesorSearch.setDiaSesion(diaSesion);
+					request.setAttribute(AttributeNames.DIA, diaSesion);
 				}
 			}
 

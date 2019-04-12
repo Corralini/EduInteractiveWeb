@@ -13,8 +13,17 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.educorp.eduinteractive.ecommerce.exceptions.DataException;
+import com.educorp.eduinteractive.ecommerce.model.Genero;
+import com.educorp.eduinteractive.ecommerce.model.NivelIngles;
+import com.educorp.eduinteractive.ecommerce.model.Pais;
 import com.educorp.eduinteractive.ecommerce.model.Profesor;
+import com.educorp.eduinteractive.ecommerce.service.impl.GeneroServiceImpl;
+import com.educorp.eduinteractive.ecommerce.service.impl.NivelInglesServicesImpl;
+import com.educorp.eduinteractive.ecommerce.service.impl.PaisServicesImpl;
 import com.educorp.eduinteractive.ecommerce.service.impl.ProfesorServicesImpl;
+import com.educorp.eduinteractive.ecommerce.service.spi.GeneroService;
+import com.educorp.eduinteractive.ecommerce.service.spi.NivelInglesServices;
+import com.educorp.eduinteractive.ecommerce.service.spi.PaisServices;
 import com.educorp.eduinteractive.ecommerce.service.spi.ProfesorService;
 import com.eduinteractive.web.model.ErrorCodes;
 import com.eduinteractive.web.model.ErrorManager;
@@ -28,16 +37,24 @@ import com.mysql.cj.util.StringUtils;
 @WebServlet("/profesor")
 public class ProfesorServlet extends HttpServlet {
 	private static Logger logger = LogManager.getLogger(ProfesorServlet.class);
+	
 	private ProfesorService profesorService = null;
-
+	private PaisServices paisServices = null;
+	private GeneroService generoServices = null;
+	private NivelInglesServices nivelServices = null;
+	
 
 	public ProfesorServlet() {
 		super();
 		profesorService = new ProfesorServicesImpl();
+		paisServices = new PaisServicesImpl();
+		generoServices = new GeneroServiceImpl();
+		nivelServices = new NivelInglesServicesImpl();
 	}
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		String action = request.getParameter(ParameterNames.ACTION);
 		String idioma = SessionManager.get(request,ConstantsValues.USER_LOCALE).toString().substring(0,2).toUpperCase();
 		boolean redirect = false;
@@ -55,7 +72,9 @@ public class ProfesorServlet extends HttpServlet {
 			if (StringUtils.isEmptyOrWhitespaceOnly(email)) {
 				errors.add(ParameterNames.EMAIL,ErrorCodes.MANDATORY_PARAMETER);
 			}
-
+			
+			password = ParameterUtils.trimmer(password);
+			
 			if (StringUtils.isEmptyOrWhitespaceOnly(password)) {
 				errors.add(ParameterNames.PASSWORD,ErrorCodes.MANDATORY_PARAMETER);
 			}
@@ -81,9 +100,32 @@ public class ProfesorServlet extends HttpServlet {
 					logger.info("Profesor " + profesor.getEmail() + " autenticado");
 				}
 				SessionManager.set(request, SessionAttributeNames.USUARIO, profesor);		
-				target = ViewPaths.PRE_HOME_ESTUDIANTE;	
+				target = ViewPaths.PRE_HOME_PROFESOR;	
 				redirect = true;
 			}
+		}else if(Actions.DETALLE_PROFESOR.equalsIgnoreCase(action)){
+			Profesor estudiante = (Profesor) SessionManager.get(request, SessionAttributeNames.USUARIO);
+			Pais paisEstudiante = new Pais();
+			Genero generoEstudiante = new Genero();
+			NivelIngles nivelEstudiante = new NivelIngles();
+			try {
+				paisEstudiante = paisServices.findById(estudiante.getIdPais(), idioma);
+				generoEstudiante = generoServices.findById(estudiante.getIdGenero());
+				nivelEstudiante = nivelServices.findById(estudiante.getIdNivel());
+			} catch (DataException e) {
+				logger.warn(e.getMessage(), e);
+			}
+			if(logger.isDebugEnabled()) {
+				logger.debug("Pais estudiante --> {}", paisEstudiante);
+				logger.debug("Genero estudiante --> {}", generoEstudiante);
+				logger.debug("Nivel estudiante --> {}", nivelEstudiante);
+			}
+
+			request.setAttribute(AttributeNames.PAISES, paisEstudiante);
+			request.setAttribute(AttributeNames.GENERO, generoEstudiante);
+			request.setAttribute(AttributeNames.NIVELES, nivelEstudiante);
+			target = ViewPaths.DETAILS_PROFESOR_AS_PROFESOR;
+			redirect = false;
 		}else {
 			logger.error("Action desconocida");
 			target =ViewPaths.PRE_INICIO;

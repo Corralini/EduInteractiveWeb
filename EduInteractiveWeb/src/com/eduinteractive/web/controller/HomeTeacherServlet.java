@@ -17,6 +17,7 @@ import com.educorp.eduinteractive.ecommerce.exceptions.DataException;
 import com.educorp.eduinteractive.ecommerce.model.Estudiante;
 import com.educorp.eduinteractive.ecommerce.model.Profesor;
 import com.educorp.eduinteractive.ecommerce.model.Sesion;
+import com.educorp.eduinteractive.ecommerce.service.criteria.ProfesorCriteria;
 import com.educorp.eduinteractive.ecommerce.service.impl.EstudianteServiceImpl;
 import com.educorp.eduinteractive.ecommerce.service.impl.SesionServicesImpl;
 import com.educorp.eduinteractive.ecommerce.service.spi.EstudianteService;
@@ -25,19 +26,19 @@ import com.eduinteractive.web.utils.SessionManager;
 import com.eduinteractive.web.utils.ValidationUtils;
 
 /**
- * Servlet implementation class HomeProfesorServlet
+ * Servlet implementation class HomeTeacherServlet
  */
-@WebServlet("/homeProfesor")
-public class HomeProfesorServlet extends HttpServlet {
+@WebServlet("/homeTeacher")
+public class HomeTeacherServlet extends HttpServlet {
 	private Logger logger = LogManager.getLogger(HomeServlet.class);
 	private SesionServices sesionServices = null;
-	private EstudianteService estudianteService = null;
-	
-    public HomeProfesorServlet() {
+	private EstudianteService estudianteServices = null;
+    public HomeTeacherServlet() {
         super();
         sesionServices = new SesionServicesImpl();
-		estudianteService = new EstudianteServiceImpl();
+        estudianteServices = new EstudianteServiceImpl();
     }
+
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Profesor profesor = new Profesor();
@@ -47,7 +48,7 @@ public class HomeProfesorServlet extends HttpServlet {
 			if(sesionId!=null) {
 				try {
 					Sesion sesion = sesionServices.findById(sesionId);
-					Estudiante estudiante = estudianteService.findById(sesion.getIdEstudiante());
+					Estudiante estudiante = estudianteServices.findById(sesion.getIdEstudiante());
 					if(sesion != null) {
 						request.setAttribute(AttributeNames.SESION, sesion);
 						request.setAttribute(AttributeNames.ESTUDIANTE, estudiante);
@@ -57,22 +58,24 @@ public class HomeProfesorServlet extends HttpServlet {
 				}
 			}
 		}
+		
 		profesor = (Profesor) SessionManager.get(request, SessionAttributeNames.USUARIO);
 		List<Sesion> sesiones = new ArrayList<Sesion>();
 		boolean redirect = false;
 		String target = null;
 		try {
-			sesiones = sesionServices.findByCalendario(profesor.getIdProfesor());
-			request.setAttribute(AttributeNames.SESIONES, sesiones);
-			target = ViewPaths.HOME_PROFESOR;
-			redirect = false;
+			sesiones = sesionServices.findByCalendario(profesor.getIdProfesor(), true);
 		}catch (DataException e) {
-			logger.warn(e.getMessage(), e);
-			target = ViewPaths.PRE_INICIO;
-			redirect = true;
+			e.printStackTrace();
 		}
+
+		request.setAttribute(AttributeNames.SESIONES, sesiones);
+		target = ViewPaths.HOME_PROFESOR;
+		redirect = false;
 		RedirectOrForwardUtils.redirectOrForward(request, response, redirect, target);
+		
 	}
+
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);

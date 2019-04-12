@@ -29,7 +29,11 @@ public class ParameterUtils {
 	}
 
 	public static String trimmer(String param) {
+		if(param != null) {
 		return param.trim();
+		}else {
+			return null;
+		}
 	}
 
 	public static Integer getAcertadas(List<String> respuestas) {

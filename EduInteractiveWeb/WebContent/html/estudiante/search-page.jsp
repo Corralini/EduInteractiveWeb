@@ -5,6 +5,12 @@
 	List<Profesor> profesores = (List<Profesor>) request.getAttribute(AttributeNames.RESULTADOS);
 	List<NivelIngles> niveles = (List<NivelIngles>) request.getAttribute(AttributeNames.NIVELES);
 	List<Dia> dias = (List<Dia>) request.getAttribute(AttributeNames.DIAS);
+	Integer nivelIngles = (Integer) request.getAttribute(AttributeNames.NIVEL_INGLES_INPUT);
+	String genero = (String) request.getAttribute(AttributeNames.GENERO);
+	Double puntuacion = (Double) request.getAttribute(AttributeNames.PUNTUACION);
+	Double precioMin = (Double) request.getAttribute(AttributeNames.PRECIO);
+	Double precioMax = (Double) request.getAttribute(AttributeNames.PRECIO_MAX);
+	Integer idDia = (Integer) request.getAttribute(AttributeNames.DIA);
 %>
 <div id="criteria">
 	<form class="Criterios" action="<%=ControllerPaths.ESTUDIANTE%>">
@@ -15,32 +21,77 @@
 			<option value=" ">Cualquiera</option>
 			<%
 				for (NivelIngles i : niveles) {
-			%>
-			<option value="<%=i.getIdNivel()%>"><%=i.getNivel()%></option>
-			<%
+					if(nivelIngles != null && i.getIdNivel().equals(nivelIngles)){
+						%>
+							<option value="<%=i.getIdNivel()%>" selected><%=i.getNivel()%></option>
+						<%					
+					}else{
+						%>
+							<option value="<%=i.getIdNivel()%>"><%=i.getNivel()%></option>
+						<%
+					}
 				}
-			%>
+				%>
 		</select> <label for="<%=ParameterNames.GENERO%>"><b>Genero</b></label> <select
 			name="<%=ParameterNames.GENERO%>">
 			<option value=" ">Cualquiera</option>
-			<option value="H">Hombre</option>
-			<option value="M">Mujer</option>
-			<option value="O">Otro</option>
-		</select> <label for="<%=ParameterNames.PUNTUACION%>"><b>Puntuación</b></label>
+			<%
+				if("H".equalsIgnoreCase(genero)){
+			%>
+			<option value="H" selected>Hombre</option>
+			<%
+				}else{
+					%>
+					<option value="H">Hombre</option>
+					<%
+				}
+			%>
+			<%
+				if("M".equalsIgnoreCase(genero)){
+			%>
+					<option value="M" selected>Mujer</option>
+			<%
+				}else{
+					%>
+					<option value="M">Mujer</option>
+					<%
+				}
+			%>
+			<%
+				if("O".equalsIgnoreCase(genero)){
+			%>
+					<option value="O" selected>Otro</option>
+			<%
+				}else{
+					%>
+					<option value="O">Otro</option>
+					<%
+				}
+			%>
+			
+			
+		</select>
+		<label for="<%=ParameterNames.PUNTUACION%>"><b>Puntuación</b></label>
 		<input type="text" min="0" max="10"
-			name="<%=ParameterNames.PUNTUACION%>"> <label
+			name="<%=ParameterNames.PUNTUACION%>" value="<% if(puntuacion != null){%><%=puntuacion%><%}%>"> <label
 			for="<%=ParameterNames.PRECIO%>"><b>Precio Mínimo</b></label> <input
-			type="number" name="<%=ParameterNames.PRECIO%>"><br> <label
+			type="number" name="<%=ParameterNames.PRECIO%>" value="<% if(precioMin != null){%><%=precioMin%><%}%>"><br> <label
 			for="<%=ParameterNames.PRECIO_MAX%>"><b>Precio Máximo</b></label> <input
-			type="number" name="<%=ParameterNames.PRECIO_MAX%>"> <label
+			type="number" name="<%=ParameterNames.PRECIO_MAX%>" value="<% if(precioMax != null){%><%=precioMax%><%}%>"> <label
 			for="<%=ParameterNames.DIA%>"><b>Dia</b></label> <select
 			name="<%=ParameterNames.DIA%>">
 			<option value=" ">Cualquiera</option>
 			<%
 				for (Dia d : dias) {
+					if(idDia != null && d.getIdDia().equals(idDia)){
 			%>
-			<option value="<%=d.getIdDia()%>"><%=d.getDia()%></option>
+						<option value="<%=d.getIdDia()%>" selected><%=d.getDia()%></option>
 			<%
+					}else{
+			%>
+						<option value="<%=d.getIdDia()%>"><%=d.getDia()%></option>
+			<%
+					}
 				}
 			%>
 		</select>
@@ -145,7 +196,6 @@
 			} else {
 	%>
 	<p>No se encontraron resultados</p>
-	>
 	<%
 		}
 	%>

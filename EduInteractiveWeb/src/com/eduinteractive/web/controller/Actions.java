@@ -17,4 +17,5 @@ public interface Actions {
 	public static final String CHANGE_PSSWD = "change_psswd";
 	public static final String PRE_PUNTUAR = "pre_puntuar";
 	public static final String PUNTUAR = "puntuar";
+	public static final String ADD_HORARIO = "add_horario";
 }

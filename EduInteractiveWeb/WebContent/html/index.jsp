@@ -106,8 +106,8 @@
         <div id="signUpProfesor" class="modal">
             <span onclick="document.getElementById('signUpProfesor').style.display='none'" class="close"
                 title="Close Modal">&times;</span>
-            <form class="modal-content" action="<%=ControllerPaths.ESTUDIANTE%>">
-            <input type="hidden" name="<%=ParameterNames.ACTION%>" value="<%=Actions.PRESIGNIN%>" method="post">
+            <form class="modal-content" enctype="multipart/form-data" action="<%=ControllerPaths.PROFESOR_REGISTRO%>" method="post">
+            <input type="hidden" name="<%=ParameterNames.ACTION%>" value="<%=Actions.SIGNIN%>">
                 <div class="container">
                     <h1>Soy Profesor</h1>
                     <p>Por favor, rellene este formulario para crear una cuenta</p>
@@ -183,8 +183,9 @@
                     <br>
                     <br>
                     <label for="<%=ParameterNames.DESCRIPCION%>"><b>Descripción</b></label>
-                    <textarea id="<%=ParameterNames.DESCRIPCION%>" name="descripcion" rows="4" cols="50" maxlength="255" placeholder="Breve Descripción"></textarea>
-
+                    <textarea id="<%=ParameterNames.DESCRIPCION%>" name="<%=ParameterNames.DESCRIPCION%>" rows="4" cols="50" maxlength="255" placeholder="Breve Descripción"></textarea>
+					<label for="<%=ParameterNames.UP_FILE%>"><b>Acreditación de nivel</b></label>
+					<input type="file" name="<%=ParameterNames.UP_FILE%>">
                     <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.
                     </p>
 
