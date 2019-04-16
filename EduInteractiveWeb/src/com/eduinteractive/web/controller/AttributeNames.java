@@ -26,4 +26,5 @@ public interface AttributeNames {
 	public static final String PRECIO_MAX = "precio_max";
 	public static final String PUNTUACION = "puntuacion";
 	public static final String SEARCH_BOX = "search_box";
+	public static final String PRINT_HORARIOS = "print_horarios";
 }

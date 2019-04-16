@@ -119,7 +119,7 @@ public class ValidationUtils {
 
 	private static boolean psswdIsCorrect (String psswd) {
 
-		String psswdPattern = "^(?=.{8,255}$)(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).*$";
+		String psswdPattern = "^(?=.{8,255}$)(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?=.*[a-z])(?=.*[0-9]).*$";
 		Pattern p = Pattern.compile(psswdPattern);
 		Matcher m = p.matcher(psswd);
 		return m.matches();
@@ -140,5 +140,5 @@ public class ValidationUtils {
 		Matcher m = p.matcher(arg);
 		return m.matches();
 	}
-
+	
 }

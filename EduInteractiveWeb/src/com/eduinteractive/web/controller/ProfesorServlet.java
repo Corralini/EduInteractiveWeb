@@ -1,6 +1,9 @@
 package com.eduinteractive.web.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,14 +17,17 @@ import org.apache.logging.log4j.Logger;
 
 import com.educorp.eduinteractive.ecommerce.exceptions.DataException;
 import com.educorp.eduinteractive.ecommerce.model.Genero;
+import com.educorp.eduinteractive.ecommerce.model.Horario;
 import com.educorp.eduinteractive.ecommerce.model.NivelIngles;
 import com.educorp.eduinteractive.ecommerce.model.Pais;
 import com.educorp.eduinteractive.ecommerce.model.Profesor;
 import com.educorp.eduinteractive.ecommerce.service.impl.GeneroServiceImpl;
+import com.educorp.eduinteractive.ecommerce.service.impl.HorarioServicesImpl;
 import com.educorp.eduinteractive.ecommerce.service.impl.NivelInglesServicesImpl;
 import com.educorp.eduinteractive.ecommerce.service.impl.PaisServicesImpl;
 import com.educorp.eduinteractive.ecommerce.service.impl.ProfesorServicesImpl;
 import com.educorp.eduinteractive.ecommerce.service.spi.GeneroService;
+import com.educorp.eduinteractive.ecommerce.service.spi.HorarioService;
 import com.educorp.eduinteractive.ecommerce.service.spi.NivelInglesServices;
 import com.educorp.eduinteractive.ecommerce.service.spi.PaisServices;
 import com.educorp.eduinteractive.ecommerce.service.spi.ProfesorService;
@@ -29,6 +35,7 @@ import com.eduinteractive.web.model.ErrorCodes;
 import com.eduinteractive.web.model.ErrorManager;
 import com.eduinteractive.web.utils.ParameterUtils;
 import com.eduinteractive.web.utils.SessionManager;
+import com.eduinteractive.web.utils.SpecificUtils;
 import com.mysql.cj.util.StringUtils;
 
 /**
@@ -42,6 +49,7 @@ public class ProfesorServlet extends HttpServlet {
 	private PaisServices paisServices = null;
 	private GeneroService generoServices = null;
 	private NivelInglesServices nivelServices = null;
+	private HorarioService horarioServices = null;
 	
 
 	public ProfesorServlet() {
@@ -50,6 +58,7 @@ public class ProfesorServlet extends HttpServlet {
 		paisServices = new PaisServicesImpl();
 		generoServices = new GeneroServiceImpl();
 		nivelServices = new NivelInglesServicesImpl();
+		horarioServices = new HorarioServicesImpl();
 	}
 
 
@@ -126,6 +135,18 @@ public class ProfesorServlet extends HttpServlet {
 			request.setAttribute(AttributeNames.NIVELES, nivelEstudiante);
 			target = ViewPaths.DETAILS_PROFESOR_AS_PROFESOR;
 			redirect = false;
+		}else if(Actions.BUSCAR_HORARIOS.equals(action)){
+			Profesor profesor = (Profesor) SessionManager.get(request, SessionAttributeNames.USUARIO);
+			List<Horario> horarios = new ArrayList<Horario>();
+			try {
+				horarios = horarioServices.findByProfesor(profesor.getIdProfesor());
+			} catch (DataException e) {
+				logger.warn(e.getMessage(), e);
+			}
+			
+			Map<String, List<String>> horariosPrint = SpecificUtils.printHorario(horarios);
+			request.setAttribute(AttributeNames.PRINT_HORARIOS, horariosPrint);
+			
 		}else {
 			logger.error("Action desconocida");
 			target =ViewPaths.PRE_INICIO;
