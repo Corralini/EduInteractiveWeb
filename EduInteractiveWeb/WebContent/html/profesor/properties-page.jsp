@@ -23,7 +23,11 @@
                 <button type="submit" class="aceptbtn" style="width: 100px">Confirmar</button>
             </form>
             <hr id="separadorHorario">
-             <a id="addTimetables" href="<%=ParameterUtils.URLBuilder(ControllerPaths.PROFESOR, valores)%>"><button>Añadir horarios</button></a>
+             <a href="<%=ParameterUtils.URLBuilder(ControllerPaths.PROFESOR, valores)%>"><button id="addTimetables">Añadir horarios</button></a>
+            	<%
+            		valores.put(ParameterNames.ACTION, Actions.SEE_HORARIOS);
+            	%>
+			<a href="<%=ParameterUtils.URLBuilder(ControllerPaths.PROFESOR, valores)%>"><button id="addTimetables">Ver horarios</button></a>
             
           </div>
           

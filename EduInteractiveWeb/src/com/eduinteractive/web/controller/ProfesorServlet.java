@@ -116,9 +116,9 @@ public class ProfesorServlet extends HttpServlet {
 				logger.warn(e.getMessage(), e);
 			}
 			if(logger.isDebugEnabled()) {
-				logger.debug("Pais estudiante --> {}", paisEstudiante);
-				logger.debug("Genero estudiante --> {}", generoEstudiante);
-				logger.debug("Nivel estudiante --> {}", nivelEstudiante);
+				logger.debug("Pais profesor --> {}", paisEstudiante);
+				logger.debug("Genero profesor --> {}", generoEstudiante);
+				logger.debug("Nivel profesor --> {}", nivelEstudiante);
 			}
 
 			request.setAttribute(AttributeNames.PAISES, paisEstudiante);

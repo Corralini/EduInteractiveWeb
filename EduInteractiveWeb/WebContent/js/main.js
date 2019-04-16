@@ -56,6 +56,5 @@ function openCity(evt, cityName) {
   document.getElementById(cityName).style.display = "block";
   evt.currentTarget.className += " active";
 }
-console.log(document.getElementById("defaultOpen"));
 // Get the element with id="defaultOpen" and click on it
 document.getElementById("defaultOpen").click();
