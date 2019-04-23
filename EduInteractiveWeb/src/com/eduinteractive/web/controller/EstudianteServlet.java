@@ -107,6 +107,7 @@ public class EstudianteServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = ParameterUtils.trimmer(request.getParameter(ParameterNames.ACTION));
 		String idioma = SessionManager.get(request,ConstantsValues.USER_LOCALE).toString().substring(0,2).toUpperCase();
+		
 		if (logger.isDebugEnabled()) {
 			logger.debug("Action {}: {}", action, ToStringBuilder.reflectionToString(request.getParameterMap()));
 		}
@@ -471,6 +472,10 @@ public class EstudianteServlet extends HttpServlet {
 
 				if(!StringUtils.isEmptyOrWhitespaceOnly(fecha)) date = ValidationUtils.dateValidator(fecha);
 				if(new Date().after(date)) errors.add(ParameterNames.FECHA, ErrorCodes.FECHA_INVALID);
+				Calendar calendar = Calendar.getInstance();
+				calendar.setTime(date);
+				calendar.set(Calendar.HOUR_OF_DAY, 12);
+				date = calendar.getTime();
 				if(!errors.hasErrors()) {
 					try {
 						horariosResults = horarioServices.findByFecha(idProfesor, date, 1, 10);
@@ -491,21 +496,25 @@ public class EstudianteServlet extends HttpServlet {
 			redirect = false;
 		}else if(Actions.CONTRATAR_SESION.equalsIgnoreCase(action)){
 			Estudiante estudiante = (Estudiante) SessionManager.get(request, SessionAttributeNames.USUARIO);
-			String horarioId = ParameterUtils.trimmer(request.getParameter(ParameterNames.ID_HORARIO));
-			String fechaContratacion = ParameterUtils.trimmer(request.getParameter(ParameterNames.FECHA_SESION));
+			String idHorarioStr = ParameterUtils.trimmer(request.getParameter(ParameterNames.ID_HORARIO));
+			String fechaSesionStr = ParameterUtils.trimmer(request.getParameter(ParameterNames.FECHA_SESION));
 			Horario h = new Horario();
 			Integer idHorario = null;
 			Date fechaSesion = new Date();
-			if(horarioId != null) {
-				idHorario = ValidationUtils.intValidator(horarioId);
+			if(idHorarioStr != null) {
+				idHorario = ValidationUtils.intValidator(idHorarioStr);
 			}
-			if(fechaContratacion !=null) {
-				fechaSesion = ValidationUtils.dateValidator(fechaContratacion);
+			if(fechaSesionStr !=null) {
+				fechaSesion = ValidationUtils.dateValidator(fechaSesionStr);
 			}
+			//fechaSesion = ParameterUtils.nextDay(fechaSesion);
+			
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTime(fechaSesion);
-			int mes = calendar.get(Calendar.MONTH)+1;
-			calendar.set(Calendar.MONTH, mes);
+			// TODO Pendiente arreglar fuso horario BD
+			calendar.set(Calendar.HOUR_OF_DAY, 12);
+		
+			fechaSesion = calendar.getTime();
 			try {
 				h = horarioServices.findById(idHorario);
 				sesionServices.create(h, fechaSesion, estudiante.getIdEstudiante());
@@ -514,9 +523,11 @@ public class EstudianteServlet extends HttpServlet {
 			}
 			target = ViewPaths.PRE_HOME_ESTUDIANTE;
 			redirect = true;
+			//TODO start sesion
 		}else if(Actions.START_SESION.equalsIgnoreCase(action)){
 			String idSesion = request.getParameter(ParameterNames.ID_SESION);
 			Integer sesionId = null;
+			Boolean puntuar =Boolean.TRUE;
 			if(idSesion != null) {
 				sesionId = ValidationUtils.intValidator(idSesion);
 			}
@@ -529,9 +540,9 @@ public class EstudianteServlet extends HttpServlet {
 
 				e.printStackTrace();
 			}
-
+			request.setAttribute(ParameterNames.PUNTUADO, puntuar);
 			target = ViewPaths.VIDEO_CALL_ESTUDIANTE;
-			redirect = true;
+			redirect = false;
 		}else if(Actions.CANCEL_SESION.equalsIgnoreCase(action)){
 			String idSesion = request.getParameter(ParameterNames.ID_SESION);
 			Integer sesionId = null;
@@ -622,14 +633,25 @@ public class EstudianteServlet extends HttpServlet {
 
 			target = ViewPaths.PROPERTIES_ESTUDIANTE;
 			redirect = true;
-		}else if(Actions.PRE_PUNTUAR.equalsIgnoreCase(action)){
-			String idSesion = request.getParameter(ParameterNames.ID_SESION);
-			if(idSesion != null && !StringUtils.isEmptyOrWhitespaceOnly(idSesion)) {
-				Integer sesionId = ValidationUtils.intValidator(idSesion);
-			}else {
-				target =ViewPaths.PRE_INICIO;
-				redirect = true;
+		}else if(Actions.PUNTUAR.equalsIgnoreCase(action)){
+			Sesion sesion = (Sesion) SessionManager.get(request, SessionAttributeNames.SESION);
+			Estudiante estudiante = (Estudiante) SessionManager.get(request, SessionAttributeNames.USUARIO);
+			String puntuarStr = request.getParameter(ParameterNames.PUNTUADO);
+			String puntuacionStr = request.getParameter(ParameterNames.PUNTUACION);
+			Boolean puntuar = ValidationUtils.booleanValidator(puntuarStr, false, false);
+			Double puntuacion = ValidationUtils.doubleValidator(puntuacionStr);
+			if(puntuar != null && puntuar && puntuacion != null) {
+				Profesor profesor;
+				try {
+					profesor = profesorService.findById(sesion.getIdProfesor());
+					estudianteService.puntuarProfesor(profesor, estudiante, puntuacion);
+				} catch (DataException e) {
+					logger.warn(e.getMessage(), e);
+				}
 			}
+			redirect = Boolean.FALSE;
+			target = ViewPaths.VIDEO_CALL_ESTUDIANTE;
+			request.setAttribute(ParameterNames.PUNTUADO, puntuar);
 		}else {
 			logger.error("Action desconocida");
 			target =ViewPaths.PRE_INICIO;

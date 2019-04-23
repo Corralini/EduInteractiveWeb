@@ -13,6 +13,28 @@
 		<div id="sesionDetails">
         <p>Sesion con: <%=ParameterUtils.makeName(estudiante.getNombre(), estudiante.getApellido1(), estudiante.getApellido2()) %></p>
         <p>el día: <%=ParameterUtils.dateBuilder(sesion.getFechaSesion()) %></p>
+        <p>Estado sesión: <%
+        						if(ConstantsValues.SESION_ACEPTADA.equalsIgnoreCase(sesion.getIdEstado())){ 
+       						 %>
+       						 Aceptada
+       						 <%
+       						 	}else{ 
+       						 %>
+       						 Solicitada
+       						 <%
+       						 	} 
+       						 %>
+       	</p>
+ 		<%
+ 			if(sesion.getIdEstado().equalsIgnoreCase(ConstantsValues.SESION_SOLICITADA)){ 
+ 				valores.clear();
+ 	        	valores.put(ParameterNames.ACTION, Actions.ACEPT_SESION);
+ 	        	valores.put(ParameterNames.ID_SESION, sesion.getIdSesion().toString());
+ 		%>
+        		<a href="<%=ParameterUtils.URLBuilder(ControllerPaths.PROFESOR, valores)%>"><button class="cancelbtn" id="aceptarSesion" style="background-color: #38761d";>Aceptar</button></a>
+        <%
+        	} 
+        %>
         <%
         	valores.clear();
         	valores.put(ParameterNames.ACTION, Actions.CANCEL_SESION);
@@ -33,8 +55,9 @@
 			valores.put(ParameterNames.ID_SESION, s.getIdSesion().toString());
 		%>
 		
-        	<%if(ParameterUtils.dateComparator(new Date(), s.getFechaSesion())){ %>
-        		<a href="<%=ParameterUtils.URLBuilder(ControllerPaths.PROFESOR, valores) %>" target="_blank">Sesion <%=s.getIdSesion() %></a>
+        	<%if(ParameterUtils.dateComparator(new Date(), s.getFechaSesion()) 
+        			&& ConstantsValues.SESION_ACEPTADA.equalsIgnoreCase(s.getIdEstado())){ %>
+        		<a href="<%=ParameterUtils.URLBuilder(ControllerPaths.PROFESOR, valores) %>">Sesion <%=s.getIdSesion() %></a>
         		<%
 					valores.clear();
         			valores.put(ParameterNames.ID_SESION, s.getIdSesion().toString());
@@ -43,7 +66,7 @@
         	<%
         		} else{
         	%>
-        		<a class="isDisabled" href="#" target="_blank">Sesion <%=s.getIdSesion() %></a>
+        		<a class="isDisabled" href="#">Sesion <%=s.getIdSesion() %></a>
         		<%
 					valores.clear();
         			valores.put(ParameterNames.ID_SESION, s.getIdSesion().toString());

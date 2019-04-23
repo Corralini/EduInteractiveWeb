@@ -23,6 +23,7 @@ import com.educorp.eduinteractive.ecommerce.service.impl.SesionServicesImpl;
 import com.educorp.eduinteractive.ecommerce.service.spi.ProfesorService;
 import com.educorp.eduinteractive.ecommerce.service.spi.SesionServices;
 import com.eduinteractive.web.utils.SessionManager;
+import com.eduinteractive.web.utils.SpecificUtils;
 import com.eduinteractive.web.utils.ValidationUtils;
 
 
@@ -64,6 +65,7 @@ public class HomeServlet extends HttpServlet {
 		ProfesorCriteria profesorCriteria = new ProfesorCriteria();
 		try {
 			sesiones = sesionServices.findByCalendario(estudiante.getIdEstudiante());
+			sesiones = SpecificUtils.checkStatus(sesiones);
 			profesores = profesorServices.findByCriteria(profesorCriteria, 1, 3).getResultados();
 		}catch (DataException e) {
 			e.printStackTrace();

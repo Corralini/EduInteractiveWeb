@@ -3,7 +3,7 @@
 
 <%
 	valores.clear();
-	valores.put(ParameterNames.ACTION, Actions.ADD_HORARIO);
+	valores.put(ParameterNames.ACTION, Actions.PRE_ADD_HORARIO);
 %>
 
 <div class="tab">
@@ -28,7 +28,8 @@
             		valores.put(ParameterNames.ACTION, Actions.SEE_HORARIOS);
             	%>
 			<a href="<%=ParameterUtils.URLBuilder(ControllerPaths.PROFESOR, valores)%>"><button id="addTimetables">Ver horarios</button></a>
-            
+            <%@ include file="/html/profesor/common/formAddHorario.jsp" %>
+            <%@ include file="/html/profesor/common/seeHorarios.jsp" %>
           </div>
           
           <div id="Privacy" class="tabcontent">

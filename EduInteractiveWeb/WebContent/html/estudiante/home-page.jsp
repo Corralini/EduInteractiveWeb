@@ -14,6 +14,18 @@
 		<div id="sesionDetails">
         <p>Sesion con: <%=ParameterUtils.makeName(profesor.getNombre(), profesor.getApellido1(), profesor.getApellido2()) %></p>
         <p>el día: <%=ParameterUtils.dateBuilder(sesion.getFechaSesion()) %></p>
+        <p>Estado sesión: <%
+        						if(ConstantsValues.SESION_ACEPTADA.equalsIgnoreCase(sesion.getIdEstado())){ 
+       						 %>
+       						 		Aceptada
+       						 <%
+       						 	}else{ 
+       						 %>
+       						 		Solicitada
+       						 <%
+       						 	} 
+       						 %>
+       	</p>
         <%
         	valores.clear();
         	valores.put(ParameterNames.ACTION, Actions.CANCEL_SESION);
@@ -34,8 +46,9 @@
 			valores.put(ParameterNames.ID_SESION, s.getIdSesion().toString());
 		%>
 		
-        	<%if(ParameterUtils.dateComparator(new Date(), s.getFechaSesion())){ %>
-        		<a href="<%=ParameterUtils.URLBuilder(ControllerPaths.ESTUDIANTE, valores) %>" target="_blank">Sesion <%=s.getIdSesion() %></a>
+        	<%if(ParameterUtils.dateComparator(new Date(), s.getFechaSesion()) 
+        			&& ConstantsValues.SESION_ACEPTADA.equalsIgnoreCase(s.getIdEstado())){ %>
+        		<a href="<%=ParameterUtils.URLBuilder(ControllerPaths.ESTUDIANTE, valores) %>" >Sesion <%=s.getIdSesion() %></a>
         		<%
 					valores.clear();
         			valores.put(ParameterNames.ID_SESION, s.getIdSesion().toString());
@@ -44,7 +57,7 @@
         	<%
         		} else{
         	%>
-        		<a class="isDisabled" href="#" target="_blank">Sesion <%=s.getIdSesion() %></a>
+        		<a class="isDisabled" href="#">Sesion <%=s.getIdSesion() %></a>
         		<%
 					valores.clear();
         			valores.put(ParameterNames.ID_SESION, s.getIdSesion().toString());

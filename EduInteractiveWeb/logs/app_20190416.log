@@ -1,0 +1,553 @@
+2019-04-16 11:00:53.336 DEBUG HorarioServicesImpl.findByProfesor:95 - idProfesor: 1
+2019-04-16 11:00:54.067 DEBUG HoraDAOImpl.findByProfesor:269 - idProfesor = 1 
+2019-04-16 11:00:54.067 DEBUG HoraDAOImpl.findByProfesor:269 - idProfesor = 1 
+2019-04-16 11:00:54.068 DEBUG HoraDAOImpl.findByProfesor:280 - SELECT ID_HORARIO, ID_PROFESOR, ID_DIA, ID_HORA   FROM HORARIO 	WHERE ID_PROFESOR = ? 
+2019-04-16 11:00:54.068 DEBUG HoraDAOImpl.findByProfesor:280 - SELECT ID_HORARIO, ID_PROFESOR, ID_DIA, ID_HORA   FROM HORARIO 	WHERE ID_PROFESOR = ? 
+2019-04-16 11:00:54.097 DEBUG HoraServicesImpl.findById:31 - id: 1
+2019-04-16 11:00:54.097 DEBUG HoraServicesImpl.findById:31 - id: 1
+2019-04-16 11:00:54.098 DEBUG DiaDAOImpl.findById:25 - id: 1
+2019-04-16 11:00:54.098 DEBUG DiaDAOImpl.findById:25 - id: 1
+2019-04-16 11:00:54.129 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:00:54.129 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:00:54.132 DEBUG HoraServicesImpl.findById:31 - id: 44
+2019-04-16 11:00:54.132 DEBUG HoraServicesImpl.findById:31 - id: 44
+2019-04-16 11:00:54.133 DEBUG HoraDAOImpl.findById:25 - id: 44
+2019-04-16 11:00:54.133 DEBUG HoraDAOImpl.findById:25 - id: 44
+2019-04-16 11:00:54.180 DEBUG HoraServicesImpl.findById:31 - id: 1
+2019-04-16 11:00:54.180 DEBUG HoraServicesImpl.findById:31 - id: 1
+2019-04-16 11:00:54.181 DEBUG DiaDAOImpl.findById:25 - id: 1
+2019-04-16 11:00:54.181 DEBUG DiaDAOImpl.findById:25 - id: 1
+2019-04-16 11:00:54.181 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:00:54.181 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:00:54.183 DEBUG HoraServicesImpl.findById:31 - id: 85
+2019-04-16 11:00:54.183 DEBUG HoraServicesImpl.findById:31 - id: 85
+2019-04-16 11:00:54.183 DEBUG HoraDAOImpl.findById:25 - id: 85
+2019-04-16 11:00:54.183 DEBUG HoraDAOImpl.findById:25 - id: 85
+2019-04-16 11:00:54.186 DEBUG HoraServicesImpl.findById:31 - id: 2
+2019-04-16 11:00:54.186 DEBUG HoraServicesImpl.findById:31 - id: 2
+2019-04-16 11:00:54.186 DEBUG DiaDAOImpl.findById:25 - id: 2
+2019-04-16 11:00:54.186 DEBUG DiaDAOImpl.findById:25 - id: 2
+2019-04-16 11:00:54.186 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:00:54.186 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:00:54.187 DEBUG HoraServicesImpl.findById:31 - id: 69
+2019-04-16 11:00:54.187 DEBUG HoraServicesImpl.findById:31 - id: 69
+2019-04-16 11:00:54.188 DEBUG HoraDAOImpl.findById:25 - id: 69
+2019-04-16 11:00:54.188 DEBUG HoraDAOImpl.findById:25 - id: 69
+2019-04-16 11:00:54.189 DEBUG HoraServicesImpl.findById:31 - id: 4
+2019-04-16 11:00:54.189 DEBUG HoraServicesImpl.findById:31 - id: 4
+2019-04-16 11:00:54.189 DEBUG DiaDAOImpl.findById:25 - id: 4
+2019-04-16 11:00:54.189 DEBUG DiaDAOImpl.findById:25 - id: 4
+2019-04-16 11:00:54.189 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:00:54.189 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:00:54.190 DEBUG HoraServicesImpl.findById:31 - id: 55
+2019-04-16 11:00:54.190 DEBUG HoraServicesImpl.findById:31 - id: 55
+2019-04-16 11:00:54.191 DEBUG HoraDAOImpl.findById:25 - id: 55
+2019-04-16 11:00:54.191 DEBUG HoraDAOImpl.findById:25 - id: 55
+2019-04-16 11:00:54.192 DEBUG HoraServicesImpl.findById:31 - id: 4
+2019-04-16 11:00:54.192 DEBUG HoraServicesImpl.findById:31 - id: 4
+2019-04-16 11:00:54.193 DEBUG DiaDAOImpl.findById:25 - id: 4
+2019-04-16 11:00:54.193 DEBUG DiaDAOImpl.findById:25 - id: 4
+2019-04-16 11:00:54.193 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:00:54.193 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:00:54.194 DEBUG HoraServicesImpl.findById:31 - id: 22
+2019-04-16 11:00:54.194 DEBUG HoraServicesImpl.findById:31 - id: 22
+2019-04-16 11:00:54.195 DEBUG HoraDAOImpl.findById:25 - id: 22
+2019-04-16 11:00:54.195 DEBUG HoraDAOImpl.findById:25 - id: 22
+2019-04-16 11:00:54.196 DEBUG HoraServicesImpl.findById:31 - id: 6
+2019-04-16 11:00:54.196 DEBUG HoraServicesImpl.findById:31 - id: 6
+2019-04-16 11:00:54.197 DEBUG DiaDAOImpl.findById:25 - id: 6
+2019-04-16 11:00:54.197 DEBUG DiaDAOImpl.findById:25 - id: 6
+2019-04-16 11:00:54.197 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:00:54.197 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:00:54.198 DEBUG HoraServicesImpl.findById:31 - id: 95
+2019-04-16 11:00:54.198 DEBUG HoraServicesImpl.findById:31 - id: 95
+2019-04-16 11:00:54.199 DEBUG HoraDAOImpl.findById:25 - id: 95
+2019-04-16 11:00:54.199 DEBUG HoraDAOImpl.findById:25 - id: 95
+2019-04-16 11:00:54.200 DEBUG HoraServicesImpl.findById:31 - id: 7
+2019-04-16 11:00:54.200 DEBUG HoraServicesImpl.findById:31 - id: 7
+2019-04-16 11:00:54.201 DEBUG DiaDAOImpl.findById:25 - id: 7
+2019-04-16 11:00:54.201 DEBUG DiaDAOImpl.findById:25 - id: 7
+2019-04-16 11:00:54.202 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:00:54.202 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:00:54.203 DEBUG HoraServicesImpl.findById:31 - id: 86
+2019-04-16 11:00:54.203 DEBUG HoraServicesImpl.findById:31 - id: 86
+2019-04-16 11:00:54.204 DEBUG HoraDAOImpl.findById:25 - id: 86
+2019-04-16 11:00:54.204 DEBUG HoraDAOImpl.findById:25 - id: 86
+2019-04-16 11:00:54.205 DEBUG HoraServicesImpl.findById:31 - id: 7
+2019-04-16 11:00:54.205 DEBUG HoraServicesImpl.findById:31 - id: 7
+2019-04-16 11:00:54.205 DEBUG DiaDAOImpl.findById:25 - id: 7
+2019-04-16 11:00:54.205 DEBUG DiaDAOImpl.findById:25 - id: 7
+2019-04-16 11:00:54.205 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:00:54.205 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:00:54.206 DEBUG HoraServicesImpl.findById:31 - id: 96
+2019-04-16 11:00:54.206 DEBUG HoraServicesImpl.findById:31 - id: 96
+2019-04-16 11:00:54.207 DEBUG HoraDAOImpl.findById:25 - id: 96
+2019-04-16 11:00:54.207 DEBUG HoraDAOImpl.findById:25 - id: 96
+2019-04-16 11:00:54.208 DEBUG SpecificUtils.main:85 - día Miércoles [
+2019-04-16 11:00:54.208 DEBUG SpecificUtils.main:88 - Hora 10:45
+2019-04-16 11:00:54.208 DEBUG SpecificUtils.main:88 - Hora 21:00
+2019-04-16 11:00:54.208 DEBUG SpecificUtils.main:88 - Hora 17:00
+2019-04-16 11:00:54.208 DEBUG SpecificUtils.main:88 - Hora 13:30
+2019-04-16 11:00:54.208 DEBUG SpecificUtils.main:88 - Hora 5:15
+2019-04-16 11:00:54.208 DEBUG SpecificUtils.main:88 - Hora 23:30
+2019-04-16 11:00:54.209 DEBUG SpecificUtils.main:88 - Hora 21:15
+2019-04-16 11:00:54.209 DEBUG SpecificUtils.main:88 - Hora 23:45
+2019-04-16 11:00:54.209 DEBUG SpecificUtils.main:91 - ]
+2019-04-16 11:00:54.209 DEBUG SpecificUtils.main:85 - día Viernes [
+2019-04-16 11:00:54.209 DEBUG SpecificUtils.main:88 - Hora 10:45
+2019-04-16 11:00:54.209 DEBUG SpecificUtils.main:88 - Hora 21:00
+2019-04-16 11:00:54.209 DEBUG SpecificUtils.main:88 - Hora 17:00
+2019-04-16 11:00:54.209 DEBUG SpecificUtils.main:88 - Hora 13:30
+2019-04-16 11:00:54.210 DEBUG SpecificUtils.main:88 - Hora 5:15
+2019-04-16 11:00:54.210 DEBUG SpecificUtils.main:88 - Hora 23:30
+2019-04-16 11:00:54.210 DEBUG SpecificUtils.main:88 - Hora 21:15
+2019-04-16 11:00:54.210 DEBUG SpecificUtils.main:88 - Hora 23:45
+2019-04-16 11:00:54.210 DEBUG SpecificUtils.main:91 - ]
+2019-04-16 11:00:54.210 DEBUG SpecificUtils.main:85 - día Lunes [
+2019-04-16 11:00:54.210 DEBUG SpecificUtils.main:88 - Hora 10:45
+2019-04-16 11:00:54.210 DEBUG SpecificUtils.main:88 - Hora 21:00
+2019-04-16 11:00:54.210 DEBUG SpecificUtils.main:88 - Hora 17:00
+2019-04-16 11:00:54.210 DEBUG SpecificUtils.main:88 - Hora 13:30
+2019-04-16 11:00:54.211 DEBUG SpecificUtils.main:88 - Hora 5:15
+2019-04-16 11:00:54.211 DEBUG SpecificUtils.main:88 - Hora 23:30
+2019-04-16 11:00:54.211 DEBUG SpecificUtils.main:88 - Hora 21:15
+2019-04-16 11:00:54.211 DEBUG SpecificUtils.main:88 - Hora 23:45
+2019-04-16 11:00:54.211 DEBUG SpecificUtils.main:91 - ]
+2019-04-16 11:00:54.211 DEBUG SpecificUtils.main:85 - día Sábado [
+2019-04-16 11:00:54.211 DEBUG SpecificUtils.main:88 - Hora 10:45
+2019-04-16 11:00:54.211 DEBUG SpecificUtils.main:88 - Hora 21:00
+2019-04-16 11:00:54.211 DEBUG SpecificUtils.main:88 - Hora 17:00
+2019-04-16 11:00:54.211 DEBUG SpecificUtils.main:88 - Hora 13:30
+2019-04-16 11:00:54.212 DEBUG SpecificUtils.main:88 - Hora 5:15
+2019-04-16 11:00:54.212 DEBUG SpecificUtils.main:88 - Hora 23:30
+2019-04-16 11:00:54.212 DEBUG SpecificUtils.main:88 - Hora 21:15
+2019-04-16 11:00:54.212 DEBUG SpecificUtils.main:88 - Hora 23:45
+2019-04-16 11:00:54.212 DEBUG SpecificUtils.main:91 - ]
+2019-04-16 11:00:54.212 DEBUG SpecificUtils.main:85 - día Domingo [
+2019-04-16 11:00:54.212 DEBUG SpecificUtils.main:88 - Hora 10:45
+2019-04-16 11:00:54.212 DEBUG SpecificUtils.main:88 - Hora 21:00
+2019-04-16 11:00:54.212 DEBUG SpecificUtils.main:88 - Hora 17:00
+2019-04-16 11:00:54.214 DEBUG SpecificUtils.main:88 - Hora 13:30
+2019-04-16 11:00:54.214 DEBUG SpecificUtils.main:88 - Hora 5:15
+2019-04-16 11:00:54.214 DEBUG SpecificUtils.main:88 - Hora 23:30
+2019-04-16 11:00:54.214 DEBUG SpecificUtils.main:88 - Hora 21:15
+2019-04-16 11:00:54.214 DEBUG SpecificUtils.main:88 - Hora 23:45
+2019-04-16 11:00:54.214 DEBUG SpecificUtils.main:91 - ]
+2019-04-16 11:02:33.799 DEBUG HorarioServicesImpl.findByProfesor:95 - idProfesor: 1
+2019-04-16 11:02:33.799 DEBUG HorarioServicesImpl.findByProfesor:95 - idProfesor: 1
+2019-04-16 11:02:34.690 DEBUG HoraDAOImpl.findByProfesor:269 - idProfesor = 1 
+2019-04-16 11:02:34.690 DEBUG HoraDAOImpl.findByProfesor:269 - idProfesor = 1 
+2019-04-16 11:02:34.691 DEBUG HoraDAOImpl.findByProfesor:280 - SELECT ID_HORARIO, ID_PROFESOR, ID_DIA, ID_HORA   FROM HORARIO 	WHERE ID_PROFESOR = ? 
+2019-04-16 11:02:34.691 DEBUG HoraDAOImpl.findByProfesor:280 - SELECT ID_HORARIO, ID_PROFESOR, ID_DIA, ID_HORA   FROM HORARIO 	WHERE ID_PROFESOR = ? 
+2019-04-16 11:02:47.313 DEBUG HoraServicesImpl.findById:31 - id: 1
+2019-04-16 11:02:47.313 DEBUG HoraServicesImpl.findById:31 - id: 1
+2019-04-16 11:02:47.349 DEBUG DiaDAOImpl.findById:25 - id: 1
+2019-04-16 11:02:47.349 DEBUG DiaDAOImpl.findById:25 - id: 1
+2019-04-16 11:02:47.353 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:02:47.353 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:02:51.841 DEBUG HoraServicesImpl.findById:31 - id: 44
+2019-04-16 11:02:51.841 DEBUG HoraServicesImpl.findById:31 - id: 44
+2019-04-16 11:02:51.875 DEBUG HoraDAOImpl.findById:25 - id: 44
+2019-04-16 11:02:51.875 DEBUG HoraDAOImpl.findById:25 - id: 44
+2019-04-16 11:03:34.900 DEBUG HorarioServicesImpl.findByProfesor:95 - idProfesor: 1
+2019-04-16 11:03:34.900 DEBUG HorarioServicesImpl.findByProfesor:95 - idProfesor: 1
+2019-04-16 11:03:35.999 DEBUG HoraDAOImpl.findByProfesor:269 - idProfesor = 1 
+2019-04-16 11:03:35.999 DEBUG HoraDAOImpl.findByProfesor:269 - idProfesor = 1 
+2019-04-16 11:03:36.000 DEBUG HoraDAOImpl.findByProfesor:280 - SELECT ID_HORARIO, ID_PROFESOR, ID_DIA, ID_HORA   FROM HORARIO 	WHERE ID_PROFESOR = ? 
+2019-04-16 11:03:36.000 DEBUG HoraDAOImpl.findByProfesor:280 - SELECT ID_HORARIO, ID_PROFESOR, ID_DIA, ID_HORA   FROM HORARIO 	WHERE ID_PROFESOR = ? 
+2019-04-16 11:03:38.478 DEBUG HoraServicesImpl.findById:31 - id: 1
+2019-04-16 11:03:38.478 DEBUG HoraServicesImpl.findById:31 - id: 1
+2019-04-16 11:03:38.479 DEBUG DiaDAOImpl.findById:25 - id: 1
+2019-04-16 11:03:38.479 DEBUG DiaDAOImpl.findById:25 - id: 1
+2019-04-16 11:03:38.480 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:03:38.480 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:03:38.482 DEBUG HoraServicesImpl.findById:31 - id: 44
+2019-04-16 11:03:38.482 DEBUG HoraServicesImpl.findById:31 - id: 44
+2019-04-16 11:03:38.483 DEBUG HoraDAOImpl.findById:25 - id: 44
+2019-04-16 11:03:38.483 DEBUG HoraDAOImpl.findById:25 - id: 44
+2019-04-16 11:03:46.099 DEBUG HorarioServicesImpl.findByProfesor:95 - idProfesor: 1
+2019-04-16 11:03:46.099 DEBUG HorarioServicesImpl.findByProfesor:95 - idProfesor: 1
+2019-04-16 11:03:46.769 DEBUG HoraDAOImpl.findByProfesor:269 - idProfesor = 1 
+2019-04-16 11:03:46.769 DEBUG HoraDAOImpl.findByProfesor:269 - idProfesor = 1 
+2019-04-16 11:03:46.771 DEBUG HoraDAOImpl.findByProfesor:280 - SELECT ID_HORARIO, ID_PROFESOR, ID_DIA, ID_HORA   FROM HORARIO 	WHERE ID_PROFESOR = ? 
+2019-04-16 11:03:46.771 DEBUG HoraDAOImpl.findByProfesor:280 - SELECT ID_HORARIO, ID_PROFESOR, ID_DIA, ID_HORA   FROM HORARIO 	WHERE ID_PROFESOR = ? 
+2019-04-16 11:03:46.799 DEBUG HoraServicesImpl.findById:31 - id: 1
+2019-04-16 11:03:46.799 DEBUG HoraServicesImpl.findById:31 - id: 1
+2019-04-16 11:03:46.800 DEBUG DiaDAOImpl.findById:25 - id: 1
+2019-04-16 11:03:46.800 DEBUG DiaDAOImpl.findById:25 - id: 1
+2019-04-16 11:03:46.801 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:03:46.801 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:03:46.802 DEBUG HoraServicesImpl.findById:31 - id: 44
+2019-04-16 11:03:46.802 DEBUG HoraServicesImpl.findById:31 - id: 44
+2019-04-16 11:03:46.803 DEBUG HoraDAOImpl.findById:25 - id: 44
+2019-04-16 11:03:46.803 DEBUG HoraDAOImpl.findById:25 - id: 44
+2019-04-16 11:03:46.804 DEBUG HoraServicesImpl.findById:31 - id: 1
+2019-04-16 11:03:46.804 DEBUG HoraServicesImpl.findById:31 - id: 1
+2019-04-16 11:03:46.805 DEBUG DiaDAOImpl.findById:25 - id: 1
+2019-04-16 11:03:46.805 DEBUG DiaDAOImpl.findById:25 - id: 1
+2019-04-16 11:03:46.805 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:03:46.805 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:03:46.806 DEBUG HoraServicesImpl.findById:31 - id: 85
+2019-04-16 11:03:46.806 DEBUG HoraServicesImpl.findById:31 - id: 85
+2019-04-16 11:03:46.807 DEBUG HoraDAOImpl.findById:25 - id: 85
+2019-04-16 11:03:46.807 DEBUG HoraDAOImpl.findById:25 - id: 85
+2019-04-16 11:03:46.808 DEBUG HoraServicesImpl.findById:31 - id: 2
+2019-04-16 11:03:46.808 DEBUG HoraServicesImpl.findById:31 - id: 2
+2019-04-16 11:03:46.809 DEBUG DiaDAOImpl.findById:25 - id: 2
+2019-04-16 11:03:46.809 DEBUG DiaDAOImpl.findById:25 - id: 2
+2019-04-16 11:03:46.809 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:03:46.809 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:03:46.810 DEBUG HoraServicesImpl.findById:31 - id: 69
+2019-04-16 11:03:46.810 DEBUG HoraServicesImpl.findById:31 - id: 69
+2019-04-16 11:03:46.810 DEBUG HoraDAOImpl.findById:25 - id: 69
+2019-04-16 11:03:46.810 DEBUG HoraDAOImpl.findById:25 - id: 69
+2019-04-16 11:03:46.811 DEBUG HoraServicesImpl.findById:31 - id: 4
+2019-04-16 11:03:46.811 DEBUG HoraServicesImpl.findById:31 - id: 4
+2019-04-16 11:03:46.812 DEBUG DiaDAOImpl.findById:25 - id: 4
+2019-04-16 11:03:46.812 DEBUG DiaDAOImpl.findById:25 - id: 4
+2019-04-16 11:03:46.812 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:03:46.812 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:03:46.813 DEBUG HoraServicesImpl.findById:31 - id: 55
+2019-04-16 11:03:46.813 DEBUG HoraServicesImpl.findById:31 - id: 55
+2019-04-16 11:03:46.813 DEBUG HoraDAOImpl.findById:25 - id: 55
+2019-04-16 11:03:46.813 DEBUG HoraDAOImpl.findById:25 - id: 55
+2019-04-16 11:03:46.814 DEBUG HoraServicesImpl.findById:31 - id: 4
+2019-04-16 11:03:46.814 DEBUG HoraServicesImpl.findById:31 - id: 4
+2019-04-16 11:03:46.815 DEBUG DiaDAOImpl.findById:25 - id: 4
+2019-04-16 11:03:46.815 DEBUG DiaDAOImpl.findById:25 - id: 4
+2019-04-16 11:03:46.815 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:03:46.815 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:03:46.816 DEBUG HoraServicesImpl.findById:31 - id: 22
+2019-04-16 11:03:46.816 DEBUG HoraServicesImpl.findById:31 - id: 22
+2019-04-16 11:03:46.816 DEBUG HoraDAOImpl.findById:25 - id: 22
+2019-04-16 11:03:46.816 DEBUG HoraDAOImpl.findById:25 - id: 22
+2019-04-16 11:03:46.817 DEBUG HoraServicesImpl.findById:31 - id: 6
+2019-04-16 11:03:46.817 DEBUG HoraServicesImpl.findById:31 - id: 6
+2019-04-16 11:03:46.818 DEBUG DiaDAOImpl.findById:25 - id: 6
+2019-04-16 11:03:46.818 DEBUG DiaDAOImpl.findById:25 - id: 6
+2019-04-16 11:03:46.818 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:03:46.818 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:03:46.819 DEBUG HoraServicesImpl.findById:31 - id: 95
+2019-04-16 11:03:46.819 DEBUG HoraServicesImpl.findById:31 - id: 95
+2019-04-16 11:03:46.819 DEBUG HoraDAOImpl.findById:25 - id: 95
+2019-04-16 11:03:46.819 DEBUG HoraDAOImpl.findById:25 - id: 95
+2019-04-16 11:03:46.820 DEBUG HoraServicesImpl.findById:31 - id: 7
+2019-04-16 11:03:46.820 DEBUG HoraServicesImpl.findById:31 - id: 7
+2019-04-16 11:03:46.821 DEBUG DiaDAOImpl.findById:25 - id: 7
+2019-04-16 11:03:46.821 DEBUG DiaDAOImpl.findById:25 - id: 7
+2019-04-16 11:03:46.821 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:03:46.821 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:03:46.822 DEBUG HoraServicesImpl.findById:31 - id: 86
+2019-04-16 11:03:46.822 DEBUG HoraServicesImpl.findById:31 - id: 86
+2019-04-16 11:03:46.822 DEBUG HoraDAOImpl.findById:25 - id: 86
+2019-04-16 11:03:46.822 DEBUG HoraDAOImpl.findById:25 - id: 86
+2019-04-16 11:03:46.823 DEBUG HoraServicesImpl.findById:31 - id: 7
+2019-04-16 11:03:46.823 DEBUG HoraServicesImpl.findById:31 - id: 7
+2019-04-16 11:03:46.823 DEBUG DiaDAOImpl.findById:25 - id: 7
+2019-04-16 11:03:46.823 DEBUG DiaDAOImpl.findById:25 - id: 7
+2019-04-16 11:03:46.823 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:03:46.823 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:03:46.824 DEBUG HoraServicesImpl.findById:31 - id: 96
+2019-04-16 11:03:46.824 DEBUG HoraServicesImpl.findById:31 - id: 96
+2019-04-16 11:03:46.825 DEBUG HoraDAOImpl.findById:25 - id: 96
+2019-04-16 11:03:46.825 DEBUG HoraDAOImpl.findById:25 - id: 96
+2019-04-16 11:03:46.826 DEBUG SpecificUtils.main:87 - día Miércoles [
+2019-04-16 11:03:46.826 DEBUG SpecificUtils.main:90 - Hora 21:15
+2019-04-16 11:03:46.826 DEBUG SpecificUtils.main:90 - Hora 23:45
+2019-04-16 11:03:46.826 DEBUG SpecificUtils.main:93 - ]
+2019-04-16 11:03:46.826 DEBUG SpecificUtils.main:87 - día Viernes [
+2019-04-16 11:03:46.826 DEBUG SpecificUtils.main:90 - Hora 21:15
+2019-04-16 11:03:46.826 DEBUG SpecificUtils.main:90 - Hora 23:45
+2019-04-16 11:03:46.827 DEBUG SpecificUtils.main:93 - ]
+2019-04-16 11:03:46.827 DEBUG SpecificUtils.main:87 - día Lunes [
+2019-04-16 11:03:46.827 DEBUG SpecificUtils.main:90 - Hora 21:15
+2019-04-16 11:03:46.827 DEBUG SpecificUtils.main:90 - Hora 23:45
+2019-04-16 11:03:46.827 DEBUG SpecificUtils.main:93 - ]
+2019-04-16 11:03:46.827 DEBUG SpecificUtils.main:87 - día Sábado [
+2019-04-16 11:03:46.827 DEBUG SpecificUtils.main:90 - Hora 21:15
+2019-04-16 11:03:46.827 DEBUG SpecificUtils.main:90 - Hora 23:45
+2019-04-16 11:03:46.827 DEBUG SpecificUtils.main:93 - ]
+2019-04-16 11:03:46.827 DEBUG SpecificUtils.main:87 - día Domingo [
+2019-04-16 11:03:46.828 DEBUG SpecificUtils.main:90 - Hora 21:15
+2019-04-16 11:03:46.828 DEBUG SpecificUtils.main:90 - Hora 23:45
+2019-04-16 11:03:46.828 DEBUG SpecificUtils.main:93 - ]
+2019-04-16 11:04:05.818 DEBUG HorarioServicesImpl.findByProfesor:95 - idProfesor: 1
+2019-04-16 11:04:05.818 DEBUG HorarioServicesImpl.findByProfesor:95 - idProfesor: 1
+2019-04-16 11:04:06.769 DEBUG HoraDAOImpl.findByProfesor:269 - idProfesor = 1 
+2019-04-16 11:04:06.769 DEBUG HoraDAOImpl.findByProfesor:269 - idProfesor = 1 
+2019-04-16 11:04:06.771 DEBUG HoraDAOImpl.findByProfesor:280 - SELECT ID_HORARIO, ID_PROFESOR, ID_DIA, ID_HORA   FROM HORARIO 	WHERE ID_PROFESOR = ? 
+2019-04-16 11:04:06.771 DEBUG HoraDAOImpl.findByProfesor:280 - SELECT ID_HORARIO, ID_PROFESOR, ID_DIA, ID_HORA   FROM HORARIO 	WHERE ID_PROFESOR = ? 
+2019-04-16 11:04:11.680 DEBUG HoraServicesImpl.findById:31 - id: 1
+2019-04-16 11:04:11.680 DEBUG HoraServicesImpl.findById:31 - id: 1
+2019-04-16 11:04:11.714 DEBUG DiaDAOImpl.findById:25 - id: 1
+2019-04-16 11:04:11.714 DEBUG DiaDAOImpl.findById:25 - id: 1
+2019-04-16 11:04:11.717 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:04:11.717 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:04:12.725 DEBUG HoraServicesImpl.findById:31 - id: 44
+2019-04-16 11:04:12.725 DEBUG HoraServicesImpl.findById:31 - id: 44
+2019-04-16 11:04:12.759 DEBUG HoraDAOImpl.findById:25 - id: 44
+2019-04-16 11:04:12.759 DEBUG HoraDAOImpl.findById:25 - id: 44
+2019-04-16 11:04:49.856 DEBUG HoraServicesImpl.findById:31 - id: 1
+2019-04-16 11:04:49.856 DEBUG HoraServicesImpl.findById:31 - id: 1
+2019-04-16 11:04:49.891 DEBUG DiaDAOImpl.findById:25 - id: 1
+2019-04-16 11:04:49.891 DEBUG DiaDAOImpl.findById:25 - id: 1
+2019-04-16 11:04:49.894 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:04:49.894 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:04:52.163 DEBUG HoraServicesImpl.findById:31 - id: 85
+2019-04-16 11:04:52.163 DEBUG HoraServicesImpl.findById:31 - id: 85
+2019-04-16 11:04:52.197 DEBUG HoraDAOImpl.findById:25 - id: 85
+2019-04-16 11:04:52.197 DEBUG HoraDAOImpl.findById:25 - id: 85
+2019-04-16 11:05:17.696 DEBUG HoraServicesImpl.findById:31 - id: 2
+2019-04-16 11:05:17.696 DEBUG HoraServicesImpl.findById:31 - id: 2
+2019-04-16 11:05:17.730 DEBUG DiaDAOImpl.findById:25 - id: 2
+2019-04-16 11:05:17.730 DEBUG DiaDAOImpl.findById:25 - id: 2
+2019-04-16 11:05:17.733 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:05:17.733 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:05:18.284 DEBUG HoraServicesImpl.findById:31 - id: 69
+2019-04-16 11:05:18.284 DEBUG HoraServicesImpl.findById:31 - id: 69
+2019-04-16 11:05:18.318 DEBUG HoraDAOImpl.findById:25 - id: 69
+2019-04-16 11:05:18.318 DEBUG HoraDAOImpl.findById:25 - id: 69
+2019-04-16 11:10:00.631 DEBUG HorarioServicesImpl.findByProfesor:95 - idProfesor: 1
+2019-04-16 11:10:00.631 DEBUG HorarioServicesImpl.findByProfesor:95 - idProfesor: 1
+2019-04-16 11:10:01.337 DEBUG HoraDAOImpl.findByProfesor:269 - idProfesor = 1 
+2019-04-16 11:10:01.337 DEBUG HoraDAOImpl.findByProfesor:269 - idProfesor = 1 
+2019-04-16 11:10:01.338 DEBUG HoraDAOImpl.findByProfesor:280 - SELECT ID_HORARIO, ID_PROFESOR, ID_DIA, ID_HORA   FROM HORARIO 	WHERE ID_PROFESOR = ? 
+2019-04-16 11:10:01.338 DEBUG HoraDAOImpl.findByProfesor:280 - SELECT ID_HORARIO, ID_PROFESOR, ID_DIA, ID_HORA   FROM HORARIO 	WHERE ID_PROFESOR = ? 
+2019-04-16 11:10:01.401 DEBUG HoraServicesImpl.findById:31 - id: 1
+2019-04-16 11:10:01.401 DEBUG HoraServicesImpl.findById:31 - id: 1
+2019-04-16 11:10:01.402 DEBUG DiaDAOImpl.findById:25 - id: 1
+2019-04-16 11:10:01.402 DEBUG DiaDAOImpl.findById:25 - id: 1
+2019-04-16 11:10:01.402 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:10:01.402 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:10:01.404 DEBUG HoraServicesImpl.findById:31 - id: 44
+2019-04-16 11:10:01.404 DEBUG HoraServicesImpl.findById:31 - id: 44
+2019-04-16 11:10:01.404 DEBUG HoraDAOImpl.findById:25 - id: 44
+2019-04-16 11:10:01.404 DEBUG HoraDAOImpl.findById:25 - id: 44
+2019-04-16 11:10:01.438 DEBUG HoraServicesImpl.findById:31 - id: 1
+2019-04-16 11:10:01.438 DEBUG HoraServicesImpl.findById:31 - id: 1
+2019-04-16 11:10:01.439 DEBUG DiaDAOImpl.findById:25 - id: 1
+2019-04-16 11:10:01.439 DEBUG DiaDAOImpl.findById:25 - id: 1
+2019-04-16 11:10:01.439 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:10:01.439 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:10:01.441 DEBUG HoraServicesImpl.findById:31 - id: 85
+2019-04-16 11:10:01.441 DEBUG HoraServicesImpl.findById:31 - id: 85
+2019-04-16 11:10:01.442 DEBUG HoraDAOImpl.findById:25 - id: 85
+2019-04-16 11:10:01.442 DEBUG HoraDAOImpl.findById:25 - id: 85
+2019-04-16 11:10:01.443 DEBUG HoraServicesImpl.findById:31 - id: 2
+2019-04-16 11:10:01.443 DEBUG HoraServicesImpl.findById:31 - id: 2
+2019-04-16 11:10:01.444 DEBUG DiaDAOImpl.findById:25 - id: 2
+2019-04-16 11:10:01.444 DEBUG DiaDAOImpl.findById:25 - id: 2
+2019-04-16 11:10:01.444 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:10:01.444 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:10:01.445 DEBUG HoraServicesImpl.findById:31 - id: 69
+2019-04-16 11:10:01.445 DEBUG HoraServicesImpl.findById:31 - id: 69
+2019-04-16 11:10:01.446 DEBUG HoraDAOImpl.findById:25 - id: 69
+2019-04-16 11:10:01.446 DEBUG HoraDAOImpl.findById:25 - id: 69
+2019-04-16 11:10:01.448 DEBUG HoraServicesImpl.findById:31 - id: 4
+2019-04-16 11:10:01.448 DEBUG HoraServicesImpl.findById:31 - id: 4
+2019-04-16 11:10:01.449 DEBUG DiaDAOImpl.findById:25 - id: 4
+2019-04-16 11:10:01.449 DEBUG DiaDAOImpl.findById:25 - id: 4
+2019-04-16 11:10:01.449 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:10:01.449 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:10:01.452 DEBUG HoraServicesImpl.findById:31 - id: 55
+2019-04-16 11:10:01.452 DEBUG HoraServicesImpl.findById:31 - id: 55
+2019-04-16 11:10:01.453 DEBUG HoraDAOImpl.findById:25 - id: 55
+2019-04-16 11:10:01.453 DEBUG HoraDAOImpl.findById:25 - id: 55
+2019-04-16 11:10:01.454 DEBUG HoraServicesImpl.findById:31 - id: 4
+2019-04-16 11:10:01.454 DEBUG HoraServicesImpl.findById:31 - id: 4
+2019-04-16 11:10:01.455 DEBUG DiaDAOImpl.findById:25 - id: 4
+2019-04-16 11:10:01.455 DEBUG DiaDAOImpl.findById:25 - id: 4
+2019-04-16 11:10:01.455 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:10:01.455 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:10:01.456 DEBUG HoraServicesImpl.findById:31 - id: 22
+2019-04-16 11:10:01.456 DEBUG HoraServicesImpl.findById:31 - id: 22
+2019-04-16 11:10:01.457 DEBUG HoraDAOImpl.findById:25 - id: 22
+2019-04-16 11:10:01.457 DEBUG HoraDAOImpl.findById:25 - id: 22
+2019-04-16 11:10:01.458 DEBUG HoraServicesImpl.findById:31 - id: 6
+2019-04-16 11:10:01.458 DEBUG HoraServicesImpl.findById:31 - id: 6
+2019-04-16 11:10:01.459 DEBUG DiaDAOImpl.findById:25 - id: 6
+2019-04-16 11:10:01.459 DEBUG DiaDAOImpl.findById:25 - id: 6
+2019-04-16 11:10:01.459 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:10:01.459 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:10:01.460 DEBUG HoraServicesImpl.findById:31 - id: 95
+2019-04-16 11:10:01.460 DEBUG HoraServicesImpl.findById:31 - id: 95
+2019-04-16 11:10:01.461 DEBUG HoraDAOImpl.findById:25 - id: 95
+2019-04-16 11:10:01.461 DEBUG HoraDAOImpl.findById:25 - id: 95
+2019-04-16 11:10:01.462 DEBUG HoraServicesImpl.findById:31 - id: 7
+2019-04-16 11:10:01.462 DEBUG HoraServicesImpl.findById:31 - id: 7
+2019-04-16 11:10:01.463 DEBUG DiaDAOImpl.findById:25 - id: 7
+2019-04-16 11:10:01.463 DEBUG DiaDAOImpl.findById:25 - id: 7
+2019-04-16 11:10:01.463 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:10:01.463 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:10:01.464 DEBUG HoraServicesImpl.findById:31 - id: 86
+2019-04-16 11:10:01.464 DEBUG HoraServicesImpl.findById:31 - id: 86
+2019-04-16 11:10:01.465 DEBUG HoraDAOImpl.findById:25 - id: 86
+2019-04-16 11:10:01.465 DEBUG HoraDAOImpl.findById:25 - id: 86
+2019-04-16 11:10:01.467 DEBUG HoraServicesImpl.findById:31 - id: 7
+2019-04-16 11:10:01.467 DEBUG HoraServicesImpl.findById:31 - id: 7
+2019-04-16 11:10:01.467 DEBUG DiaDAOImpl.findById:25 - id: 7
+2019-04-16 11:10:01.467 DEBUG DiaDAOImpl.findById:25 - id: 7
+2019-04-16 11:10:01.468 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:10:01.468 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:10:01.469 DEBUG HoraServicesImpl.findById:31 - id: 96
+2019-04-16 11:10:01.469 DEBUG HoraServicesImpl.findById:31 - id: 96
+2019-04-16 11:10:01.469 DEBUG HoraDAOImpl.findById:25 - id: 96
+2019-04-16 11:10:01.469 DEBUG HoraDAOImpl.findById:25 - id: 96
+2019-04-16 11:10:01.470 DEBUG SpecificUtils.main:85 - día Miércoles [
+2019-04-16 11:10:01.471 DEBUG SpecificUtils.main:88 - Hora 13:30
+2019-04-16 11:10:01.471 DEBUG SpecificUtils.main:88 - Hora 5:15
+2019-04-16 11:10:01.471 DEBUG SpecificUtils.main:91 - ]
+2019-04-16 11:10:01.471 DEBUG SpecificUtils.main:85 - día Viernes [
+2019-04-16 11:10:01.471 DEBUG SpecificUtils.main:88 - Hora 23:30
+2019-04-16 11:10:01.471 DEBUG SpecificUtils.main:91 - ]
+2019-04-16 11:10:01.471 DEBUG SpecificUtils.main:85 - día Lunes [
+2019-04-16 11:10:01.471 DEBUG SpecificUtils.main:88 - Hora 17:00
+2019-04-16 11:10:01.472 DEBUG SpecificUtils.main:91 - ]
+2019-04-16 11:10:01.472 DEBUG SpecificUtils.main:85 - día Sábado [
+2019-04-16 11:10:01.472 DEBUG SpecificUtils.main:88 - Hora 21:15
+2019-04-16 11:10:01.472 DEBUG SpecificUtils.main:88 - Hora 23:45
+2019-04-16 11:10:01.472 DEBUG SpecificUtils.main:91 - ]
+2019-04-16 11:10:01.472 DEBUG SpecificUtils.main:85 - día Domingo [
+2019-04-16 11:10:01.472 DEBUG SpecificUtils.main:88 - Hora 10:45
+2019-04-16 11:10:01.473 DEBUG SpecificUtils.main:88 - Hora 21:00
+2019-04-16 11:10:01.473 DEBUG SpecificUtils.main:91 - ]
+2019-04-16 11:10:22.750 DEBUG HorarioServicesImpl.findByProfesor:95 - idProfesor: 1
+2019-04-16 11:10:22.750 DEBUG HorarioServicesImpl.findByProfesor:95 - idProfesor: 1
+2019-04-16 11:10:23.695 DEBUG HoraDAOImpl.findByProfesor:269 - idProfesor = 1 
+2019-04-16 11:10:23.695 DEBUG HoraDAOImpl.findByProfesor:269 - idProfesor = 1 
+2019-04-16 11:10:23.696 DEBUG HoraDAOImpl.findByProfesor:280 - SELECT ID_HORARIO, ID_PROFESOR, ID_DIA, ID_HORA   FROM HORARIO 	WHERE ID_PROFESOR = ? 
+2019-04-16 11:10:23.696 DEBUG HoraDAOImpl.findByProfesor:280 - SELECT ID_HORARIO, ID_PROFESOR, ID_DIA, ID_HORA   FROM HORARIO 	WHERE ID_PROFESOR = ? 
+2019-04-16 11:10:27.059 DEBUG HoraServicesImpl.findById:31 - id: 1
+2019-04-16 11:10:27.059 DEBUG HoraServicesImpl.findById:31 - id: 1
+2019-04-16 11:10:27.093 DEBUG DiaDAOImpl.findById:25 - id: 1
+2019-04-16 11:10:27.093 DEBUG DiaDAOImpl.findById:25 - id: 1
+2019-04-16 11:10:27.096 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:10:27.096 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:10:27.515 DEBUG HoraServicesImpl.findById:31 - id: 44
+2019-04-16 11:10:27.515 DEBUG HoraServicesImpl.findById:31 - id: 44
+2019-04-16 11:10:27.550 DEBUG HoraDAOImpl.findById:25 - id: 44
+2019-04-16 11:10:27.550 DEBUG HoraDAOImpl.findById:25 - id: 44
+2019-04-16 11:10:41.591 DEBUG HoraServicesImpl.findById:31 - id: 1
+2019-04-16 11:10:41.591 DEBUG HoraServicesImpl.findById:31 - id: 1
+2019-04-16 11:10:41.625 DEBUG DiaDAOImpl.findById:25 - id: 1
+2019-04-16 11:10:41.625 DEBUG DiaDAOImpl.findById:25 - id: 1
+2019-04-16 11:10:41.628 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:10:41.628 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:10:42.298 DEBUG HoraServicesImpl.findById:31 - id: 85
+2019-04-16 11:10:42.298 DEBUG HoraServicesImpl.findById:31 - id: 85
+2019-04-16 11:10:42.332 DEBUG HoraDAOImpl.findById:25 - id: 85
+2019-04-16 11:10:42.332 DEBUG HoraDAOImpl.findById:25 - id: 85
+2019-04-16 11:10:56.271 DEBUG HoraServicesImpl.findById:31 - id: 2
+2019-04-16 11:10:56.271 DEBUG HoraServicesImpl.findById:31 - id: 2
+2019-04-16 11:10:56.304 DEBUG DiaDAOImpl.findById:25 - id: 2
+2019-04-16 11:10:56.304 DEBUG DiaDAOImpl.findById:25 - id: 2
+2019-04-16 11:10:56.307 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:10:56.307 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:10:57.676 DEBUG HoraServicesImpl.findById:31 - id: 69
+2019-04-16 11:10:57.676 DEBUG HoraServicesImpl.findById:31 - id: 69
+2019-04-16 11:10:57.709 DEBUG HoraDAOImpl.findById:25 - id: 69
+2019-04-16 11:10:57.709 DEBUG HoraDAOImpl.findById:25 - id: 69
+2019-04-16 11:11:36.439 DEBUG HorarioServicesImpl.findByProfesor:95 - idProfesor: 1
+2019-04-16 11:11:36.439 DEBUG HorarioServicesImpl.findByProfesor:95 - idProfesor: 1
+2019-04-16 11:11:37.091 DEBUG HoraDAOImpl.findByProfesor:269 - idProfesor = 1 
+2019-04-16 11:11:37.091 DEBUG HoraDAOImpl.findByProfesor:269 - idProfesor = 1 
+2019-04-16 11:11:37.092 DEBUG HoraDAOImpl.findByProfesor:280 - SELECT ID_HORARIO, ID_PROFESOR, ID_DIA, ID_HORA   FROM HORARIO 	WHERE ID_PROFESOR = ? 
+2019-04-16 11:11:37.092 DEBUG HoraDAOImpl.findByProfesor:280 - SELECT ID_HORARIO, ID_PROFESOR, ID_DIA, ID_HORA   FROM HORARIO 	WHERE ID_PROFESOR = ? 
+2019-04-16 11:11:37.119 DEBUG HoraServicesImpl.findById:31 - id: 1
+2019-04-16 11:11:37.119 DEBUG HoraServicesImpl.findById:31 - id: 1
+2019-04-16 11:11:37.120 DEBUG DiaDAOImpl.findById:25 - id: 1
+2019-04-16 11:11:37.120 DEBUG DiaDAOImpl.findById:25 - id: 1
+2019-04-16 11:11:37.120 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:11:37.120 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:11:37.122 DEBUG HoraServicesImpl.findById:31 - id: 44
+2019-04-16 11:11:37.122 DEBUG HoraServicesImpl.findById:31 - id: 44
+2019-04-16 11:11:37.122 DEBUG HoraDAOImpl.findById:25 - id: 44
+2019-04-16 11:11:37.122 DEBUG HoraDAOImpl.findById:25 - id: 44
+2019-04-16 11:11:37.125 DEBUG HoraServicesImpl.findById:31 - id: 1
+2019-04-16 11:11:37.125 DEBUG HoraServicesImpl.findById:31 - id: 1
+2019-04-16 11:11:37.126 DEBUG DiaDAOImpl.findById:25 - id: 1
+2019-04-16 11:11:37.126 DEBUG DiaDAOImpl.findById:25 - id: 1
+2019-04-16 11:11:37.126 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:11:37.126 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:11:37.127 DEBUG HoraServicesImpl.findById:31 - id: 85
+2019-04-16 11:11:37.127 DEBUG HoraServicesImpl.findById:31 - id: 85
+2019-04-16 11:11:37.128 DEBUG HoraDAOImpl.findById:25 - id: 85
+2019-04-16 11:11:37.128 DEBUG HoraDAOImpl.findById:25 - id: 85
+2019-04-16 11:11:37.128 DEBUG HoraServicesImpl.findById:31 - id: 2
+2019-04-16 11:11:37.128 DEBUG HoraServicesImpl.findById:31 - id: 2
+2019-04-16 11:11:37.129 DEBUG DiaDAOImpl.findById:25 - id: 2
+2019-04-16 11:11:37.129 DEBUG DiaDAOImpl.findById:25 - id: 2
+2019-04-16 11:11:37.129 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:11:37.129 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:11:37.130 DEBUG HoraServicesImpl.findById:31 - id: 69
+2019-04-16 11:11:37.130 DEBUG HoraServicesImpl.findById:31 - id: 69
+2019-04-16 11:11:37.131 DEBUG HoraDAOImpl.findById:25 - id: 69
+2019-04-16 11:11:37.131 DEBUG HoraDAOImpl.findById:25 - id: 69
+2019-04-16 11:11:37.131 DEBUG HoraServicesImpl.findById:31 - id: 4
+2019-04-16 11:11:37.131 DEBUG HoraServicesImpl.findById:31 - id: 4
+2019-04-16 11:11:37.132 DEBUG DiaDAOImpl.findById:25 - id: 4
+2019-04-16 11:11:37.132 DEBUG DiaDAOImpl.findById:25 - id: 4
+2019-04-16 11:11:37.132 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:11:37.132 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:11:37.133 DEBUG HoraServicesImpl.findById:31 - id: 55
+2019-04-16 11:11:37.133 DEBUG HoraServicesImpl.findById:31 - id: 55
+2019-04-16 11:11:37.134 DEBUG HoraDAOImpl.findById:25 - id: 55
+2019-04-16 11:11:37.134 DEBUG HoraDAOImpl.findById:25 - id: 55
+2019-04-16 11:11:37.135 DEBUG HoraServicesImpl.findById:31 - id: 4
+2019-04-16 11:11:37.135 DEBUG HoraServicesImpl.findById:31 - id: 4
+2019-04-16 11:11:37.136 DEBUG DiaDAOImpl.findById:25 - id: 4
+2019-04-16 11:11:37.136 DEBUG DiaDAOImpl.findById:25 - id: 4
+2019-04-16 11:11:37.136 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:11:37.136 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:11:37.137 DEBUG HoraServicesImpl.findById:31 - id: 22
+2019-04-16 11:11:37.137 DEBUG HoraServicesImpl.findById:31 - id: 22
+2019-04-16 11:11:37.137 DEBUG HoraDAOImpl.findById:25 - id: 22
+2019-04-16 11:11:37.137 DEBUG HoraDAOImpl.findById:25 - id: 22
+2019-04-16 11:11:37.138 DEBUG HoraServicesImpl.findById:31 - id: 6
+2019-04-16 11:11:37.138 DEBUG HoraServicesImpl.findById:31 - id: 6
+2019-04-16 11:11:37.138 DEBUG DiaDAOImpl.findById:25 - id: 6
+2019-04-16 11:11:37.138 DEBUG DiaDAOImpl.findById:25 - id: 6
+2019-04-16 11:11:37.138 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:11:37.138 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:11:37.139 DEBUG HoraServicesImpl.findById:31 - id: 95
+2019-04-16 11:11:37.139 DEBUG HoraServicesImpl.findById:31 - id: 95
+2019-04-16 11:11:37.140 DEBUG HoraDAOImpl.findById:25 - id: 95
+2019-04-16 11:11:37.140 DEBUG HoraDAOImpl.findById:25 - id: 95
+2019-04-16 11:11:37.141 DEBUG HoraServicesImpl.findById:31 - id: 7
+2019-04-16 11:11:37.141 DEBUG HoraServicesImpl.findById:31 - id: 7
+2019-04-16 11:11:37.141 DEBUG DiaDAOImpl.findById:25 - id: 7
+2019-04-16 11:11:37.141 DEBUG DiaDAOImpl.findById:25 - id: 7
+2019-04-16 11:11:37.141 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:11:37.141 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:11:37.142 DEBUG HoraServicesImpl.findById:31 - id: 86
+2019-04-16 11:11:37.142 DEBUG HoraServicesImpl.findById:31 - id: 86
+2019-04-16 11:11:37.143 DEBUG HoraDAOImpl.findById:25 - id: 86
+2019-04-16 11:11:37.143 DEBUG HoraDAOImpl.findById:25 - id: 86
+2019-04-16 11:11:37.144 DEBUG HoraServicesImpl.findById:31 - id: 7
+2019-04-16 11:11:37.144 DEBUG HoraServicesImpl.findById:31 - id: 7
+2019-04-16 11:11:37.144 DEBUG DiaDAOImpl.findById:25 - id: 7
+2019-04-16 11:11:37.144 DEBUG DiaDAOImpl.findById:25 - id: 7
+2019-04-16 11:11:37.144 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:11:37.144 DEBUG DiaDAOImpl.findById:35 - SELECT ID_DIA, DIA FROM DIA where id_dia = ?
+2019-04-16 11:11:37.146 DEBUG HoraServicesImpl.findById:31 - id: 96
+2019-04-16 11:11:37.146 DEBUG HoraServicesImpl.findById:31 - id: 96
+2019-04-16 11:11:37.146 DEBUG HoraDAOImpl.findById:25 - id: 96
+2019-04-16 11:11:37.146 DEBUG HoraDAOImpl.findById:25 - id: 96
+2019-04-16 11:11:37.148 DEBUG SpecificUtils.main:84 - día Miércoles [
+2019-04-16 11:11:37.148 DEBUG SpecificUtils.main:87 - Hora 13:30
+2019-04-16 11:11:37.148 DEBUG SpecificUtils.main:87 - Hora 5:15
+2019-04-16 11:11:37.148 DEBUG SpecificUtils.main:90 - ]
+2019-04-16 11:11:37.148 DEBUG SpecificUtils.main:84 - día Viernes [
+2019-04-16 11:11:37.148 DEBUG SpecificUtils.main:87 - Hora 23:30
+2019-04-16 11:11:37.148 DEBUG SpecificUtils.main:90 - ]
+2019-04-16 11:11:37.148 DEBUG SpecificUtils.main:84 - día Lunes [
+2019-04-16 11:11:37.148 DEBUG SpecificUtils.main:87 - Hora 17:00
+2019-04-16 11:11:37.148 DEBUG SpecificUtils.main:90 - ]
+2019-04-16 11:11:37.149 DEBUG SpecificUtils.main:84 - día Sábado [
+2019-04-16 11:11:37.149 DEBUG SpecificUtils.main:87 - Hora 21:15
+2019-04-16 11:11:37.149 DEBUG SpecificUtils.main:87 - Hora 23:45
+2019-04-16 11:11:37.149 DEBUG SpecificUtils.main:90 - ]
+2019-04-16 11:11:37.149 DEBUG SpecificUtils.main:84 - día Domingo [
+2019-04-16 11:11:37.149 DEBUG SpecificUtils.main:87 - Hora 10:45
+2019-04-16 11:11:37.149 DEBUG SpecificUtils.main:87 - Hora 21:00
+2019-04-16 11:11:37.150 DEBUG SpecificUtils.main:90 - ]

@@ -3,6 +3,7 @@ package com.eduinteractive.web.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -16,26 +17,38 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.educorp.eduinteractive.ecommerce.exceptions.DataException;
+import com.educorp.eduinteractive.ecommerce.model.Dia;
 import com.educorp.eduinteractive.ecommerce.model.Genero;
+import com.educorp.eduinteractive.ecommerce.model.Hora;
 import com.educorp.eduinteractive.ecommerce.model.Horario;
 import com.educorp.eduinteractive.ecommerce.model.NivelIngles;
 import com.educorp.eduinteractive.ecommerce.model.Pais;
 import com.educorp.eduinteractive.ecommerce.model.Profesor;
+import com.educorp.eduinteractive.ecommerce.model.Sesion;
+import com.educorp.eduinteractive.ecommerce.service.impl.DiaServicesImpl;
 import com.educorp.eduinteractive.ecommerce.service.impl.GeneroServiceImpl;
+import com.educorp.eduinteractive.ecommerce.service.impl.HoraServicesImpl;
 import com.educorp.eduinteractive.ecommerce.service.impl.HorarioServicesImpl;
 import com.educorp.eduinteractive.ecommerce.service.impl.NivelInglesServicesImpl;
 import com.educorp.eduinteractive.ecommerce.service.impl.PaisServicesImpl;
 import com.educorp.eduinteractive.ecommerce.service.impl.ProfesorServicesImpl;
+import com.educorp.eduinteractive.ecommerce.service.impl.SesionServicesImpl;
+import com.educorp.eduinteractive.ecommerce.service.spi.DiaServices;
 import com.educorp.eduinteractive.ecommerce.service.spi.GeneroService;
+import com.educorp.eduinteractive.ecommerce.service.spi.HoraServices;
 import com.educorp.eduinteractive.ecommerce.service.spi.HorarioService;
 import com.educorp.eduinteractive.ecommerce.service.spi.NivelInglesServices;
 import com.educorp.eduinteractive.ecommerce.service.spi.PaisServices;
 import com.educorp.eduinteractive.ecommerce.service.spi.ProfesorService;
+import com.educorp.eduinteractive.ecommerce.service.spi.SesionServices;
 import com.eduinteractive.web.model.ErrorCodes;
 import com.eduinteractive.web.model.ErrorManager;
+import com.eduinteractive.web.utils.CookieManager;
+import com.eduinteractive.web.utils.LocaleManager;
 import com.eduinteractive.web.utils.ParameterUtils;
 import com.eduinteractive.web.utils.SessionManager;
 import com.eduinteractive.web.utils.SpecificUtils;
+import com.eduinteractive.web.utils.ValidationUtils;
 import com.mysql.cj.util.StringUtils;
 
 /**
@@ -44,13 +57,16 @@ import com.mysql.cj.util.StringUtils;
 @WebServlet("/profesor")
 public class ProfesorServlet extends HttpServlet {
 	private static Logger logger = LogManager.getLogger(ProfesorServlet.class);
-	
+
 	private ProfesorService profesorService = null;
 	private PaisServices paisServices = null;
 	private GeneroService generoServices = null;
 	private NivelInglesServices nivelServices = null;
 	private HorarioService horarioServices = null;
-	
+	private HoraServices horaServices = null;
+	private DiaServices diaServices =  null;
+	private SesionServices sesionServices = null;
+
 
 	public ProfesorServlet() {
 		super();
@@ -59,11 +75,14 @@ public class ProfesorServlet extends HttpServlet {
 		generoServices = new GeneroServiceImpl();
 		nivelServices = new NivelInglesServicesImpl();
 		horarioServices = new HorarioServicesImpl();
+		horaServices = new HoraServicesImpl();
+		diaServices = new DiaServicesImpl();
+		sesionServices = new SesionServicesImpl();
 	}
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		String action = request.getParameter(ParameterNames.ACTION);
 		String idioma = SessionManager.get(request,ConstantsValues.USER_LOCALE).toString().substring(0,2).toUpperCase();
 		boolean redirect = false;
@@ -81,9 +100,9 @@ public class ProfesorServlet extends HttpServlet {
 			if (StringUtils.isEmptyOrWhitespaceOnly(email)) {
 				errors.add(ParameterNames.EMAIL,ErrorCodes.MANDATORY_PARAMETER);
 			}
-			
+
 			password = ParameterUtils.trimmer(password);
-			
+
 			if (StringUtils.isEmptyOrWhitespaceOnly(password)) {
 				errors.add(ParameterNames.PASSWORD,ErrorCodes.MANDATORY_PARAMETER);
 			}
@@ -108,8 +127,12 @@ public class ProfesorServlet extends HttpServlet {
 				if(logger.isDebugEnabled()) {
 					logger.info("Profesor " + profesor.getEmail() + " autenticado");
 				}
-				SessionManager.set(request, SessionAttributeNames.USUARIO, profesor);		
-				target = ViewPaths.PRE_HOME_PROFESOR;	
+				SessionManager.set(request, SessionAttributeNames.USUARIO, profesor);	
+				if(profesor.getAceptado() != 0) {
+					target = ViewPaths.PRE_HOME_PROFESOR;	
+				}else {
+					target=ViewPaths.TEACHER_NOT_ACTIVATE;
+				}
 				redirect = true;
 			}
 		}else if(Actions.DETALLE_PROFESOR.equalsIgnoreCase(action)){
@@ -135,7 +158,7 @@ public class ProfesorServlet extends HttpServlet {
 			request.setAttribute(AttributeNames.NIVELES, nivelEstudiante);
 			target = ViewPaths.DETAILS_PROFESOR_AS_PROFESOR;
 			redirect = false;
-		}else if(Actions.BUSCAR_HORARIOS.equals(action)){
+		}else if(Actions.SEE_HORARIOS.equals(action)){
 			Profesor profesor = (Profesor) SessionManager.get(request, SessionAttributeNames.USUARIO);
 			List<Horario> horarios = new ArrayList<Horario>();
 			try {
@@ -143,10 +166,123 @@ public class ProfesorServlet extends HttpServlet {
 			} catch (DataException e) {
 				logger.warn(e.getMessage(), e);
 			}
-			
+
 			Map<String, List<String>> horariosPrint = SpecificUtils.printHorario(horarios);
 			request.setAttribute(AttributeNames.PRINT_HORARIOS, horariosPrint);
-			
+
+			redirect = false;
+			target = ViewPaths.SETTINGS_PROFESOR;
+		}else if(Actions.PRE_ADD_HORARIO.equalsIgnoreCase(action)){
+			List<Dia> dias = new ArrayList<Dia>();
+			List<Hora> horas = new ArrayList<Hora>();
+
+			try {
+				dias = diaServices.findAll();
+				horas = horaServices.findAll();
+			} catch (DataException e) {
+				logger.warn(e.getMessage(), e);
+			}
+
+			request.setAttribute(AttributeNames.DIAS, dias);
+			request.setAttribute(AttributeNames.HORAS, horas);
+
+			redirect = false;
+			target = ViewPaths.SETTINGS_PROFESOR;
+
+		}else if(Actions.ADD_HORARIO.equalsIgnoreCase(action)){
+			Profesor p = (Profesor) SessionManager.get(request, SessionAttributeNames.USUARIO);
+			String dia = request.getParameter(ParameterNames.DIA);
+			String hora = request.getParameter(ParameterNames.HORA);
+
+			Integer idDia = ValidationUtils.intValidator(dia);
+			if(idDia == null) {
+				errors.add(ParameterNames.DIA, ErrorCodes.MANDATORY_PARAMETER);
+			}
+
+			Integer idHora = ValidationUtils.intValidator(hora);
+			if(idHora == null) {
+				errors.add(ParameterNames.HORA, ErrorCodes.MANDATORY_PARAMETER);
+			}
+
+			if(!errors.hasErrors()) {
+				Horario h = new Horario();
+				h.setIdProfesor(p.getIdProfesor());
+				h.setIdDia(idDia);
+				h.setIdHora(idHora);
+				try {
+					horarioServices.create(h);
+				} catch (DataException e) {
+					logger.warn(e.getMessage(), e);
+					errors.add(Actions.ADD_HORARIO, "El horario ya existe o no se pudo añadir");
+				}
+			}
+
+			if(errors.hasErrors()) {
+				redirect = false;
+			}else {
+				redirect = true;
+			}
+			target = ViewPaths.SETTINGS_PROFESOR;
+
+		}else if(Actions.ACEPT_SESION.equalsIgnoreCase(action)){
+			String idSesion = request.getParameter(ParameterNames.ID_SESION);
+			Integer sesionId = null;
+			if(idSesion != null) {
+				sesionId = ValidationUtils.intValidator(idSesion);
+			}
+			try {
+
+				Sesion sesion = sesionServices.findById(sesionId);
+				sesionServices.cambiarEstado(sesion, ConstantsValues.SESION_ACEPTADA);
+
+			} catch (DataException e) {
+
+				e.printStackTrace();
+			}
+
+			target = ViewPaths.PRE_HOME_PROFESOR;
+			redirect = true;
+		}else if(Actions.CANCEL_SESION.equalsIgnoreCase(action)){
+			String idSesion = request.getParameter(ParameterNames.ID_SESION);
+			Integer sesionId = null;
+			if(idSesion != null) {
+				sesionId = ValidationUtils.intValidator(idSesion);
+			}
+			try {
+
+				Sesion sesion = sesionServices.findById(sesionId);
+				sesionServices.cambiarEstado(sesion, ConstantsValues.SESION_CANCELADA);
+
+			} catch (DataException e) {
+
+				e.printStackTrace();
+			}
+
+			target = ViewPaths.PRE_HOME_PROFESOR;
+			redirect = true;
+		}else if(Actions.CHANGE_LOCALE.equalsIgnoreCase(action)){
+			String localeName = request.getParameter(ParameterNames.LOCALE);
+			List<Locale> results = LocaleManager.getMatchedLocales(localeName);
+			Locale newLocale = null;
+			if (results.size()>0) {
+				newLocale = results.get(0);
+			} else {
+				logger.warn("Request locale not supported: "+localeName);
+				newLocale = LocaleManager.getDefault();
+			}
+
+			SessionManager.set(request, ConstantsValues.USER_LOCALE, newLocale);			
+			CookieManager.addCookie(response, ConstantsValues.USER_LOCALE, newLocale.toString(), "/", 365*24*60*60);
+
+			if (logger.isDebugEnabled()) {
+				logger.debug("Locale changed to "+newLocale);
+			}
+
+			target = ViewPaths.SETTINGS_PROFESOR;
+			redirect = true;
+		}else if(Actions.START_SESION.equalsIgnoreCase(action)){
+			target = ViewPaths.VIDEO_CALL_PROFESOR;
+			redirect = true;
 		}else {
 			logger.error("Action desconocida");
 			target =ViewPaths.PRE_INICIO;

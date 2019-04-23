@@ -1,0 +1,32 @@
+2019-04-22 19:40:00.310 WARN  ValidationUtils.intValidator:28 - For input string: "true"
+java.lang.NumberFormatException: For input string: "true"
+	at java.lang.NumberFormatException.forInputString(Unknown Source) ~[?:1.8.0_181]
+	at java.lang.Integer.parseInt(Unknown Source) ~[?:1.8.0_181]
+	at java.lang.Integer.parseInt(Unknown Source) ~[?:1.8.0_181]
+	at com.eduinteractive.web.utils.ValidationUtils.intValidator(ValidationUtils.java:23) [classes/:?]
+	at com.eduinteractive.web.utils.ValidationUtils.booleanValidator(ValidationUtils.java:133) [classes/:?]
+	at com.eduinteractive.web.utils.ValidationUtils.main(ValidationUtils.java:152) [classes/:?]
+2019-04-22 19:40:00.380 WARN  ValidationUtils.intValidator:28 - For input string: "true"
+java.lang.NumberFormatException: For input string: "true"
+	at java.lang.NumberFormatException.forInputString(Unknown Source) ~[?:1.8.0_181]
+	at java.lang.Integer.parseInt(Unknown Source) ~[?:1.8.0_181]
+	at java.lang.Integer.parseInt(Unknown Source) ~[?:1.8.0_181]
+	at com.eduinteractive.web.utils.ValidationUtils.intValidator(ValidationUtils.java:23) [classes/:?]
+	at com.eduinteractive.web.utils.ValidationUtils.booleanValidator(ValidationUtils.java:133) [classes/:?]
+	at com.eduinteractive.web.utils.ValidationUtils.main(ValidationUtils.java:153) [classes/:?]
+2019-04-22 19:40:00.390 WARN  ValidationUtils.intValidator:28 - For input string: "false"
+java.lang.NumberFormatException: For input string: "false"
+	at java.lang.NumberFormatException.forInputString(Unknown Source) ~[?:1.8.0_181]
+	at java.lang.Integer.parseInt(Unknown Source) ~[?:1.8.0_181]
+	at java.lang.Integer.parseInt(Unknown Source) ~[?:1.8.0_181]
+	at com.eduinteractive.web.utils.ValidationUtils.intValidator(ValidationUtils.java:23) [classes/:?]
+	at com.eduinteractive.web.utils.ValidationUtils.booleanValidator(ValidationUtils.java:133) [classes/:?]
+	at com.eduinteractive.web.utils.ValidationUtils.main(ValidationUtils.java:160) [classes/:?]
+2019-04-22 19:40:00.394 WARN  ValidationUtils.intValidator:28 - For input string: "false"
+java.lang.NumberFormatException: For input string: "false"
+	at java.lang.NumberFormatException.forInputString(Unknown Source) ~[?:1.8.0_181]
+	at java.lang.Integer.parseInt(Unknown Source) ~[?:1.8.0_181]
+	at java.lang.Integer.parseInt(Unknown Source) ~[?:1.8.0_181]
+	at com.eduinteractive.web.utils.ValidationUtils.intValidator(ValidationUtils.java:23) [classes/:?]
+	at com.eduinteractive.web.utils.ValidationUtils.booleanValidator(ValidationUtils.java:133) [classes/:?]
+	at com.eduinteractive.web.utils.ValidationUtils.main(ValidationUtils.java:161) [classes/:?]

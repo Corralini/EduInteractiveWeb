@@ -44,7 +44,7 @@ public class ParameterUtils {
 			String respuesta = respuestas.get(i);
 			if((i == 2 || i == 3) && respuesta.equalsIgnoreCase(ParameterNames.OPCION_A)) acertadas++;
 			if((i == 0 || i == 4 || i == 5 || i == 6 || i == 7 || i == 8) && respuesta.equalsIgnoreCase(ParameterNames.OPCION_B)) acertadas++;
-			if((i == 1 || i == 9) && respuesta.equalsIgnoreCase(ParameterNames.OPCION_D)) acertadas++;
+			if((i == 1 || i == 9) && respuesta.equalsIgnoreCase(ParameterNames.OPCION_C)) acertadas++;
 		}
 
 		return acertadas;
@@ -124,7 +124,7 @@ public class ParameterUtils {
 	public static Date nextDay (Date date) {
 		Calendar c = Calendar.getInstance();
 		c.setTime(date);
-		c.add(Calendar.DAY_OF_MONTH, 1);
+		c.add(Calendar.DAY_OF_YEAR, 1);
 		
 		return c.getTime();
 	}
@@ -146,7 +146,6 @@ public class ParameterUtils {
 		
 		Calendar calendar1 = Calendar.getInstance();
 		Calendar calendar2 = Calendar.getInstance();
-		
 		calendar1.setTime(date1);
 		calendar2.setTime(date2);
 		
@@ -183,5 +182,50 @@ public class ParameterUtils {
 		return splitString;
 	}
 	
-	
+	/**
+	 * Metodo utilidad que comprueba que una fecha está a posteriori
+	 * Sin tener en cuenta las horas
+	 * @param date1
+	 * @param date2
+	 * @return
+	 */
+	public static boolean after (Date date1, Date date2) {
+
+		if(date1 == null && date2 == null) return true;
+		if(date1 == null) return false;
+		if(date2 == null) return false;
+
+		Calendar c1 = Calendar.getInstance();
+		Calendar c2 =  Calendar.getInstance();
+		c1.setTime(date1);
+		c2.setTime(date2);
+
+		c1.set(Calendar.HOUR_OF_DAY, 0);
+		c2.set(Calendar.HOUR_OF_DAY, 0);
+
+		return c1.getTime().after(c2.getTime());
+	}
+	/**
+	 * Metodo utilidad que comprueba que una fecha está a priori
+	 * Sin tener en cuenta las horas
+	 * @param date1
+	 * @param date2
+	 * @return
+	 */
+	public static boolean before (Date date1, Date date2) {
+
+		if(date1 == null && date2 == null) return true;
+		if(date1 == null) return false;
+		if(date2 == null) return false;
+
+		Calendar c1 = Calendar.getInstance();
+		Calendar c2 =  Calendar.getInstance();
+		c1.setTime(date1);
+		c2.setTime(date2);
+
+		c1.set(Calendar.HOUR_OF_DAY, 0);
+		c2.set(Calendar.HOUR_OF_DAY, 0);
+
+		return c1.getTime().before(c2.getTime());
+	}
 }

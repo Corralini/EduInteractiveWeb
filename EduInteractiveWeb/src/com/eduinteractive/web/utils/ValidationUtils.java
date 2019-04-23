@@ -13,6 +13,9 @@ import com.mysql.cj.util.StringUtils;
 public class ValidationUtils {
 
 	private static Logger logger = LogManager.getLogger(ValidationUtils.class);
+	private static Integer TRUE = 1;
+	private static Integer FALSE = 0;
+
 
 	public static Integer intValidator(String parameter) {
 		try {
@@ -104,6 +107,46 @@ public class ValidationUtils {
 
 	}
 	/**
+	 * Metodo que valida que sea un booleano
+	 * Si trueOrFalseParameter es false el parámetro tiene que ser Integer
+	 * Si strictBoolean es true solo se acpetan valores 0, 1 si es otro valor retorna null
+	 * Si strictBoolean es false 0 es false y cualquiera valor es true;
+	 * CaseInsensitive
+	 * @param parameterStr
+	 * @param strictBoolean 
+	 * @param trueOrFalseParameter 
+	 * @return
+	 */
+	public static Boolean booleanValidator (String parameterStr, boolean strictBoolean, boolean trueOrFalseParameter) {
+		if(trueOrFalseParameter) {
+			if(Boolean.FALSE.toString().equalsIgnoreCase(parameterStr)) {
+				return Boolean.FALSE;
+			}
+			if(strictBoolean) {
+				if(Boolean.TRUE.toString().equalsIgnoreCase(parameterStr)){
+					return Boolean.TRUE;
+				}
+			}else {
+				return Boolean.TRUE;
+			}
+		}else {
+			Integer parameter = intValidator(parameterStr);
+			if(parameter != null) {
+				if(TRUE.compareTo(parameter) == 0) {
+					return Boolean.TRUE;
+				}
+				if(strictBoolean) {
+					return Boolean.FALSE;
+				}else {
+					return Boolean.TRUE;
+				}
+			}
+		}
+
+		return null;
+	}
+
+	/**
 	 * metodo para saber si un email es válido
 	 * case Insensitive
 	 * @param email
@@ -140,5 +183,5 @@ public class ValidationUtils {
 		Matcher m = p.matcher(arg);
 		return m.matches();
 	}
-	
+
 }

@@ -343,3 +343,10 @@ form.example::after {
 	position: relative;
 	top: 40px;
 }
+
+#horariosProfesor{
+	position: relative;
+    top: 150px;
+    right: 325px;
+    width: 150px;  
+}

@@ -19,4 +19,6 @@ public interface Actions {
 	public static final String PUNTUAR = "puntuar";
 	public static final String ADD_HORARIO = "add_horario";
 	public static final String SEE_HORARIOS = "see_horarios";
+	public static final String PRE_ADD_HORARIO = "pre_add_horario";
+	public static final String ACEPT_SESION = "aceptar_sesion";
 }

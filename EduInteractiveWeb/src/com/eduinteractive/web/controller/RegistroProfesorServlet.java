@@ -3,7 +3,6 @@ package com.eduinteractive.web.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -38,7 +37,7 @@ public class RegistroProfesorServlet extends HttpServlet {
 	private static Logger logger = LogManager.getLogger(RegistroProfesorServlet.class);
        // files
 		// location to store file uploaded
-    	private static final String UPLOAD_DIRECTORY = "c:/EduInteractive/Files";
+    	private static final String UPLOAD_DIRECTORY = "EduInteractive/Files";
  
     	// upload settings
     	private static final int MEMORY_THRESHOLD   = 1024 * 1024 * 3;  // 3MB
@@ -233,7 +232,7 @@ public class RegistroProfesorServlet extends HttpServlet {
 					logger.info("Profesor "+profesor.getEmail()+" registrado.");
 				}				
 				SessionManager.set(request, SessionAttributeNames.USUARIO, profesor);						
-				target = ViewPaths.HOME_PROFESOR;					
+				target = ViewPaths.TEACHER_NOT_ACTIVATE;					
 			}
 			RedirectOrForwardUtils.redirectOrForward(request, response, true, target);
 		}

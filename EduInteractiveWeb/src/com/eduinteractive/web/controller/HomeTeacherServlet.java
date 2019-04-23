@@ -17,12 +17,12 @@ import com.educorp.eduinteractive.ecommerce.exceptions.DataException;
 import com.educorp.eduinteractive.ecommerce.model.Estudiante;
 import com.educorp.eduinteractive.ecommerce.model.Profesor;
 import com.educorp.eduinteractive.ecommerce.model.Sesion;
-import com.educorp.eduinteractive.ecommerce.service.criteria.ProfesorCriteria;
 import com.educorp.eduinteractive.ecommerce.service.impl.EstudianteServiceImpl;
 import com.educorp.eduinteractive.ecommerce.service.impl.SesionServicesImpl;
 import com.educorp.eduinteractive.ecommerce.service.spi.EstudianteService;
 import com.educorp.eduinteractive.ecommerce.service.spi.SesionServices;
 import com.eduinteractive.web.utils.SessionManager;
+import com.eduinteractive.web.utils.SpecificUtils;
 import com.eduinteractive.web.utils.ValidationUtils;
 
 /**
@@ -65,6 +65,7 @@ public class HomeTeacherServlet extends HttpServlet {
 		String target = null;
 		try {
 			sesiones = sesionServices.findByCalendario(profesor.getIdProfesor(), true);
+			sesiones = SpecificUtils.checkStatus(sesiones);
 		}catch (DataException e) {
 			e.printStackTrace();
 		}

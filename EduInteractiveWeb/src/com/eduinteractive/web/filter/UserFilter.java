@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.educorp.eduinteractive.ecommerce.model.Profesor;
+import com.educorp.eduinteractive.ecommerce.model.Usuario;
 import com.eduinteractive.web.controller.RedirectOrForwardUtils;
 import com.eduinteractive.web.controller.SessionAttributeNames;
 import com.eduinteractive.web.controller.ViewPaths;
@@ -38,21 +40,28 @@ public class UserFilter implements Filter {
 		
 		String target = null;
 
-        boolean loggedIn = SessionManager.get(httpRequest, SessionAttributeNames.USUARIO) != null;
+        Usuario user = (Usuario) SessionManager.get(httpRequest, SessionAttributeNames.USUARIO);
         
-        if (loggedIn) {
-            chain.doFilter(request, response);
+        if (user!=null) {
+        	if (user instanceof Profesor && ((Profesor) user).getAceptado() == 0) {
+        			target = ViewPaths.TEACHER_NOT_ACTIVATE;
+        	}
         } else {        	
         	target = ViewPaths.PRE_INICIO;
         	logger.warn("Redirigiendo a "+ target +" "+request.getRemoteHost());
         	RedirectOrForwardUtils.redirectOrForward(httpRequest, httpResponse, true, target);
-        	
+        }
+        
+        if(target != null) {
+        	RedirectOrForwardUtils.redirectOrForward(httpRequest, httpResponse, true, target);
+        }else {
+        	chain.doFilter(request, response);
         }
     }
 
 	@Override
 	public void destroy() {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
