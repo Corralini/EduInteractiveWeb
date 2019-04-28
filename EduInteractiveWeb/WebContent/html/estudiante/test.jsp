@@ -76,7 +76,7 @@
         <input class="test" type="radio" name="<%=ParameterNames.PREGUNTA_10%>" value="<%=ParameterNames.OPCION_B%>">B. on his own  <br>
         <input class="test" type="radio" name="<%=ParameterNames.PREGUNTA_10%>" value="<%=ParameterNames.OPCION_C%>">C. on himself  <br>
         <input class="test" type="radio" name="<%=ParameterNames.PREGUNTA_10%>" value="<%=ParameterNames.OPCION_D%>">D. by his ownership    <br>
-        <button type="submit">Registrarse</button>
+        <button type="submit"><fmt:message key="usuario.registrar" bundle="${messages}"/></button>
     </form>
 </body>
 </html>

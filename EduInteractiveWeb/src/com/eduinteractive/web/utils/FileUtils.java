@@ -19,11 +19,7 @@ public class FileUtils {
 	private static final String UPLOAD_DIRECTORY = ConfigurationManager.getInstance().getParameter("upload.directory");
 	private static final String UPLOAD_DISK = ConfigurationManager.getInstance().getParameter("upload.disk");
 	
-	public static void readDocument(HttpServletResponse response, String email) {
-		
-		String nombreFile  = ParameterUtils.getFileName(email);
-		
-		if(ValidationUtils.emailValidator(email) != null) {
+	public static void readDocument(HttpServletResponse response, String nombreFile) {
 			
 			String urlBase = UPLOAD_DISK.concat(File.separator).concat(UPLOAD_DIRECTORY).concat(File.separator).concat(nombreFile);
 			if(logger.isDebugEnabled()) logger.debug("Reading file {}", urlBase);
@@ -43,11 +39,9 @@ public class FileUtils {
 			} catch (IOException e) {
 				logger.warn(e.getMessage(), e);
 			}
-		}
-		
 	}
 	
-	public static void loadDocument (String email, FileItem fileItem) {
+	public static void loadDocument (String nameFile, FileItem fileItem) {
 		// constructs the directory path to store upload file
         // this path is relative to application's directory
         String uploadPath = UPLOAD_DISK.concat(File.separator).concat(UPLOAD_DIRECTORY);
@@ -58,7 +52,7 @@ public class FileUtils {
             uploadDir.mkdir();
         }
 		
-		String fileName = new File(ParameterUtils.getFileName(email)).getName();
+		String fileName = new File(nameFile).getName();
         String filePath = uploadPath + File.separator + fileName;
         File storeFile = new File(filePath);
         if(logger.isDebugEnabled()) logger.debug("Upload file {} to {}", fileItem, uploadPath);

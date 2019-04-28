@@ -7,8 +7,8 @@
 	<from action="<%=ControllerPaths.ESTUDIANTE %>">
 		<input type="hidden" name="<%=ParameterNames.ACTION%>" value="<%=Actions.PUNTUAR%>">
 		<input type="hidden" name="<%=ParameterNames.ID_SESION%>" value="<%=idSesion%>">
-		<input type="number" min="0" max="100" name="<%=ParameterNames.PUNTUACION%>">
-		<button type="submit" class="aceptbtn">Puntuar</button>
+		<input type="number" min="0" max="10" name="<%=ParameterNames.PUNTUACION%>">
+		<button type="submit" class="aceptbtn"><fmt:message key = "puntuar" bundle="${messages}"/></button>
 	</from>
 
 <%@ include file="/html/estudiante/common/footer.jsp"%>

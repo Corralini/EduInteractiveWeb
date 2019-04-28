@@ -6,17 +6,17 @@
 %>
 <div id="detallesProfesor">
         <p><b><%=ParameterUtils.makeName(p.getNombre(), p.getApellido1(), p.getApellido2()) %></b></p>
-        <p>Ano nacimiento: <%=p.getAnoNacimiento() %></p>
-        <p>Pais: <%=paisProfesor.getNombrePais() %></p>
-        <p>Genero: <%=generoProfesor.getGenero() %></p>
-        <p>Precio: <%=p.getPrecioSesion() %></p>
-        <p>Puntuacion: <%=p.getPuntuacion() %></p>
-        <p>Descripcion:</p>
+        <p><fmt:message key="details.anoNac" bundle="${messages}"/> <%=p.getAnoNacimiento() %></p>
+        <p><fmt:message key="details.pais" bundle="${messages}"/> <%=paisProfesor.getNombrePais() %></p>
+        <p><fmt:message key="details.genero" bundle="${messages}"/> <%=generoProfesor.getGenero() %></p>
+        <p><fmt:message key="details.precio" bundle="${messages}"/> <%=p.getPrecioSesion() %></p>
+        <p><fmt:message key="details.puntuacion" bundle="${messages}"/> <%=p.getPuntuacion() %></p>
+        <p><fmt:message key="details.descripcion" bundle="${messages}"/></p>
         <p><%=p.getDescripcion() %></p>
     </div>
     <%
     	valores.clear();
     valores.put(ParameterNames.ACTION, Actions.SEE_DOCUMENT);
     %>
-  	<a href="<%=ParameterUtils.URLBuilder(ControllerPaths.PROFESOR, valores)%>" target="_blank">Ver archivo subido</a>
+  	<a href="<%=ParameterUtils.URLBuilder(ControllerPaths.PROFESOR, valores)%>" target="_blank"><fmt:message key="details.archivoSubido" bundle="${messages}"/></a>
 <%@ include file="/html/profesor/common/footer.jsp"%>

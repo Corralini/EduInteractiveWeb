@@ -16,9 +16,9 @@
 	<form class="Criterios" action="<%=ControllerPaths.ESTUDIANTE%>">
 		<input type="hidden" name="<%=ParameterNames.ACTION%>"
 			value="<%=Actions.SEARCH%>"> <label
-			for="<%=ParameterNames.NIVEL_INGLES%>"><b>Nivel</b></label> <select
+			for="<%=ParameterNames.NIVEL_INGLES%>"><b><fmt:message key = "criteria.nivel" bundle="${messages}"/></b></label> <select
 			name="<%=ParameterNames.NIVEL_INGLES%>">
-			<option value=" ">Cualquiera</option>
+			<option value=" "><fmt:message key = "criteria.cualquiera" bundle="${messages}"/></option>
 			<%
 				for (NivelIngles i : niveles) {
 					if(nivelIngles != null && i.getIdNivel().equals(nivelIngles)){
@@ -32,55 +32,55 @@
 					}
 				}
 				%>
-		</select> <label for="<%=ParameterNames.GENERO%>"><b>Genero</b></label> <select
+		</select> <label for="<%=ParameterNames.GENERO%>"><b><fmt:message key = "genero" bundle="${messages}"/></b></label> <select
 			name="<%=ParameterNames.GENERO%>">
-			<option value=" ">Cualquiera</option>
+			<option value=" "><fmt:message key = "criteria.cualquiera" bundle="${messages}"/></option>
 			<%
 				if("H".equalsIgnoreCase(genero)){
 			%>
-			<option value="H" selected>Hombre</option>
+			<option value="H" selected><fmt:message key = "hombre" bundle="${messages}"/></option>
 			<%
 				}else{
 					%>
-					<option value="H">Hombre</option>
+					<option value="H"><fmt:message key = "hombre" bundle="${messages}"/></option>
 					<%
 				}
 			%>
 			<%
 				if("M".equalsIgnoreCase(genero)){
 			%>
-					<option value="M" selected>Mujer</option>
+					<option value="M" selected><fmt:message key = "mujer" bundle="${messages}"/></option>
 			<%
 				}else{
 					%>
-					<option value="M">Mujer</option>
+					<option value="M"><fmt:message key = "mujer" bundle="${messages}"/></option>
 					<%
 				}
 			%>
 			<%
 				if("O".equalsIgnoreCase(genero)){
 			%>
-					<option value="O" selected>Otro</option>
+					<option value="O" selected><fmt:message key = "otro" bundle="${messages}"/></option>
 			<%
 				}else{
 					%>
-					<option value="O">Otro</option>
+					<option value="O"><fmt:message key = "otro" bundle="${messages}"/></option>
 					<%
 				}
 			%>
 			
 			
 		</select>
-		<label for="<%=ParameterNames.PUNTUACION%>"><b>Puntuación</b></label>
+		<label for="<%=ParameterNames.PUNTUACION%>"><b><fmt:message key = "criteria.puntuacion" bundle="${messages}"/></b></label>
 		<input type="text" min="0" max="10"
 			name="<%=ParameterNames.PUNTUACION%>" value="<% if(puntuacion != null){%><%=puntuacion%><%}%>"> <label
-			for="<%=ParameterNames.PRECIO%>"><b>Precio Mínimo</b></label> <input
+			for="<%=ParameterNames.PRECIO%>"><b><fmt:message key = "criteria.precioMinimo" bundle="${messages}"/></b></label> <input
 			type="number" name="<%=ParameterNames.PRECIO%>" value="<% if(precioMin != null){%><%=precioMin%><%}%>"><br> <label
-			for="<%=ParameterNames.PRECIO_MAX%>"><b>Precio Máximo</b></label> <input
+			for="<%=ParameterNames.PRECIO_MAX%>"><b><fmt:message key = "criteria.precioMaximo" bundle="${messages}"/></b></label> <input
 			type="number" name="<%=ParameterNames.PRECIO_MAX%>" value="<% if(precioMax != null){%><%=precioMax%><%}%>"> <label
-			for="<%=ParameterNames.DIA%>"><b>Dia</b></label> <select
+			for="<%=ParameterNames.DIA%>"><b><fmt:message key = "criteria.dia" bundle="${messages}"/></b></label> <select
 			name="<%=ParameterNames.DIA%>">
-			<option value=" ">Cualquiera</option>
+			<option value=" "><fmt:message key = "criteria.cualquiera" bundle="${messages}"/></option>
 			<%
 				for (Dia d : dias) {
 					if(idDia != null && d.getIdDia().equals(idDia)){
@@ -95,7 +95,7 @@
 				}
 			%>
 		</select>
-		<button id="submitCriteria" type="submit" class="aceptbtn">Buscar</button>
+		<button id="submitCriteria" type="submit" class="aceptbtn"><fmt:message key = "search" bundle="${messages}"/></button>
 	</form>
 	<hr id="separadorCriteria">
 </div>
@@ -132,7 +132,7 @@
 		%>
 		<a
 			href="<%=ParameterUtils.URLBuilder(ControllerPaths.ESTUDIANTE, valores)%>"><button
-				id="dispo" class="aceptbtn">Disponibilidad</button></a>
+				id="dispo" class="aceptbtn"><fmt:message key="disponibilidad" bundle="${messages}"/></button></a>
 	</div>
 	<%
 		}
@@ -195,7 +195,7 @@
 		<%
 			} else {
 	%>
-	<p>No se encontraron resultados</p>
+	<p><fmt:message key="sinResultados" bundle="${messages}"/></p>
 	<%
 		}
 	%>

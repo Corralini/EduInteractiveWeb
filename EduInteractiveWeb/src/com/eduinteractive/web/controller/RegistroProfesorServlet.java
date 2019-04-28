@@ -95,7 +95,6 @@ public class RegistroProfesorServlet extends HttpServlet {
 	         
 	        // sets maximum size of request (include file + form data)
 	        upload.setSizeMax(MAX_REQUEST_SIZE);
-	 
 	        
 	        List<FileItem> formItems = new ArrayList<FileItem>();
 	     // parses the request's content to extract file data
@@ -180,6 +179,7 @@ public class RegistroProfesorServlet extends HttpServlet {
 			}
 			
 			
+			
 			Profesor profesor = new Profesor();
 
 			if (!errors.hasErrors()) {
@@ -197,7 +197,7 @@ public class RegistroProfesorServlet extends HttpServlet {
 				profesor.setDescripcion(description);
 				
 				if (!formItems.get(14).isFormField()) {
-                    FileUtils.loadDocument(email, formItems.get(14));
+                    FileUtils.loadDocument(ParameterUtils.getFileName(email), formItems.get(14));
                 }
 				
 				try {

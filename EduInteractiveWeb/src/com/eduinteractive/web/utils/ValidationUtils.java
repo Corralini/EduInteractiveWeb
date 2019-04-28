@@ -1,5 +1,6 @@
 package com.eduinteractive.web.utils;
 
+import java.io.File;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.regex.Matcher;
@@ -144,6 +145,10 @@ public class ValidationUtils {
 		}
 
 		return null;
+	}
+	
+	public static Boolean checkExtesion (File file, String extension) {
+		return false;
 	}
 
 	/**

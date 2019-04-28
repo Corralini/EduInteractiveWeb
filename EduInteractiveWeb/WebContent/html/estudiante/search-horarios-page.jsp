@@ -27,13 +27,17 @@
 		<%	}
 			%>
 		<input type="date" name="<%=ParameterNames.FECHA%>">
-		<button id="submitCriteria" type="submit" class="aceptbtn">Buscar</button>
+		<button id="submitCriteria" type="submit" class="aceptbtn"><fmt:message key = "search" bundle="${messages}"/></button>
 		</form>
 </div>
 <% 
-if(resultados != null && !resultados.isEmpty()){ %>
+if(resultados != null && !resultados.isEmpty()){
+	%>
 <div id="resultadoHorarios">
-	<p>Hemos encontrado <%=resultados.size()%> resultados</p>
+	<c:set var= "total" scope="session" value="${resultados.size()}"/>
+	<p><fmt:message key="resultadosEncontrados" bundle="${messages}">
+			<fmt:param value="${total}"></fmt:param>
+		</fmt:message> </p>
 	<%
 		for (Horario horario: resultados.keySet()){ 
 			valores.put(ParameterNames.ID_HORARIO, horario.getIdHorario().toString());

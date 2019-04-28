@@ -12,16 +12,16 @@
 <%
 	if(sesion != null && profesor!=null){%>
 		<div id="sesionDetails">
-        <p>Sesion con: <%=ParameterUtils.makeName(profesor.getNombre(), profesor.getApellido1(), profesor.getApellido2()) %></p>
-        <p>el día: <%=ParameterUtils.dateBuilder(sesion.getFechaSesion()) %></p>
-        <p>Estado sesión: <%
+        <p><fmt:message key = "sesion.details.sesionWith" bundle="${messages}"/> <%=ParameterUtils.makeName(profesor.getNombre(), profesor.getApellido1(), profesor.getApellido2()) %></p>
+        <p><fmt:message key = "sesion.details.dia" bundle="${messages}"/> <%=ParameterUtils.dateBuilder(sesion.getFechaSesion()) %></p>
+        <p><fmt:message key = "sesion.details.estado" bundle="${messages}"/> <%
         						if(ConstantsValues.SESION_ACEPTADA.equalsIgnoreCase(sesion.getIdEstado())){ 
        						 %>
-       						 		Aceptada
+       						 		<fmt:message key = "sesion.aceptada" bundle="${messages}"/>
        						 <%
        						 	}else{ 
        						 %>
-       						 		Solicitada
+       						 		<fmt:message key = "sesion.solicitada" bundle="${messages}"/>
        						 <%
        						 	} 
        						 %>
@@ -31,7 +31,7 @@
         	valores.put(ParameterNames.ACTION, Actions.CANCEL_SESION);
         	valores.put(ParameterNames.ID_SESION, sesion.getIdSesion().toString());
         %>
-        <a href="<%=ParameterUtils.URLBuilder(ControllerPaths.ESTUDIANTE, valores)%>"><button class="cancelbtn" id="cancelarSesion">Cancelar</button></a>
+        <a href="<%=ParameterUtils.URLBuilder(ControllerPaths.ESTUDIANTE, valores)%>"><button class="cancelbtn" id="cancelarSesion"><fmt:message key = "cancelar" bundle="${messages}"/></button></a>
     </div>
 <%
 	}
@@ -48,21 +48,21 @@
 		
         	<%if(ParameterUtils.dateComparator(new Date(), s.getFechaSesion()) 
         			&& ConstantsValues.SESION_ACEPTADA.equalsIgnoreCase(s.getIdEstado())){ %>
-        		<a href="<%=ParameterUtils.URLBuilder(ControllerPaths.ESTUDIANTE, valores) %>" >Sesion <%=s.getIdSesion() %></a>
+        		<a href="<%=ParameterUtils.URLBuilder(ControllerPaths.ESTUDIANTE, valores) %>" ><fmt:message key = "sesion" bundle="${messages}"/> <%=s.getIdSesion() %></a>
         		<%
 					valores.clear();
         			valores.put(ParameterNames.ID_SESION, s.getIdSesion().toString());
 				 %>
-        		<a href="<%=ParameterUtils.URLBuilder(ControllerPaths.HOME_ESTUDIANTE, valores)%>" id="linkDetail">Más Detalles </a> <br><br>
+        		<a href="<%=ParameterUtils.URLBuilder(ControllerPaths.HOME_ESTUDIANTE, valores)%>" id="linkDetail"><fmt:message key = "sesion.details" bundle="${messages}"/> </a> <br><br>
         	<%
         		} else{
         	%>
-        		<a class="isDisabled" href="#">Sesion <%=s.getIdSesion() %></a>
+        		<a class="isDisabled" href="#"><fmt:message key = "sesion" bundle="${messages}"/> <%=s.getIdSesion() %></a>
         		<%
 					valores.clear();
         			valores.put(ParameterNames.ID_SESION, s.getIdSesion().toString());
 				 %>
-        		<a href="<%=ParameterUtils.URLBuilder(ControllerPaths.HOME_ESTUDIANTE, valores)%>" id="linkDetail">Más Detalles </a> <br><br>
+        		<a href="<%=ParameterUtils.URLBuilder(ControllerPaths.HOME_ESTUDIANTE, valores)%>" id="linkDetail"><fmt:message key = "sesion.details" bundle="${messages}"/> </a> <br><br>
         	
         	<%
         		}
@@ -72,7 +72,7 @@
         %>
     </div>
 <%}else{ %>
-	<p>No tienes sesiones disponibles, por favor, contrate una</p>
+	<p><fmt:message key = "noSesion" bundle="${messages}"/></p>
 <%} %>
 <div id="profesoresRecomendados">
         <%	
@@ -89,7 +89,7 @@
             <%
             	valores.put(ParameterNames.ACTION, Actions.BUSCAR_HORARIOS);
             %>
-            <a href="<%=ParameterUtils.URLBuilder(ControllerPaths.ESTUDIANTE, valores)%>"><button id="dispo" class="aceptbtn">Disponibilidad</button></a>
+            <a href="<%=ParameterUtils.URLBuilder(ControllerPaths.ESTUDIANTE, valores)%>"><button id="dispo" class="aceptbtn"><fmt:message key = "disponibilidad" bundle="${messages}"/></button></a>
         </div>
         <%
         } 

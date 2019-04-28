@@ -11,9 +11,9 @@
             <button class="dropbtn"><a  href="<%=ParameterUtils.URLBuilder(ControllerPaths.PROFESOR, valores)%>"><%=p.getNombre()%></a></button>
             <div class="dropdown-content">
                 <a href="<%=request.getContextPath().concat(ViewPaths.SETTINGS_PROFESOR)%>" class="dropOption"><fmt:message key = "ajustes" bundle="${messages}"/></a>
-                <a href="<%=request.getContextPath()%>/profesor?action=logout" class="dropOption">Cerrar sesión</a>
+                <a href="<%=request.getContextPath()%>/profesor?action=logout" class="dropOption"><fmt:message key="menu.cerrarSesion" bundle="${messages}"/></a>
             </div>
         </div>
-        <a class="active" href="<%=request.getContextPath() + ViewPaths.PRE_HOME_PROFESOR %>" id="home"><img src="<%=request.getContextPath()%>/img/home.png" alt="home"></img><br>inicio</a>
+        <a class="active" href="<%=request.getContextPath() + ViewPaths.PRE_HOME_PROFESOR %>" id="home"><img src="<%=request.getContextPath()%>/img/home.png" alt="home"></img><br><fmt:message key="menu.inicio" bundle="${messages}"/></a>
         <a href="<%=request.getContextPath() + ViewPaths.PRE_HOME_PROFESOR %>" class="izquierda" id="logo"><img src="<%=request.getContextPath()%>/img/logo.png" alt="logo"></img></a>
     </div>

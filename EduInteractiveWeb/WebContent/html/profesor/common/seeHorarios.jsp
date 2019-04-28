@@ -26,7 +26,7 @@ java.util.Map"%>
 		<%
 		}else{
 		%>
-	<p id="horariosProfesor">Todavía no has agregado ningún horario, mientras no lo hagas los estudiantes no podrán encontrarte</p>
+	<p id="horariosProfesor"><fmt:message key="profesor.sinHorario" bundle="${messages}"/></p>
 		<%
 		}	
 	}

@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -287,7 +286,7 @@ public class ProfesorServlet extends HttpServlet {
 			redirect = true;
 		}else if(Actions.SEE_DOCUMENT.equalsIgnoreCase(action)){
 			Profesor profesor = (Profesor) SessionManager.get(request, SessionAttributeNames.USUARIO);
-			FileUtils.readDocument(response, profesor.getEmail());
+			FileUtils.readDocument(response, ParameterUtils.getFileName(profesor.getEmail()));
 			return;
 		}else {
 			logger.error("Action desconocida");

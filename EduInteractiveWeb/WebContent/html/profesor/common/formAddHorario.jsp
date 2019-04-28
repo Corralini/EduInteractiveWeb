@@ -1,4 +1,3 @@
-
 <%@page import="com.eduinteractive.web.controller.AttributeNames,java.util.List,
 java.util.Map"%>
 <%
@@ -26,7 +25,7 @@ java.util.Map"%>
     width: 94px;
     height: 52px;
     top: 20px;
-		" class="aceptbtn">Añadir Horario</button>
+		" class="aceptbtn"><fmt:message key="profesor.addHorario" bundle="${messages}"/></button>
 		</form>
 </div>
 <%
