@@ -17,20 +17,28 @@ public class FileUtils {
 	private static Logger logger = LogManager.getLogger(FileUtils.class);
 	
 	private static final String UPLOAD_DIRECTORY = ConfigurationManager.getInstance().getParameter("upload.directory");
+	private static final String UPLOAD_DISK = ConfigurationManager.getInstance().getParameter("upload.disk");
 	
 	public static void readDocument(HttpServletResponse response, String email) {
+		
+		String nombreFile  = ParameterUtils.getFileName(email);
+		
 		if(ValidationUtils.emailValidator(email) != null) {
-			String urlBase = UPLOAD_DIRECTORY.concat(ParameterUtils.getFileName(email));
-			File file = new File(urlBase);
 			
+			String urlBase = UPLOAD_DISK.concat(File.separator).concat(UPLOAD_DIRECTORY).concat(File.separator).concat(nombreFile);
+			if(logger.isDebugEnabled()) logger.debug("Reading file {}", urlBase);
+			File file = new File(urlBase);
 			try {
 				FileInputStream fis = new FileInputStream(file);
 				byte[] buffer = new byte[1024];
-				
+				response.setContentType ("application/pdf");
+			    response.setHeader ("Content-Disposition", "inline; filename=cert-"+nombreFile);
+			    
 				while (fis.read(buffer) > 0) {
 					response.getOutputStream().write(buffer);
 					response.flushBuffer();
 				}
+				if(logger.isDebugEnabled()) logger.debug("Read has been done successfully");
 				fis.close();
 			} catch (IOException e) {
 				logger.warn(e.getMessage(), e);
@@ -42,8 +50,7 @@ public class FileUtils {
 	public static void loadDocument (String email, FileItem fileItem) {
 		// constructs the directory path to store upload file
         // this path is relative to application's directory
-        String uploadPath = "C:"
-                + File.separator + UPLOAD_DIRECTORY;
+        String uploadPath = UPLOAD_DISK.concat(File.separator).concat(UPLOAD_DIRECTORY);
          
         // creates the directory if it does not exist
         File uploadDir = new File(uploadPath);
@@ -54,13 +61,12 @@ public class FileUtils {
 		String fileName = new File(ParameterUtils.getFileName(email)).getName();
         String filePath = uploadPath + File.separator + fileName;
         File storeFile = new File(filePath);
-
+        if(logger.isDebugEnabled()) logger.debug("Upload file {} to {}", fileItem, uploadPath);
         try {
 			fileItem.write(storeFile);
 		} catch (Exception e) {
 			logger.warn(e.getMessage(), e);
 		}
-        logger.debug("Upload has been done successfully!");
+        if(logger.isDebugEnabled()) logger.debug("Upload has been done successfully");
 	}
-	
 }

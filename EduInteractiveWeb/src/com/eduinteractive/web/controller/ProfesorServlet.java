@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -44,6 +45,7 @@ import com.educorp.eduinteractive.ecommerce.service.spi.SesionServices;
 import com.eduinteractive.web.model.ErrorCodes;
 import com.eduinteractive.web.model.ErrorManager;
 import com.eduinteractive.web.utils.CookieManager;
+import com.eduinteractive.web.utils.FileUtils;
 import com.eduinteractive.web.utils.LocaleManager;
 import com.eduinteractive.web.utils.ParameterUtils;
 import com.eduinteractive.web.utils.SessionManager;
@@ -283,6 +285,10 @@ public class ProfesorServlet extends HttpServlet {
 		}else if(Actions.START_SESION.equalsIgnoreCase(action)){
 			target = ViewPaths.VIDEO_CALL_PROFESOR;
 			redirect = true;
+		}else if(Actions.SEE_DOCUMENT.equalsIgnoreCase(action)){
+			Profesor profesor = (Profesor) SessionManager.get(request, SessionAttributeNames.USUARIO);
+			FileUtils.readDocument(response, profesor.getEmail());
+			return;
 		}else {
 			logger.error("Action desconocida");
 			target =ViewPaths.PRE_INICIO;

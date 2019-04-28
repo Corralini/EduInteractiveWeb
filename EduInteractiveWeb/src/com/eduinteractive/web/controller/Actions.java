@@ -21,4 +21,5 @@ public interface Actions {
 	public static final String SEE_HORARIOS = "see_horarios";
 	public static final String PRE_ADD_HORARIO = "pre_add_horario";
 	public static final String ACEPT_SESION = "aceptar_sesion";
+	public static final String SEE_DOCUMENT = "see_document";
 }
