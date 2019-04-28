@@ -23,8 +23,11 @@ import com.educorp.eduinteractive.ecommerce.exceptions.MailException;
 import com.educorp.eduinteractive.ecommerce.model.Profesor;
 import com.educorp.eduinteractive.ecommerce.service.impl.ProfesorServicesImpl;
 import com.educorp.eduinteractive.ecommerce.service.spi.ProfesorService;
+import com.eduinteractive.web.config.ConfigurationManager;
 import com.eduinteractive.web.model.ErrorCodes;
 import com.eduinteractive.web.model.ErrorManager;
+import com.eduinteractive.web.utils.FileUtils;
+import com.eduinteractive.web.utils.ParameterUtils;
 import com.eduinteractive.web.utils.SessionManager;
 import com.eduinteractive.web.utils.ValidationUtils;
 import com.mysql.cj.util.StringUtils;
@@ -37,7 +40,8 @@ public class RegistroProfesorServlet extends HttpServlet {
 	private static Logger logger = LogManager.getLogger(RegistroProfesorServlet.class);
        // files
 		// location to store file uploaded
-    	private static final String UPLOAD_DIRECTORY = "EduInteractive/Files";
+    	private static final String UPLOAD_DIRECTORY = ConfigurationManager.getInstance().getParameter("upload.directory");
+    	
  
     	// upload settings
     	private static final int MEMORY_THRESHOLD   = 1024 * 1024 * 3;  // 3MB
@@ -92,16 +96,7 @@ public class RegistroProfesorServlet extends HttpServlet {
 	        // sets maximum size of request (include file + form data)
 	        upload.setSizeMax(MAX_REQUEST_SIZE);
 	 
-	        // constructs the directory path to store upload file
-	        // this path is relative to application's directory
-	        String uploadPath = getServletContext().getRealPath("")
-	                + File.separator + UPLOAD_DIRECTORY;
-	         
-	        // creates the directory if it does not exist
-	        File uploadDir = new File(uploadPath);
-	        if (!uploadDir.exists()) {
-	            uploadDir.mkdir();
-	        }
+	        
 	        List<FileItem> formItems = new ArrayList<FileItem>();
 	     // parses the request's content to extract file data
 	        try {
@@ -202,16 +197,7 @@ public class RegistroProfesorServlet extends HttpServlet {
 				profesor.setDescripcion(description);
 				
 				if (!formItems.get(14).isFormField()) {
-                    String fileName = new File(profesor.getEmail().concat(formItems.get(14).getName())).getName();
-                    String filePath = uploadPath + File.separator + fileName;
-                    File storeFile = new File(filePath);
-
-                    try {
-						formItems.get(14).write(storeFile);
-					} catch (Exception e) {
-						logger.warn(e.getMessage(), e);
-					}
-                    logger.debug("Upload has been done successfully!");
+                    FileUtils.loadDocument(email, formItems.get(14));
                 }
 				
 				try {

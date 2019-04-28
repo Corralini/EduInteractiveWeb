@@ -523,7 +523,6 @@ public class EstudianteServlet extends HttpServlet {
 			}
 			target = ViewPaths.PRE_HOME_ESTUDIANTE;
 			redirect = true;
-			//TODO start sesion
 		}else if(Actions.START_SESION.equalsIgnoreCase(action)){
 			String idSesion = request.getParameter(ParameterNames.ID_SESION);
 			Integer sesionId = null;

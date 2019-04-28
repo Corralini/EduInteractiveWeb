@@ -7,12 +7,15 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import com.eduinteractive.web.config.ConfigurationManager;
 import com.eduinteractive.web.controller.ConstantsValues;
 import com.eduinteractive.web.controller.ParameterNames;
 import com.mysql.cj.util.StringUtils;
 
 public class ParameterUtils {
 
+	private static final String FILE_EXTENSION = ConfigurationManager.getInstance().getParameter("files.extension");
+	
 	public static final String print(Map <String, String[]> parameters) {
 		StringBuilder sb = new StringBuilder();
 		String [] values = null;
@@ -227,5 +230,13 @@ public class ParameterUtils {
 		c2.set(Calendar.HOUR_OF_DAY, 0);
 
 		return c1.getTime().before(c2.getTime());
+	}
+	
+	public static String getFileName(String email) {
+		if(ValidationUtils.emailValidator(email) != null) {
+			return email.split("@")[0].concat(FILE_EXTENSION);
+		}else {
+			return null;
+		}
 	}
 }
