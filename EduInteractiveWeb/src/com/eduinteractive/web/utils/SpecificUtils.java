@@ -108,7 +108,7 @@ public class SpecificUtils {
 						logger.warn(e.getMessage(), e);
 					}
 
-				}else if(sesion.getFechaFin() != null && currentDate.compareTo(sesion.getFechaFin()) < 0) {
+				}else if(sesion.getFechaFin() != null && currentDate.compareTo(sesion.getFechaFin()) > 0) {
 					try {
 						sesionServices.cambiarEstado(sesion, ConstantsValues.SESION_TERMINADA);
 						sesiones.remove(sesion);
