@@ -134,6 +134,21 @@ public class ParameterUtils {
 	
 	/**
 	 * 
+	 * metodo utilidad para decrementar una fecha en un dia
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public static Date previousDay (Date date) {
+		Calendar c = Calendar.getInstance();
+		c.setTime(date);
+		c.add(Calendar.DAY_OF_YEAR, -1);
+		
+		return c.getTime();
+	}
+	
+	/**
+	 * 
 	 * metodo para comparar una fecha por dia, mes y año
 	 * si un objeto Date o ambos == null returns false
 	 * 

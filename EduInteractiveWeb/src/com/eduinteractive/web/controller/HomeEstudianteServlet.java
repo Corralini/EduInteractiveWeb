@@ -28,11 +28,11 @@ import com.eduinteractive.web.utils.ValidationUtils;
 
 
 @WebServlet("/home")
-public class HomeServlet extends HttpServlet {
-	private Logger logger = LogManager.getLogger(HomeServlet.class);
+public class HomeEstudianteServlet extends HttpServlet {
+	private Logger logger = LogManager.getLogger(HomeEstudianteServlet.class);
 	private SesionServices sesionServices = null;
 	private ProfesorService profesorServices = null;
-	public HomeServlet() {
+	public HomeEstudianteServlet() {
 		super();
 		sesionServices = new SesionServicesImpl();
 		profesorServices = new ProfesorServicesImpl();

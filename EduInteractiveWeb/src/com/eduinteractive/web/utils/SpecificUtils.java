@@ -108,6 +108,14 @@ public class SpecificUtils {
 						logger.warn(e.getMessage(), e);
 					}
 
+				}else if(sesion.getFechaFin() != null && currentDate.compareTo(sesion.getFechaFin()) < 0) {
+					try {
+						sesionServices.cambiarEstado(sesion, ConstantsValues.SESION_TERMINADA);
+						sesiones.remove(sesion);
+					} catch (DataException e) {
+						logger.warn(e.getMessage(), e);
+					}
+					
 				}
 			}else if(ConstantsValues.SESION_SOLICITADA.equalsIgnoreCase(sesion.getIdEstado())) {
 				if(sesion.getFechaSesion().compareTo(currentDate) < 0 

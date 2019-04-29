@@ -517,6 +517,7 @@ public class EstudianteServlet extends HttpServlet {
 			try {
 				h = horarioServices.findById(idHorario);
 				sesionServices.create(h, fechaSesion, estudiante.getIdEstudiante());
+
 			}catch(DataException | MailException e) {
 				errors.add(Actions.CONTRATAR_SESION, ErrorCodes.SEARCH_ERROR);
 			}
@@ -530,9 +531,8 @@ public class EstudianteServlet extends HttpServlet {
 				sesionId = ValidationUtils.intValidator(idSesion);
 			}
 			try {
-
 				Sesion sesion = sesionServices.findById(sesionId);
-				sesionServices.cambiarEstado(sesion, ConstantsValues.SESION_TERMINADA);
+				sesionServices.empezarSesion(sesion);
 
 			} catch (DataException e) {
 

@@ -30,7 +30,7 @@ import com.eduinteractive.web.utils.ValidationUtils;
  */
 @WebServlet("/homeTeacher")
 public class HomeTeacherServlet extends HttpServlet {
-	private Logger logger = LogManager.getLogger(HomeServlet.class);
+	private Logger logger = LogManager.getLogger(HomeEstudianteServlet.class);
 	private SesionServices sesionServices = null;
 	private EstudianteService estudianteServices = null;
     public HomeTeacherServlet() {
