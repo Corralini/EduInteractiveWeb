@@ -147,9 +147,6 @@ public class ValidationUtils {
 		return null;
 	}
 	
-	public static Boolean checkExtesion (File file, String extension) {
-		return false;
-	}
 
 	/**
 	 * metodo para saber si un email es válido

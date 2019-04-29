@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.text.html.FormSubmitEvent;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
@@ -40,7 +41,7 @@ public class RegistroProfesorServlet extends HttpServlet {
 	private static Logger logger = LogManager.getLogger(RegistroProfesorServlet.class);
        // files
 		// location to store file uploaded
-    	private static final String UPLOAD_DIRECTORY = ConfigurationManager.getInstance().getParameter("upload.directory");
+    	private static final String FILE_EXTENSION = ConfigurationManager.getInstance().getParameter("files.extension");
     	
  
     	// upload settings
@@ -178,7 +179,9 @@ public class RegistroProfesorServlet extends HttpServlet {
 				errors.add(ParameterNames.NIVEL_INGLES, ErrorCodes.MANDATORY_PARAMETER);
 			}
 			
-			
+			if(!FileUtils.checkFileExtension(formItems.get(14), FILE_EXTENSION)) {
+				errors.add(ParameterNames.UP_FILE, ErrorCodes.MANDATORY_PARAMETER);
+			}
 			
 			Profesor profesor = new Profesor();
 

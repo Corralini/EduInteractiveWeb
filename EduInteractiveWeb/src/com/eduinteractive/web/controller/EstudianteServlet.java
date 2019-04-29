@@ -115,7 +115,6 @@ public class EstudianteServlet extends HttpServlet {
 		ErrorManager errors = new ErrorManager(); 
 		String target = null;
 		if (Actions.LOGIN.equalsIgnoreCase(action)) {
-
 			// Recuperacion
 			String email = request.getParameter(ParameterNames.EMAIL);
 			String password = request.getParameter(ParameterNames.PASSWORD);

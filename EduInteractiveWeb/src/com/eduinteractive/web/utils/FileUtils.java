@@ -7,10 +7,12 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.eduinteractive.web.config.ConfigurationManager;
+import com.eduinteractive.web.controller.ConstantsValues;
 
 public class FileUtils {
 
@@ -62,5 +64,20 @@ public class FileUtils {
 			logger.warn(e.getMessage(), e);
 		}
         if(logger.isDebugEnabled()) logger.debug("Upload has been done successfully");
+	}
+	
+	public static Boolean checkFileExtension(FileItem fileItem, String extension) {
+		if(logger.isDebugEnabled()) logger.debug("Comparing file:{} with the extension: {}", fileItem.getName(), extension);
+		if(fileItem == null || extension == null) {
+			return Boolean.FALSE;
+		}
+		String extensionFile = ConstantsValues.DOT.concat(FilenameUtils.getExtension(fileItem.getName()));
+		if(logger.isDebugEnabled()) logger.debug("File extension: {}", extensionFile);
+		if(extension.compareTo(extensionFile) == 0) {
+			return Boolean.TRUE;
+		}else {
+			return Boolean.FALSE;
+		}
+		
 	}
 }
