@@ -15,7 +15,7 @@ public interface ViewPaths {
 	public static final String PROPERTIES_ESTUDIANTE = "/html/estudiante/properties-page.jsp";
 	public static final String RECOVERY_ACCOUNT = "/html/recoveryUser/email-page.jsp";
 	public static final String RECOVERY_CODE = "/html/recoveryUser/recovery-code-page.jsp";
-	public static final String SET_PASSWORD = "/html/recoveryUser/recover-password-page.jsp";
+	public static final String SET_PASSWORD = "/html/recoveryUser/recovery-password-page.jsp";
 
 	//profesor
 
@@ -25,5 +25,8 @@ public interface ViewPaths {
 	public static final String DETAILS_PROFESOR_AS_PROFESOR = "/html/profesor/details-profesor-page.jsp";
 	public static final String TEACHER_NOT_ACTIVATE = "/html/notActive/notActiveTeacher.jsp";
 	public static final String VIDEO_CALL_PROFESOR = "/html/profesor/sesion-page.jsp";
+	public static final String RECOVERY_ACCOUNT_PROFESOR = "/html/recoveryProfesor/email-page.jsp";
+	public static final String RECOVERY_CODE_PROFESOR = "/html/recoveryProfesor/recovery-code-page.jsp";
+	public static final String SET_PASSWORD_PROFESOR = "/html/recoveryProfesor/recovery-password-page.jsp";
 
 }

@@ -1,4 +1,7 @@
+<%@page import="com.eduinteractive.web.utils.ParameterUtils"%>
+<%@page import="java.util.HashMap"%>
 <%@ page import="java.util.List" %>
+<%@ page import="java.util.Map" %>
 <%@ page import="com.educorp.eduinteractive.ecommerce.model.*"%>
 <%@ page import="com.eduinteractive.web.controller.*" %>
 <!DOCTYPE html>
@@ -225,7 +228,10 @@
 
                         <label for="<%=ParameterNames.PASSWORD%>"><b><fmt:message key = "psswd" bundle="${messages}"/></b></label>
                         <input type="password" placeholder="Contraseña" name="<%=ParameterNames.PASSWORD%>" required>
-						<a href="<%=request.getContextPath().concat(ViewPaths.RECOVERY_ACCOUNT)%>">Recuperar Cuenta</a>
+						<%Map<String, String> valores = new HashMap<String, String>(); 
+							valores.put(ParameterNames.ACTION, Actions.GO_RECOVERY);
+						%>
+						<a href="<%=ParameterUtils.URLBuilder(ControllerPaths.ESTUDIANTE, valores)%>">Recuperar Cuenta</a>
                         <div class="clearfix">
                             <button type="button" onclick="document.getElementById('login').style.display='none'"
                                 class="cancelbtn"><fmt:message key = "cancelar" bundle="${messages}"/></button>
@@ -247,7 +253,7 @@
 
                         <label for="<%=ParameterNames.PASSWORD%>"><b><fmt:message key = "psswd" bundle="${messages}"/></b></label>
                         <input type="password" placeholder="Contraseña" name="<%=ParameterNames.PASSWORD%>" required>
-
+						<a href="<%=ParameterUtils.URLBuilder(ControllerPaths.PROFESOR, valores)%>">Recuperar Cuenta</a>
                         <div class="clearfix">
                             <button type="button" onclick="document.getElementById('login').style.display='none'"
                                 class="cancelbtn"><fmt:message key = "cancelar" bundle="${messages}"/></button>

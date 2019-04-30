@@ -663,7 +663,7 @@ public class EstudianteServlet extends HttpServlet {
 				try {
 					Estudiante estudiante = estudianteService.findByEmailToRecovery(email);
 					if(estudiante != null) {
-						request.setAttribute(ParameterNames.EMAIL, email);
+						request.setAttribute(ParameterNames.ID_ESTUDIANTE, estudiante.getIdEstudiante());
 						redirect = Boolean.FALSE;
 						target = ViewPaths.RECOVERY_CODE;
 					}
@@ -714,7 +714,7 @@ public class EstudianteServlet extends HttpServlet {
 					estudianteService.cambiarContra(code,estudiante.getEmail(), psswd);
 					SessionManager.set(request, SessionAttributeNames.USUARIO, estudiante);
 					redirect = Boolean.TRUE;
-					target = ViewPaths.HOME_ESTUDIANTE;
+					target = ViewPaths.PRE_HOME_ESTUDIANTE;
 				} catch (DataException e) {
 					logger.info(e.getMessage(), e);
 				}
@@ -723,6 +723,9 @@ public class EstudianteServlet extends HttpServlet {
 				redirect = Boolean.FALSE;
 				target = ViewPaths.SET_PASSWORD;
 			}
+		}else if(Actions.GO_RECOVERY.equalsIgnoreCase(action)){
+			redirect = true;
+			target = ViewPaths.RECOVERY_ACCOUNT;
 		}else{
 			logger.error("Action desconocida");
 			target =ViewPaths.PRE_INICIO;

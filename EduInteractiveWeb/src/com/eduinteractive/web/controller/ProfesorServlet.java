@@ -17,7 +17,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.educorp.eduinteractive.ecommerce.exceptions.DataException;
+import com.educorp.eduinteractive.ecommerce.exceptions.MailException;
 import com.educorp.eduinteractive.ecommerce.model.Dia;
+import com.educorp.eduinteractive.ecommerce.model.Estudiante;
 import com.educorp.eduinteractive.ecommerce.model.Genero;
 import com.educorp.eduinteractive.ecommerce.model.Hora;
 import com.educorp.eduinteractive.ecommerce.model.Horario;
@@ -288,6 +290,76 @@ public class ProfesorServlet extends HttpServlet {
 			Profesor profesor = (Profesor) SessionManager.get(request, SessionAttributeNames.USUARIO);
 			FileUtils.readDocument(response, ParameterUtils.getFileName(profesor.getEmail()));
 			return;
+		}else if(Actions.SEARCH_ACCOUNT.equalsIgnoreCase(action)){
+			String email = request.getParameter(ParameterNames.EMAIL);
+			email = ValidationUtils.emailValidator(email);
+			if(email != null) {
+				try {
+					Profesor profesor = profesorService.findByEmailToRecovery(email);
+					if(profesor != null) {
+						request.setAttribute(ParameterNames.ID_PROFESOR, profesor.getIdProfesor());
+						redirect = Boolean.FALSE;
+						target = ViewPaths.RECOVERY_CODE_PROFESOR;
+					}
+				} catch (MailException | DataException e) {
+					errors.add(ParameterNames.ACTION, ErrorCodes.MAIL_ERROR);
+				}
+			}else {
+				errors.add(ParameterNames.EMAIL, ErrorCodes.MANDATORY_PARAMETER);
+				redirect = Boolean.FALSE;
+				target = ViewPaths.RECOVERY_ACCOUNT_PROFESOR;
+			}
+		}else if(Actions.CHECK_CODE.equalsIgnoreCase(action)){
+			String profesorIdStr = request.getParameter(ParameterNames.ID_PROFESOR);
+			String codeStr = request.getParameter(ParameterNames.CODE);
+			Integer code = ValidationUtils.intValidator(codeStr);
+			Integer profesorId = ValidationUtils.intValidator(profesorIdStr);
+			if(profesorId != null && code != null) {
+				try {
+					Profesor profesor = profesorService.findById(profesorId);
+					if(profesor != null) {
+						if(profesor.getCodigoDeRecuperacion().equals(code))
+						request.setAttribute(ParameterNames.ID_PROFESOR, profesor.getIdProfesor());
+						request.setAttribute(ParameterNames.CODE, code);
+						redirect = Boolean.FALSE;
+						target = ViewPaths.SET_PASSWORD_PROFESOR;
+					}
+				} catch (DataException e) {
+					logger.info(e.getMessage(), e);
+					errors.add(ParameterNames.ACTION, ErrorCodes.MAIL_ERROR);
+				}
+			}else {
+				errors.add(ParameterNames.CODE, ErrorCodes.MANDATORY_PARAMETER);
+				redirect = Boolean.FALSE;
+				target = ViewPaths.RECOVERY_CODE_PROFESOR;
+			}
+		}else if(Actions.SET_PASSWORD.equals(action)){
+			String profesorIdStr = request.getParameter(ParameterNames.ID_PROFESOR);
+			String codeStr = request.getParameter(ParameterNames.CODE);
+			String psswd = request.getParameter(ParameterNames.PASSWORD);
+			String repeatPsswd = request.getParameter(ParameterNames.PSSWD_REPEAT);
+			Integer profesorId = ValidationUtils.intValidator(profesorIdStr);
+			Integer code = ValidationUtils.intValidator(codeStr);
+			psswd = ValidationUtils.passwordValidator(psswd, repeatPsswd);
+			if(profesorId != null && code != null && psswd != null) {
+				Profesor profesor;
+				try {
+					profesor = profesorService.findById(profesorId);
+					profesorService.cambiarContra(code,profesor.getEmail(), psswd);
+					SessionManager.set(request, SessionAttributeNames.USUARIO, profesor);
+					redirect = Boolean.TRUE;
+					target = ViewPaths.PRE_HOME_PROFESOR;
+				} catch (DataException e) {
+					logger.info(e.getMessage(), e);
+				}
+			}else {
+				errors.add(ParameterNames.PASSWORD, ParameterNames.PASSWORD);
+				redirect = Boolean.FALSE;
+				target = ViewPaths.SET_PASSWORD_PROFESOR;
+			}
+		}else if(Actions.GO_RECOVERY.equalsIgnoreCase(action)){
+			redirect = true;
+			target = ViewPaths.RECOVERY_ACCOUNT_PROFESOR;
 		}else {
 			logger.error("Action desconocida");
 			target =ViewPaths.PRE_INICIO;
