@@ -369,3 +369,12 @@ form.example::after {
 	position: relative;
 	bottom: 300px;
 }
+
+#sendEmail{
+	
+    position: relative;
+    top: 60px;
+    right: 800px;
+	left: -70%;
+	
+}
