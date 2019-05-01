@@ -257,11 +257,15 @@ public class EstudianteServlet extends HttpServlet {
 			if(logger.isInfoEnabled()) {
 				logger.info("Estudiante: {}", estudiante);
 			}
-
-			int acertadas = ParameterUtils.getAcertadas(respuestas);
+			int acertadas = -1;
+			if(respuestas.size() == 10) {
+				acertadas = ParameterUtils.getAcertadas(respuestas);
+			}else {
+				errors.add(Actions.SIGNIN, ErrorCodes.MANDATORY_PARAMETER);
+			}
 
 			if(logger.isInfoEnabled()) logger.info("Acertadas: {}", acertadas);
-			if (!errors.hasErrors()) {
+			if (!errors.hasErrors() && acertadas != -1) {
 				try {
 					estudiante = estudianteService.signUp(estudiante, acertadas);
 				} catch (MailException e) {

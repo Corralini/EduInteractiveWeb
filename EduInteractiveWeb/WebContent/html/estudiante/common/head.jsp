@@ -20,4 +20,3 @@
 <body>
 	<fmt:setLocale value = "${sessionScope['user-locale']}" scope="session"/>
 	<fmt:setBundle basename = "resources.Messages" var="messages" scope="session"/>
-	

@@ -85,7 +85,7 @@
          <div class="resultadoRecomendado">
             <a href="<%=ParameterUtils.URLBuilder(ControllerPaths.ESTUDIANTE, valores)%>"><%=ParameterUtils.makeName(p.getNombre(), p.getApellido1(), p.getApellido2()) %></a>
             <p class="puntuacion"><%=p.getPuntuacion() %>/10</p>
-            <p class="precio"><%=p.getPrecioSesion()%></p>
+            <p class="precio"><%=p.getPrecioSesion()%> &#8364;</p>
             <%
             	valores.put(ParameterNames.ACTION, Actions.BUSCAR_HORARIOS);
             %>
