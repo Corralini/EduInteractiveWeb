@@ -107,7 +107,7 @@ public class EstudianteServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = ParameterUtils.trimmer(request.getParameter(ParameterNames.ACTION));
 		String idioma = SessionManager.get(request,ConstantsValues.USER_LOCALE).toString().substring(0,2).toUpperCase();
-		
+
 		if (logger.isDebugEnabled()) {
 			logger.debug("Action {}: {}", action, ToStringBuilder.reflectionToString(request.getParameterMap()));
 		}
@@ -338,7 +338,7 @@ public class EstudianteServlet extends HttpServlet {
 					profesorSearch.setIdNivel(nivelIngles);
 					request.setAttribute(AttributeNames.NIVEL_INGLES_INPUT, nivelIngles);
 				}
-				
+
 			}
 			if(request.getParameter(ParameterNames.GENERO) != null) {
 				String genero = request.getParameter(ParameterNames.GENERO);
@@ -393,14 +393,14 @@ public class EstudianteServlet extends HttpServlet {
 			int firstPagedPage = 0;
 			int lastPagedPage = 0;
 			try {
-				
+
 				results = profesorService.findByCriteria(profesorSearch, (page-1)*pageSize+1, pageSize);
 				niveles = nivelServices.findAll();
 				dias = diaServices.findAll();
 				totalPages = (int) Math.ceil((double)results.getResultadosTotales()/(double)pageSize);
 				firstPagedPage = Math.max(1, page-pagingPageCount);
 				lastPagedPage = Math.min(totalPages, page+pagingPageCount);
-				
+
 			} catch (DataException e) {
 				errors.add(ParameterNames.ACTION,ErrorCodes.SEARCH_ERROR);
 			}
@@ -507,12 +507,12 @@ public class EstudianteServlet extends HttpServlet {
 				fechaSesion = ValidationUtils.dateValidator(fechaSesionStr);
 			}
 			//fechaSesion = ParameterUtils.nextDay(fechaSesion);
-			
+
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTime(fechaSesion);
 			// TODO Pendiente arreglar fuso horario BD
 			calendar.set(Calendar.HOUR_OF_DAY, 12);
-		
+
 			fechaSesion = calendar.getTime();
 			try {
 				h = horarioServices.findById(idHorario);
@@ -526,19 +526,22 @@ public class EstudianteServlet extends HttpServlet {
 		}else if(Actions.START_SESION.equalsIgnoreCase(action)){
 			String idSesion = request.getParameter(ParameterNames.ID_SESION);
 			Integer sesionId = null;
-			Boolean puntuar =Boolean.TRUE;
+			Boolean puntuar =Boolean.FALSE;
 			if(idSesion != null) {
 				sesionId = ValidationUtils.intValidator(idSesion);
 			}
 			try {
 				Sesion sesion = sesionServices.findById(sesionId);
-				sesionServices.empezarSesion(sesion);
+				if(sesion.getFechaInicio() == null && sesion.getFechaFin() != null) {
+					sesionServices.empezarSesion(sesion);
+				}
 
 			} catch (DataException e) {
 
 				e.printStackTrace();
 			}
 			request.setAttribute(ParameterNames.PUNTUADO, puntuar);
+			request.setAttribute(ParameterNames.ID_SESION, sesionId);
 			target = ViewPaths.VIDEO_CALL_ESTUDIANTE;
 			redirect = false;
 		}else if(Actions.CANCEL_SESION.equalsIgnoreCase(action)){
@@ -632,15 +635,18 @@ public class EstudianteServlet extends HttpServlet {
 			target = ViewPaths.PROPERTIES_ESTUDIANTE;
 			redirect = true;
 		}else if(Actions.PUNTUAR.equalsIgnoreCase(action)){
-			Sesion sesion = (Sesion) SessionManager.get(request, SessionAttributeNames.SESION);
+			String idSesionStr = request.getParameter(ParameterNames.ID_SESION);
 			Estudiante estudiante = (Estudiante) SessionManager.get(request, SessionAttributeNames.USUARIO);
 			String puntuarStr = request.getParameter(ParameterNames.PUNTUADO);
 			String puntuacionStr = request.getParameter(ParameterNames.PUNTUACION);
 			Boolean puntuar = ValidationUtils.booleanValidator(puntuarStr, false, false);
 			Double puntuacion = ValidationUtils.doubleValidator(puntuacionStr);
-			if(puntuar != null && puntuar && puntuacion != null) {
+			Integer idSesion = ValidationUtils.intValidator(idSesionStr);
+			if(puntuar != null && puntuar && puntuacion != null && idSesion != null) {
 				Profesor profesor;
+				Sesion sesion;
 				try {
+					sesion = sesionServices.findById(idSesion);
 					profesor = profesorService.findById(sesion.getIdProfesor());
 					estudianteService.puntuarProfesor(profesor, estudiante, puntuacion);
 				} catch (DataException e) {
@@ -650,6 +656,47 @@ public class EstudianteServlet extends HttpServlet {
 			redirect = Boolean.FALSE;
 			target = ViewPaths.VIDEO_CALL_ESTUDIANTE;
 			request.setAttribute(ParameterNames.PUNTUADO, puntuar);
+		}else if(Actions.SEARCH_ACCOUNT.equalsIgnoreCase(action)){
+			String email = request.getParameter(ParameterNames.EMAIL);
+			email = ValidationUtils.emailValidator(email);
+			if(email != null) {
+				try {
+					Estudiante estudiante = estudianteService.findByEmailToRecovery(email);
+					if(estudiante != null) {
+						request.setAttribute(ParameterNames.EMAIL, email);
+						redirect = Boolean.FALSE;
+						target = ViewPaths.RECOVERY_CODE;
+					}
+				} catch (MailException | DataException e) {
+					errors.add(ParameterNames.ACTION, ErrorCodes.MAIL_ERROR);
+				}
+			}else {
+				errors.add(ParameterNames.EMAIL, ErrorCodes.MANDATORY_PARAMETER);
+				redirect = Boolean.FALSE;
+				target = ViewPaths.RECOVERY_ACCOUNT;
+			}
+		}else if(Actions.CHECK_CODE.equalsIgnoreCase(action)){
+			String estudianteIdStr = request.getParameter(ParameterNames.ID_ESTUDIANTE);
+			String codeStr = request.getParameter(ParameterNames.CODE);
+			Integer code = ValidationUtils.intValidator(codeStr);
+			Integer estudianteId = ValidationUtils.intValidator(estudianteIdStr);
+			if(estudianteId != null && code != null) {
+				try {
+					Estudiante estudiante = estudianteService.findById(estudianteId);
+					if(estudiante != null) {
+						request.setAttribute(ParameterNames.ID_ESTUDIANTE, estudiante.getIdEstudiante());
+						redirect = Boolean.FALSE;
+						target = ViewPaths.N;
+					}
+				} catch (DataException e) {
+					logger.info(e.getMessage(), e);
+					errors.add(ParameterNames.ACTION, ErrorCodes.MAIL_ERROR);
+				}
+			}else {
+				errors.add(ParameterNames.CODE, ErrorCodes.MANDATORY_PARAMETER);
+				redirect = Boolean.FALSE;
+				target = ViewPaths.RECOVERY_CODE;
+			}
 		}else {
 			logger.error("Action desconocida");
 			target =ViewPaths.PRE_INICIO;

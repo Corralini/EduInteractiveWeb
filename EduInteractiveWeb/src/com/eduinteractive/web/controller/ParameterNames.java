@@ -50,4 +50,5 @@ public interface ParameterNames {
 	public static final String UP_FILE = "upfile";
 	public static final String HORA = "hora";
 	public static final String PUNTUADO = "puntuado";
+	public static final String CODE = "code";
 }

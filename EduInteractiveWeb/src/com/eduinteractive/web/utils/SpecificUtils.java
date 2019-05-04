@@ -85,9 +85,9 @@ public class SpecificUtils {
 
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(Calendar.HOUR_OF_DAY, 12);
-		
+
 		Date currentDate = calendar.getTime();
-		
+		Date currentFinalDate =new Date();
 		SesionServices sesionServices = new SesionServicesImpl();
 
 		List<Sesion> sesiones = new ArrayList<Sesion>();
@@ -97,6 +97,12 @@ public class SpecificUtils {
 			calendar.setTime(sesion.getFechaSesion());
 			calendar.set(Calendar.HOUR_OF_DAY, 12);
 			sesion.setFechaSesion(calendar.getTime());
+			
+			if(sesion.getFechaFin() != null) {
+				calendar.setTime(new Date());
+				calendar.add(Calendar.HOUR_OF_DAY, 2);
+				currentFinalDate = calendar.getTime();
+			}
 			
 			if(ConstantsValues.SESION_ACEPTADA.equalsIgnoreCase(sesion.getIdEstado())) {
 				if(!(sesion.getFechaSesion().compareTo(currentDate) == 0) 
@@ -108,14 +114,14 @@ public class SpecificUtils {
 						logger.warn(e.getMessage(), e);
 					}
 
-				}else if(sesion.getFechaFin() != null && currentDate.compareTo(sesion.getFechaFin()) > 0) {
+				}else if(sesion.getFechaFin() != null && currentFinalDate.compareTo(sesion.getFechaFin()) > 0) {
 					try {
 						sesionServices.cambiarEstado(sesion, ConstantsValues.SESION_TERMINADA);
 						sesiones.remove(sesion);
 					} catch (DataException e) {
 						logger.warn(e.getMessage(), e);
 					}
-					
+
 				}
 			}else if(ConstantsValues.SESION_SOLICITADA.equalsIgnoreCase(sesion.getIdEstado())) {
 				if(sesion.getFechaSesion().compareTo(currentDate) < 0 

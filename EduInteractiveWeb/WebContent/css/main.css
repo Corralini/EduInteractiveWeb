@@ -350,3 +350,22 @@ form.example::after {
     right: 325px;
     width: 150px;  
 }
+
+#videoCall{
+	margin-top: 20px;
+	text-align: center;
+}
+
+#puntuarBtn{
+	
+    position: relative;
+    float: left;
+    right: 100px;
+    top: 40px;
+	
+}
+
+#puntuacion{
+	position: relative;
+	bottom: 300px;
+}
