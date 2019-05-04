@@ -225,7 +225,7 @@
 
                         <label for="<%=ParameterNames.PASSWORD%>"><b><fmt:message key = "psswd" bundle="${messages}"/></b></label>
                         <input type="password" placeholder="Contraseña" name="<%=ParameterNames.PASSWORD%>" required>
-
+						<a href="<%=request.getContextPath().concat(ViewPaths.RECOVERY_ACCOUNT)%>">Recuperar Cuenta</a>
                         <div class="clearfix">
                             <button type="button" onclick="document.getElementById('login').style.display='none'"
                                 class="cancelbtn"><fmt:message key = "cancelar" bundle="${messages}"/></button>

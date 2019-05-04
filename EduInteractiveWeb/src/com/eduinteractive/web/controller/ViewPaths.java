@@ -13,9 +13,9 @@ public interface ViewPaths {
 	public static final String BUSQUEDA_HORARIOS = "/html/estudiante/search-horarios-page.jsp";
 	public static final String VIDEO_CALL_ESTUDIANTE = "/html/estudiante/sesion-page.jsp";
 	public static final String PROPERTIES_ESTUDIANTE = "/html/estudiante/properties-page.jsp";
-	public static final String RECOVERY_ACCOUNT = "/html/estudiante/recoveryUser/email-page.jsp";
-	public static final String RECOVERY_CODE = "/html/estudiante/recoveryUser/recovery-code-page.jsp";
-	public static final String SET_PASSWORD = "/html/estudiante/recoveryUser/recover-password-page.jsp";
+	public static final String RECOVERY_ACCOUNT = "/html/recoveryUser/email-page.jsp";
+	public static final String RECOVERY_CODE = "/html/recoveryUser/recovery-code-page.jsp";
+	public static final String SET_PASSWORD = "/html/recoveryUser/recover-password-page.jsp";
 
 	//profesor
 

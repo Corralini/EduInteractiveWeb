@@ -7,7 +7,7 @@
 
 <div id="searchEmail">
 	<form action="<%=ControllerPaths.ESTUDIANTE%>">
-			<input type="hidden" name="<%=ParameterNames.ACTION%>" value="<%=Actions.CHECK_CODE%>">
+			<input type="hidden" name="<%=ParameterNames.ACTION%>" value="<%=Actions.SET_PASSWORD%>">
 			<input type="hidden" name="<%=ParameterNames.ID_ESTUDIANTE%>" value="<%=idEstudiante%>">
 			<input type="hidden" name="<%=ParameterNames.CODE%>" value="<%=code%>">
 			<input type="text" name="<%=ParameterNames.PASSWORD%>">

@@ -24,4 +24,5 @@ public interface Actions {
 	public static final String SEE_DOCUMENT = "see_document";
 	public static final String SEARCH_ACCOUNT = "search_account";
 	public static final String CHECK_CODE = "check_code";
+	public static final String SET_PASSWORD = "set_password";
 }

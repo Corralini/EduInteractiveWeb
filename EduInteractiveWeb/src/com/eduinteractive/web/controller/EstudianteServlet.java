@@ -684,9 +684,11 @@ public class EstudianteServlet extends HttpServlet {
 				try {
 					Estudiante estudiante = estudianteService.findById(estudianteId);
 					if(estudiante != null) {
+						if(estudiante.getCodigoDeRecuperacion().equals(code))
 						request.setAttribute(ParameterNames.ID_ESTUDIANTE, estudiante.getIdEstudiante());
+						request.setAttribute(ParameterNames.CODE, code);
 						redirect = Boolean.FALSE;
-						target = ViewPaths.N;
+						target = ViewPaths.SET_PASSWORD;
 					}
 				} catch (DataException e) {
 					logger.info(e.getMessage(), e);
@@ -697,7 +699,31 @@ public class EstudianteServlet extends HttpServlet {
 				redirect = Boolean.FALSE;
 				target = ViewPaths.RECOVERY_CODE;
 			}
-		}else {
+		}else if(Actions.SET_PASSWORD.equals(action)){
+			String estudianteIdStr = request.getParameter(ParameterNames.ID_ESTUDIANTE);
+			String codeStr = request.getParameter(ParameterNames.CODE);
+			String psswd = request.getParameter(ParameterNames.PASSWORD);
+			String repeatPsswd = request.getParameter(ParameterNames.PSSWD_REPEAT);
+			Integer estudianteId = ValidationUtils.intValidator(estudianteIdStr);
+			Integer code = ValidationUtils.intValidator(codeStr);
+			psswd = ValidationUtils.passwordValidator(psswd, repeatPsswd);
+			if(estudianteId != null && code != null && psswd != null) {
+				Estudiante estudiante;
+				try {
+					estudiante = estudianteService.findById(estudianteId);
+					estudianteService.cambiarContra(code,estudiante.getEmail(), psswd);
+					SessionManager.set(request, SessionAttributeNames.USUARIO, estudiante);
+					redirect = Boolean.TRUE;
+					target = ViewPaths.HOME_ESTUDIANTE;
+				} catch (DataException e) {
+					logger.info(e.getMessage(), e);
+				}
+			}else {
+				errors.add(ParameterNames.PASSWORD, ParameterNames.PASSWORD);
+				redirect = Boolean.FALSE;
+				target = ViewPaths.SET_PASSWORD;
+			}
+		}else{
 			logger.error("Action desconocida");
 			target =ViewPaths.PRE_INICIO;
 			redirect = true;
