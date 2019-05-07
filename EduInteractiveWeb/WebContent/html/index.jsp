@@ -14,6 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="<%=request.getContextPath()%>/css/index.css">
     <link rel="icon" href="<%=request.getContextPath()%>/img/logo.ico">
+    <link href="https://fonts.googleapis.com/css?family=Libre+Baskerville" rel="stylesheet">
     <script src="<%=request.getContextPath()%>/js/main.js"></script>
     <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -37,13 +38,13 @@
     </div>
     <div id="body" style="text-align: center;">
         <h1><fmt:message key = "bienvenida" bundle="${messages}"/></h1>
-
+		<img src="<%=request.getContextPath()%>/img/indexbackground.jpg" alt="foto">
         <div id="registroHome">
             <h3 style="width: 200px;position: relative;left: 43%;"><fmt:message key = "registrate" bundle="${messages}"/></h3>
             <button onclick="document.getElementById('signUpProfesor').style.display='block'" type="button" onclick=""
                 class="button" style="width: 250px; text-align: center;"><fmt:message key = "soyProfesor" bundle="${messages}"/></button>
             <button onclick="document.getElementById('signUpEstudiante').style.display='block'" type="button" onclick=""
-                class="button" style="background-color:#88a394; width: 250px; text-align: center;"><fmt:message key = "soyEstudiante" bundle="${messages}"/></button>
+                class="button" style="background-color:#80ff00; width: 250px; text-align: center;"><fmt:message key = "soyEstudiante" bundle="${messages}"/></button>
         </div>
         <!-- Sign in Estudiante-->
 
@@ -101,7 +102,7 @@
                     <div class="clearfix">
                         <button type="button" onclick="document.getElementById('signUpEstudiante').style.display='none'"
                             class="cancelbtn"><fmt:message key = "cancelar" bundle="${messages}"/></button>
-                        <button type="submit" class="cancelbtn" style="background-color: #38761d"><fmt:message key = "doTestLevel" bundle="${messages}"/></button>
+                        <button type="submit" class="cancelbtn2" ><fmt:message key = "doTestLevel" bundle="${messages}"/></button>
                     </div>
                 </div>
             </form>
@@ -198,7 +199,7 @@
                     <div class="clearfix">
                         <button type="button" onclick="document.getElementById('signUpProfesor').style.display='none'"
                             class="cancelbtn"><fmt:message key = "cancelar" bundle="${messages}"/></button>
-                        <button type="submit" class="cancelbtn" style="background-color: #38761d"><fmt:message key = "usuario.registrar" bundle="${messages}"/></button>
+                        <button type="submit" class="cancelbtn2" style="background-color: #38761d"><fmt:message key = "usuario.registrar" bundle="${messages}"/></button>
                     </div>
                 </div>
             </form>
@@ -235,7 +236,7 @@
                         <div class="clearfix">
                             <button type="button" onclick="document.getElementById('login').style.display='none'"
                                 class="cancelbtn"><fmt:message key = "cancelar" bundle="${messages}"/></button>
-                            <button type="submit" class="cancelbtn" style="background-color: #38761d"><fmt:message key = "login" bundle="${messages}"/></button>
+                            <button type="submit" class="cancelbtn2" style="background-color: #38761d"><fmt:message key = "login" bundle="${messages}"/></button>
                         </div>
                     </div>
                 </form>
@@ -257,7 +258,7 @@
                         <div class="clearfix">
                             <button type="button" onclick="document.getElementById('login').style.display='none'"
                                 class="cancelbtn"><fmt:message key = "cancelar" bundle="${messages}"/></button>
-                            <button type="submit" class="cancelbtn" style="background-color: #38761d"><fmt:message key = "login" bundle="${messages}"/></button>
+                            <button type="submit" class="cancelbtn2" style="background-color: #38761d"><fmt:message key = "login" bundle="${messages}"/></button>
                         </div>
                     </div>
                 </form>

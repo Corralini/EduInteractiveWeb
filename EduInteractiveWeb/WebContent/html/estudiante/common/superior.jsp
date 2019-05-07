@@ -8,7 +8,7 @@
     %>
 <div class="navbar">
         <div class="dropdown">
-            <button class="dropbtn"><a  href="<%=ParameterUtils.URLBuilder(ControllerPaths.ESTUDIANTE, valores)%>"><%=e.getNombre()%></a></button>
+            <button class="dropbtn" id="dropbtn2"><a  href="<%=ParameterUtils.URLBuilder(ControllerPaths.ESTUDIANTE, valores)%>"><%=e.getNombre()%></a></button>
             <div class="dropdown-content">
                 <a href="<%=request.getContextPath().concat(ViewPaths.PROPERTIES_ESTUDIANTE)%>" class="dropOption"><fmt:message key = "ajustes" bundle="${messages}"/></a>
                 <a href="<%=request.getContextPath()%>/estudiante?action=logout" class="dropOption"><fmt:message key = "menu.cerrarSesion" bundle="${messages}"/></a>
@@ -19,7 +19,7 @@
         <a href="<%=request.getContextPath() + ViewPaths.PRE_HOME_ESTUDIANTE %>" class="izquierda" id="logo"><img src="<%=request.getContextPath()%>/img/logo.png" alt="logo"></img></a>
         <form class="example" action="<%=ControllerPaths.ESTUDIANTE %>" style="margin:auto;max-width:300px">
         	<input type="hidden" name="<%=ParameterNames.ACTION%>" value="<%=Actions.SEARCH%>">
-            <input type="text" placeholder="<fmt:message key = "menu.search" bundle="${messages}"/>" name="<%=ParameterNames.SEARCH_BOX%>">
+            <input class="buscador2" type="text" placeholder="<fmt:message key = "menu.search" bundle="${messages}"/>" name="<%=ParameterNames.SEARCH_BOX%>">
             <button id="searchButton" type="submit"><img src="<%=request.getContextPath()%>/img/searchIcon.png" alt="buscar"></img></button>
         </form>
     </div>
