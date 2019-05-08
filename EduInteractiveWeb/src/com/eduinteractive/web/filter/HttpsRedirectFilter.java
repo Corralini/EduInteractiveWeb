@@ -8,6 +8,9 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 /**
  * Asegura que todos los usuarios, tanto profesores como alumnos 
  * acceden por SSL.
@@ -18,6 +21,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class HttpsRedirectFilter implements Filter {
 
+	private static Logger logger = LogManager.getLogger(HttpsRedirectFilter.class);
+	
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws java.io.IOException, ServletException {
 
@@ -27,25 +32,27 @@ public class HttpsRedirectFilter implements Filter {
 		String uri = req.getRequestURI();
 		String getProtocol = req.getScheme();
 		String getDomain = req.getServerName();
-		String getPort = Integer.toString(req.getServerPort());
+		//Integer.toString(req.getServerPort());
+		String getPort = "8443";
 
 		if (getProtocol.toLowerCase().equals("http")) {
 
 			// Set response content type
-			response.setContentType("text/html");
+			// response.setContentType("text/html");
 
 			// New location to be redirected
 			String httpsPath = "https" + "://" + getDomain + ":" + getPort
 					+ uri;
-
-			String site = new String(httpsPath);
-			res.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
-			res.setHeader("Location", site);
-		}
+			logger.debug("Redirecting secure path: {}", httpsPath);
+			// String site = new String(httpsPath);
+//			res.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
+//			res.setHeader("Location", httpsPath);
+			res.sendRedirect(httpsPath);
+		}else {
 
 		// Pass request back down the filter chain
 		chain.doFilter(req, res);
-
+		}
 	}
 
 	@Override
